@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.PlayerActivity">
+
+    <VideoView
+        android:id="@+id/videoPlayer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/size_padding_20"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_bold_en"
+                android:text="@string/mega"
+                android:textColor="@color/theme_white_txt"
+                android:textSize="@dimen/size_txt_30" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2.5dp"
+                android:fontFamily="@font/font_regular_en"
+                android:text="@string/player"
+                android:textColor="@color/theme_white_txt"
+                android:textSize="@dimen/size_txt_30" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtNameFilm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_padding_10"
+            android:fontFamily="@font/font_regular_en"
+            android:text="@string/player"
+            android:textColor="@color/theme_white_txt"
+            android:textSize="@dimen/size_txt_10" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:paddingHorizontal="@dimen/size_padding_container"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.appcompat.widget.AppCompatToggleButton
+            android:id="@+id/btnPlayPlayer"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/txtTimeRun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/btnPlayPlayer"
+            android:layout_marginStart="@dimen/size_padding_10"
+            android:text="00:00"
+            android:fontFamily="@font/font_regular_en"
+            android:textColor="@color/theme_white_fit"/>
+
+        <SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginStart="@dimen/size_padding_10"
+            android:layout_toEndOf="@id/txtTimeRun"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashScreenFragment">
+
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.serpider.service.megastream.ui.SplashScreenFragment"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen" >
+        <action
+            android:id="@+id/action_splashScreenFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.serpider.service.megastream.ui.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/wellcomeFragment"
+        android:name="com.serpider.service.megastream.ui.WellcomeFragment"
+        android:label="fragment_wellcome"
+        tools:layout="@layout/fragment_wellcome" />
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.serpider.service.megastream.ui.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_listUniqueFragment"
+            app:destination="@id/listUniqueFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.serpider.service.megastream.ui.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.serpider.service.megastream.ui.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" >
+        <action
+            android:id="@+id/action_detailsFragment_to_listUniqueFragment"
+            app:destination="@id/listUniqueFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listUniqueFragment"
+        android:name="com.serpider.service.megastream.ui.ListUniqueFragment"
+        android:label="fragment_list_unique"
+        tools:layout="@layout/fragment_list_unique" >
+        <action
+            android:id="@+id/action_listUniqueFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+</navigation>

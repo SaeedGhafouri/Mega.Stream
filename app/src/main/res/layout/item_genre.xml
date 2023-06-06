@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="100dp"
+    android:layout_height="50dp"
+    android:layout_marginEnd="@dimen/size_padding_20"
+    android:orientation="vertical"
+    app:cardElevation="0dp"
+    app:cardCornerRadius="@dimen/size_radius_10"
+    android:backgroundTint="@color/theme_background_body"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/genreTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="آمریکا"
+        android:textAlignment="center"
+        android:fontFamily="@font/font_regular_fa"
+        android:textSize="@dimen/size_txt_30"
+        android:textColor="@color/theme_white_txt"
+        tools:ignore="RtlCompat" />
+
+</androidx.cardview.widget.CardView>

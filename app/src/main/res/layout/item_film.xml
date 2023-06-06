@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="110dp"
+    android:layout_marginBottom="@dimen/size_padding_10"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_weight="1"
+        app:cardCornerRadius="@dimen/size_radius_10">
+        <ImageView
+            android:id="@+id/filmItemPoster"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/ic_launcher"
+            android:scaleType="centerCrop"/>
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/filmItemTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/test_title"
+        android:fontFamily="@font/font_regular_en"
+        android:textColor="@color/theme_white_txt"
+        android:textSize="@dimen/size_txt_30"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:fadingEdge="horizontal"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:id="@+id/filmItemYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:text="2000"
+            android:fontFamily="@font/font_regular_en"
+            android:textColor="@color/theme_gray_txt"
+            android:textSize="@dimen/size_txt_10"/>
+
+        <TextView
+            android:id="@+id/filmItemCountry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2000"
+            android:fontFamily="@font/font_regular_fa"
+            android:textColor="@color/theme_gray_txt"
+            android:textSize="@dimen/size_txt_10"/>
+
+    </LinearLayout>
+
+</LinearLayout>

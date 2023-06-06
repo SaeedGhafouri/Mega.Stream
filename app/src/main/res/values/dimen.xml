@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Text-->
+    <dimen name="size_txt_10">10sp</dimen>
+    <dimen name="size_txt_20">12sp</dimen>
+    <dimen name="size_txt_30">14sp</dimen>
+    <dimen name="size_txt_40">16sp</dimen>
+    <dimen name="size_txt_50">20sp</dimen>
+    <dimen name="size_txt_60">24sp</dimen>
+    <dimen name="size_txt_70">34sp</dimen>
+    <dimen name="size_txt_80">48sp</dimen>
+
+    <!--Container-->
+    <dimen name="size_padding_10">5dp</dimen>
+    <dimen name="size_padding_20">10dp</dimen>
+    <dimen name="size_padding_30">20dp</dimen>
+    <dimen name="size_padding_40">30dp</dimen>
+    <dimen name="size_padding_container">10dp</dimen>
+
+    <!--Radius-->
+    <dimen name="size_radius_10">7dp</dimen>
+    <dimen name="size_radius_20">14dp</dimen>
+    <dimen name="size_radius_30">21dp</dimen>
+
+    <!--Elemens-->
+    <dimen name="size_edittext_height">45dp</dimen>
+    <dimen name="size_button_height">55dp</dimen>
+    <dimen name="size_line_height">1dp</dimen>
+    <dimen name="size_toolbar_height">85dp</dimen>
+    <dimen name="size_status_bar_height">25dp</dimen>
+
+</resources>

@@ -1,0 +1,116 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.MegaStream" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <!-- Customize your theme here. -->
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+    <style name="AppTheme">
+        <item name="android:fontFamily">@font/font_bold_fa</item>
+    </style>
+    <style name="BottomNavigationViewTextStyle">
+        <item name="android:fontFamily">@font/font_regular_fa</item>
+    </style>
+
+    <!--Theme-->
+    <!--Edit Text Main-->
+    <style name="Theme.Original.EditText" parent="Widget.AppCompat.EditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/size_edittext_height</item>
+        <item name="android:background">@drawable/shape_edit_text</item>
+        <item name="android:paddingHorizontal" tools:ignore="NewApi">@dimen/size_padding_20</item>
+        <item name="android:textColorHint">@color/theme_gray_txt</item>
+        <item name="android:textColor">@color/theme_white_txt</item>
+        <item name="android:textSize">@dimen/size_txt_30</item>
+        <item name="android:fontFamily">@font/font_medium_fa</item>
+    </style>
+
+    <!--Edit Text Icon-->
+    <style name="Theme.Original.EditText.Icon" parent="Widget.AppCompat.EditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/size_edittext_height</item>
+        <item name="android:layout_marginBottom">@dimen/size_padding_20</item>
+        <item name="android:background">@drawable/shape_edit_text</item>
+        <item name="android:paddingHorizontal" tools:ignore="NewApi">@dimen/size_padding_20</item>
+        <item name="android:drawablePadding">@dimen/size_padding_20</item>
+        <item name="android:textColorHint">@color/theme_gray_txt</item>
+        <item name="android:textColor">@color/theme_white_txt</item>
+        <item name="android:textSize">@dimen/size_txt_30</item>
+        <item name="android:fontFamily">@font/font_medium_fa</item>
+    </style>
+
+    <!--Button Main-->
+    <style name="Theme.Original.Button" parent="ThemeOverlay.Material3.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/size_button_height</item>
+        <item name="android:backgroundTint">@color/theme_main</item>
+        <item name="android:textColor">@color/theme_white_fit</item>
+        <item name="android:textSize">@dimen/size_txt_30</item>
+        <item name="android:fontFamily">@font/font_medium_fa</item>
+        <item name="cornerRadius">@dimen/size_radius_10</item>
+    </style>
+
+    <!--Text View Mini-->
+    <style name="Theme.Original.TextView.Mini" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginVertical" tools:ignore="NewApi">@dimen/size_padding_20</item>
+        <item name="android:textColor">@color/theme_gray_txt</item>
+        <item name="android:fontFamily">@font/font_medium_fa</item>
+        <item name="android:textSize">@dimen/size_txt_20</item>
+    </style>
+
+    <!--Text View Mini-->
+    <style name="Theme.Original.TextView.Long" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/theme_white_txt</item>
+        <item name="android:fontFamily">@font/font_medium_fa</item>
+        <item name="android:textSize">@dimen/size_txt_20</item>
+        <item name="android:justificationMode" tools:ignore="NewApi">inter_word</item>
+        <item name="android:letterSpacing">0.1</item>
+    </style>
+
+    <!--Line Sheet-->
+    <style name="Theme.Original.Line.Sheet" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">20dp</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:background">@drawable/shape_cicle_text</item>
+    </style>
+
+    <!--Toolbar-->
+    <style name="Theme.Original.Toolbar" parent="Widget.Material3.CollapsingToolbar.Large">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/size_toolbar_height</item>
+        <item name="android:paddingTop">@dimen/size_status_bar_height</item>
+        <item name="android:background">@color/theme_background_body</item>
+        <item name="android:layoutDirection">rtl</item>
+    </style>
+
+    <!--Toolbar Back-->
+    <style name="Theme.Original.Toolbar.Button.Back" parent="Widget.AppCompat.ImageButton">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/theme_background_body</item>
+        <item name="tint">@color/theme_white_txt</item>
+    </style>
+    <style name="Theme.MegaStream.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.MegaStream.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.MegaStream.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+</resources>

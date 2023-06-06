@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.DetailsFragment"
+    android:background="@color/theme_background">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <!--Header-->
+                <ImageView
+                    android:id="@+id/itemHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:scaleType="centerCrop" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="@dimen/size_padding_container">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="120dp"
+                            android:layout_height="170dp"
+                            app:cardCornerRadius="@dimen/size_radius_10">
+
+                            <ImageView
+                                android:id="@+id/itemPoster"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@color/theme_background_body"
+                                android:scaleType="centerCrop"/>
+
+                        </androidx.cardview.widget.CardView>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical"
+                            android:padding="@dimen/size_padding_20">
+
+                            <!--Title Fa-->
+                            <TextView
+                                android:id="@+id/itemTitleFa"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/size_padding_20"
+                                android:fontFamily="@font/font_bold_fa"
+                                android:text="@string/test_title"
+                                android:textAlignment="viewEnd"
+                                android:textColor="@color/theme_gray_txt"
+                                android:textSize="@dimen/size_txt_20" />
+
+                            <!--Title-->
+                            <TextView
+                                android:id="@+id/itemTitle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/font_bold_en"
+                                android:text="@string/test_title"
+                                android:textAlignment="textStart"
+                                android:textColor="@color/theme_white_txt"
+                                android:textSize="@dimen/size_txt_40" />
+
+                            <!--Row 01-->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp">
+                                <!--Year-->
+                                <TextView
+                                    android:id="@+id/itemYear"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/font_regular_en"
+                                    android:text="2022"
+                                    android:textAlignment="textStart"
+                                    android:textColor="@color/theme_gray_txt"
+                                    android:textSize="@dimen/size_txt_20" />
+
+                                <Space
+                                    android:layout_width="@dimen/size_padding_10"
+                                    android:layout_height="0dp"/>
+
+                                <!--Country-->
+                                <TextView
+                                    android:id="@+id/itemCountry"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:fontFamily="@font/font_regular_fa"
+                                    android:text="امریکا"
+                                    android:textAlignment="textStart"
+                                    android:textColor="@color/theme_gray_txt"
+                                    android:textSize="@dimen/size_txt_20" />
+                            </LinearLayout>
+
+                            <!--Row 02-->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp">
+                                <!--Time-->
+                                <TextView
+                                    android:id="@+id/itemTime"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:fontFamily="@font/font_regular_en"
+                                    android:text="120"
+                                    android:textAlignment="textStart"
+                                    android:textColor="@color/theme_gray_txt"
+                                    android:textSize="@dimen/size_txt_20" />
+
+                                <Space
+                                    android:layout_width="@dimen/size_padding_10"
+                                    android:layout_height="0dp"/>
+
+                                <!--Age-->
+                                <com.google.android.material.card.MaterialCardView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="17dp"
+                                    android:backgroundTint="@color/theme_background"
+                                    app:strokeWidth="1dp"
+                                    app:strokeColor="@color/theme_gray_txt">
+                                    <TextView
+                                        android:id="@+id/itemAge"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginHorizontal="@dimen/size_padding_10"
+                                        android:fontFamily="@font/font_regular_en"
+                                        android:text="15+"
+                                        android:layout_gravity="center_vertical"
+                                        android:textColor="@color/theme_gray_txt"
+                                        android:textSize="@dimen/size_txt_20" />
+                                </com.google.android.material.card.MaterialCardView>
+
+                            </LinearLayout>
+
+                            <!--Row 02-->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp">
+                                <!---->
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/font_regular_en"
+                                    android:text="10/"
+                                    android:textAlignment="textStart"
+                                    android:textColor="@color/theme_gray_txt"
+                                    android:textSize="@dimen/size_txt_20" />
+                                <!--Imdb-->
+                                <TextView
+                                    android:id="@+id/itemImdb"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/font_regular_en"
+                                    android:text="0"
+                                    android:textAlignment="textStart"
+                                    android:textColor="@color/theme_white_txt"
+                                    android:textSize="@dimen/size_txt_20" />
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="5dp"
+                                    android:src="@drawable/ic_imdb"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!---->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_body"
+                        android:paddingVertical="@dimen/size_padding_20"
+                        android:layout_marginTop="@dimen/size_padding_30">
+
+                        <!--Triler-->
+                        <LinearLayout
+                            android:id="@+id/btnTriler"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:src="@drawable/ic_triler"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/size_padding_20"
+                                android:fontFamily="@font/font_regular_fa"
+                                android:text="@string/trailer"
+                                android:textAlignment="center"
+                                android:textColor="@color/theme_gray_txt"
+                                android:textSize="@dimen/size_txt_20" />
+
+                        </LinearLayout>
+
+                        <!--Archive-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:src="@drawable/ic_archive"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/size_padding_20"
+                                android:fontFamily="@font/font_regular_fa"
+                                android:text="@string/archive"
+                                android:textAlignment="center"
+                                android:textColor="@color/theme_gray_txt"
+                                android:textSize="@dimen/size_txt_20" />
+
+                        </LinearLayout>
+
+                        <!--Triler-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:src="@drawable/ic_comment"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/size_padding_20"
+                                android:fontFamily="@font/font_regular_fa"
+                                android:text="@string/comments"
+                                android:textAlignment="center"
+                                android:textColor="@color/theme_gray_txt"
+                                android:textSize="@dimen/size_txt_20" />
+
+                        </LinearLayout>
+
+                        <!--Triler-->
+                        <LinearLayout
+                            android:id="@+id/btnTest"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:src="@drawable/ic_redriect"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/size_padding_20"
+                                android:fontFamily="@font/font_regular_fa"
+                                android:text="@string/introduction"
+                                android:textAlignment="center"
+                                android:textColor="@color/theme_gray_txt"
+                                android:textSize="@dimen/size_txt_20" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <TextView
+                        style="@style/Theme.Original.TextView.Mini"
+                        android:text="@string/synopsis" />
+
+                    <TextView
+                        android:id="@+id/itemSynopsis"
+                        style="@style/Theme.Original.TextView.Long"
+                         />
+
+                    <TextView
+                        style="@style/Theme.Original.TextView.Mini"
+                        android:text="@string/description" />
+
+                    <TextView
+                        android:id="@+id/itemDesc"
+                        style="@style/Theme.Original.TextView.Long"
+                        />
+
+                </LinearLayout>
+
+                <!--SerialMode-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="@dimen/size_padding_container"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/seasionTabLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layoutDirection="rtl"
+                        android:background="@drawable/shape_body"
+                        app:tabGravity="fill"
+                        app:tabMode="scrollable"
+                        app:tabSelectedTextColor="@color/theme_main"
+                        app:tabTextColor="@color/theme_white_txt"
+                        />
+
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/seasionViewPager"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>`
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearLayoutCompat"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_button_height"
+            android:orientation="horizontal"
+            android:layout_margin="@dimen/size_padding_20"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnPlay"
+                style="@style/Theme.Original.Button"
+                android:text="@string/watching"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</FrameLayout>

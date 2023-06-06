@@ -1,0 +1,64 @@
+<resources>
+    <string name="app_name">Mega Stream</string>
+    <string name="mega">Mega</string>
+    <string name="stream">Stream</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--Test-->
+    <string name="test_title">Marvel Stream</string>
+    <string name="test_username">Serpider</string>
+    <string name="test_email">saeedghafoori1@gmai.com</string>
+    <string name="test_desc">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</string>
+
+    <!--Login-->
+    <string name="account_en">Account</string>
+    <string name="username">نام کاربری</string>
+    <string name="password">رمزعبور</string>
+    <string name="password_config">تکرار رمزعبور</string>
+    <string name="or_en">Or</string>
+    <string name="google_account">حساب گوگل</string>
+    <string name="twitter_account">حساب توییتر</string>
+    <string name="login_to_account">Login</string>
+
+    <!--Signup-->
+    <string name="signup">Signup</string>
+    <string name="email">ایمیل</string>
+
+    <!--Home-->
+    <string name="home">خانه</string>
+    <string name="search_in">جستجو در</string>
+    <string name="movie_serial">فیلم و سریال</string>
+    <string name="genres">ژانرها</string>
+    <string name="countrys">کشورها</string>
+    <string name="networks">شبکه ها</string>
+
+    <!--Profile-->
+    <string name="date_register">تاریخ عضویت</string>
+    <string name="level_user">سطح کاربر</string>
+    <string name="time_stream">مدت استریم</string>
+
+    <!--Details-->
+    <string name="synopsis">خلاصه</string>
+    <string name="description">توضیحات</string>
+    <string name="tag">تگ</string>
+    <string name="watching">تماشای آنلاین</string>
+    <string name="introduction">معرفی</string>
+    <string name="comments">نظرات</string>
+    <string name="trailer">تریلر</string>
+    <string name="archive">آرشیو</string>
+    <string name="quality_play">کیفیت پخش</string>
+
+    <!--Player-->
+    <string name="player">Player</string>
+    <string name="title_activity_player">PlayerActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+</resources>

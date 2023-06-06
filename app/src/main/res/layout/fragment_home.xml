@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.HomeFragment"
+    android:background="@color/theme_background">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/size_status_bar_height"
+            android:paddingHorizontal="@dimen/size_padding_container">
+
+            <!--Slider-->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:cardCornerRadius="@dimen/size_radius_10">
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/sliderMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@color/theme_background_body" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_button_height"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/shape_body"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="@dimen/size_padding_20"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_search"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/movie_serial"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/font_regular_fa"
+                    android:textColor="@color/theme_gray_txt"
+                    android:textSize="@dimen/size_txt_30"/>
+
+                <TextView
+                    android:id="@+id/numberAllItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="viewEnd"
+                    android:layout_marginHorizontal="@dimen/size_padding_10"
+                    android:text="0"
+                    android:fontFamily="@font/font_bold_en"
+                    android:textColor="@color/theme_main"
+                    android:textSize="@dimen/size_txt_40" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="viewEnd"
+                    android:text="@string/search_in"
+                    android:fontFamily="@font/font_regular_fa"
+                    android:textColor="@color/theme_gray_txt"
+                    android:textSize="@dimen/size_txt_30"/>
+
+            </LinearLayout>
+
+            <TextView
+                style="@style/Theme.Original.TextView.Mini"
+                android:text="@string/genres" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerGenre"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                tools:listitem="@layout/item_genre"/>
+
+            <TextView
+                style="@style/Theme.Original.TextView.Mini"
+                android:text="@string/countrys" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerCountry"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                tools:listitem="@layout/item_country"/>
+
+            <TextView
+                style="@style/Theme.Original.TextView.Mini"
+                android:text="@string/networks" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerNetwork"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                tools:listitem="@layout/item_country"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_padding_20"
+                tools:listitem="@layout/item_film"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</RelativeLayout>
