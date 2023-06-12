@@ -59,6 +59,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
                 Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_detailsFragment);
             } else if (fromAction.equals("LIST")) {
                 Navigation.findNavController(view).navigate(R.id.action_listUniqueFragment_to_detailsFragment);
+            }else if (fromAction.equals("SEARCH")) {
+                Navigation.findNavController(view).navigate(R.id.action_searchFragment_to_detailsFragment);
             }
 
         });

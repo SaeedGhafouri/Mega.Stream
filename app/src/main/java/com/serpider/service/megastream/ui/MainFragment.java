@@ -61,6 +61,13 @@ public class MainFragment extends Fragment {
                     fragmentTransaction.commit();
                     return true;
 
+                case R.id.profile_desk:
+                    ProfileFragment fragmentProfile = new ProfileFragment();
+                    FragmentTransaction profileTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    profileTransaction.replace(R.id.content, fragmentProfile, "");
+                    profileTransaction.commit();
+                    return true;
+
             }
             return false;
         }

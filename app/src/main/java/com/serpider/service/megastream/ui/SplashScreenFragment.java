@@ -17,6 +17,8 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
+import com.romainpiel.shimmer.Shimmer;
+import com.romainpiel.shimmer.ShimmerTextView;
 import com.serpider.service.megastream.R;
 import com.serpider.service.megastream.databinding.FragmentSplashScreenBinding;
 
@@ -42,11 +44,13 @@ public class SplashScreenFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Shimmer txtShimmer = new Shimmer();
         /*Load Animation Logo*/
         mBinding.logoSplash.setVisibility(View.GONE);
         Handler handler1 = new Handler();
         handler1.postDelayed(() -> {
             mBinding.logoSplash.setVisibility(View.VISIBLE);
+            txtShimmer.start(mBinding.txtSplash);
             animLogo();
         },1000);
 

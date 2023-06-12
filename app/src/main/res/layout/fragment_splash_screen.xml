@@ -16,4 +16,14 @@
         android:src="@drawable/logo_mega"
         app:tint="@color/theme_main" />
 
+    <com.romainpiel.shimmer.ShimmerTextView
+        android:id="@+id/txtSplash"
+        android:text="@string/app_name"
+        android:layout_marginTop="@dimen/size_padding_20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logoSplash"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/size_txt_40"/>
+
 </RelativeLayout>

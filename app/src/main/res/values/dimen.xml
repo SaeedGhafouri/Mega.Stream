@@ -16,7 +16,7 @@
     <dimen name="size_padding_20">10dp</dimen>
     <dimen name="size_padding_30">20dp</dimen>
     <dimen name="size_padding_40">30dp</dimen>
-    <dimen name="size_padding_container">10dp</dimen>
+    <dimen name="size_padding_container">15dp</dimen>
 
     <!--Radius-->
     <dimen name="size_radius_10">7dp</dimen>

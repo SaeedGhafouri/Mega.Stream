@@ -21,10 +21,11 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.tabs.TabLayout;
 import com.serpider.service.megastream.R;
+import com.serpider.service.megastream.adapter.GropingAdapter;
 import com.serpider.service.megastream.adapter.QualityAdapter;
-import com.serpider.service.megastream.adapter.Season;
+import com.serpider.service.megastream.adapter.SeasonAdapter;
+import com.serpider.service.megastream.model.Season;
 import com.serpider.service.megastream.api.ApiClinent;
 import com.serpider.service.megastream.api.ApiInterFace;
 import com.serpider.service.megastream.api.ApiServer;
@@ -45,15 +46,12 @@ public class DetailsFragment extends Fragment {
 
     ApiInterFace requestFilm, requestSeason;
     String idUnique, urlTriler, typeItem;
-
+    SeasonAdapter seasonAdapter;
     ApiInterFace requestUrl ;
     QualityAdapter qualityAdapter;
     List<Movie> listUrl = new ArrayList<>();
     List<Season> seasonList = new ArrayList<>();
-    RecyclerView recyclerUrl;
-
-    private TabLayout seasionTabLayout;
-    private ViewPager seasionViewPager;
+    RecyclerView recyclerUrl, recyclerSeason;
 
     FragmentDetailsBinding mBinding;
 
@@ -91,7 +89,7 @@ public class DetailsFragment extends Fragment {
         idUnique = sharedPreferences.getString("ID_ITEM", "0");
         Toast.makeText(getActivity(), idUnique, Toast.LENGTH_SHORT).show();
 
-        requestFilm = ApiClinent.getApiClinent(ApiServer.urlData()).create(ApiInterFace.class);
+        requestFilm = ApiClinent.getApiClinent(getActivity(),ApiServer.urlData()).create(ApiInterFace.class);
         requestFilm.getFilmById(idUnique).enqueue(new Callback<Film>() {
             @Override
             public void onResponse(Call<Film> call, Response<Film> response) {
@@ -114,9 +112,9 @@ public class DetailsFragment extends Fragment {
                     typeItem= film.getItem_type();
                     if (typeItem.equals("Serial")){
                         serialModePlay(film.getItem_unique());
+                        mBinding.bodySerial.setVisibility(View.VISIBLE);
                     }else {
-                        mBinding.seasionTabLayout.setVisibility(View.GONE);
-                        mBinding.seasionViewPager.setVisibility(View.GONE);
+                        mBinding.bodySerial.setVisibility(View.GONE);
                     }
 
                 }
@@ -137,7 +135,7 @@ public class DetailsFragment extends Fragment {
         QualitySheet.setContentView(view);
         QualitySheet.show();
 
-        requestUrl = ApiClinent.getApiClinent(ApiServer.urlData()).create(ApiInterFace.class);
+        requestUrl = ApiClinent.getApiClinent(getActivity(),ApiServer.urlData()).create(ApiInterFace.class);
         recyclerUrl = view.findViewById(R.id.qualityRecycler);
         recyclerUrl.setHasFixedSize(true);
         GridLayoutManager layoutManager =
@@ -166,16 +164,21 @@ public class DetailsFragment extends Fragment {
         btnPlay.setVisibility(View.GONE);
         btnPlay.setEnabled(false);
 
-        /*Tab Setup*/
-        seasionViewPager = mBinding.seasionViewPager;
-        seasionTabLayout = mBinding.seasionTabLayout;
-        requestSeason = ApiClinent.getApiClinent(ApiServer.urlData()).create(ApiInterFace.class);
+        requestSeason = ApiClinent.getApiClinent(getActivity(),ApiServer.urlData()).create(ApiInterFace.class);
+
+        recyclerSeason = mBinding.recyclerSeason;
+        recyclerSeason.setHasFixedSize(true);
+        GridLayoutManager layoutManager =
+                new GridLayoutManager(getActivity(), 1, GridLayoutManager.VERTICAL, false);
+        recyclerSeason.setLayoutManager(layoutManager);
+
         requestSeason.getSeason(idSerial).enqueue(new Callback<List<Season>>() {
             @Override
             public void onResponse(Call<List<Season>> call, Response<List<Season>> response) {
+                Toast.makeText(getActivity(), "Suucess", Toast.LENGTH_SHORT).show();
                 seasonList = response.body();
-                setupViewPager(seasionViewPager, 2, "" );
-                mBinding.seasionTabLayout.setupWithViewPager(seasionViewPager);
+                seasonAdapter = new SeasonAdapter(getActivity().getApplicationContext(), seasonList, getActivity());
+                recyclerSeason.setAdapter(seasonAdapter);
             }
 
             @Override
@@ -186,36 +189,4 @@ public class DetailsFragment extends Fragment {
 
     }
 
-    private void setupViewPager(ViewPager viewPager, int num, String title) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
-
-        for(int l=1; l<=num; l++){
-            adapter.addFragment(new Fragment(), String.valueOf(l));
-        }
-
-        viewPager.setAdapter(adapter);
-    }
-    private class ViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> fragmentList = new ArrayList<>();
-        private final List<String> titleList = new ArrayList<>();
-        public ViewPagerAdapter(@NonNull FragmentManager fm) {
-            super(fm);
-        }
-        @NonNull
-        @Override
-        public Fragment getItem(int position) {
-            return fragmentList.get(position);
-        }
-        @Override
-        public int getCount() {
-            return fragmentList.size();
-        }
-        public void addFragment(Fragment fragment, String title){
-            fragmentList.add(fragment);
-            titleList.add(title);
-        }
-        public CharSequence getPageTitle(int position){
-            return titleList.get(position);
-        }
-    }
 }

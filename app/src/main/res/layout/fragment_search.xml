@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".model.Network$SearchFragment"
+    android:background="@color/theme_background">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            style="@style/Theme.Original.Toolbar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingEnd="@dimen/size_padding_container"
+                android:orientation="horizontal">
+
+                <EditText
+                    style="@style/Theme.Original.EditText"
+                    android:id="@+id/edSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:singleLine="true"
+                    android:hint="@string/search_hint"
+                    android:textColor="@color/theme_white_txt"/>
+
+                <ImageButton
+                    style="@style/Theme.Original.Toolbar.Button.Back"
+                    android:id="@+id/btnSearch"
+                    android:layout_height="30dp"
+                    android:layout_width="30dp"
+                    app:tint="@color/theme_gray_txt"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_search" />
+
+            </LinearLayout>
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerSearch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/size_padding_container"
+        android:layout_below="@id/appbar"/>
+
+</RelativeLayout>

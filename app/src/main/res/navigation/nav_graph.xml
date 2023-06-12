@@ -39,6 +39,9 @@
         <action
             android:id="@+id/action_mainFragment_to_listUniqueFragment"
             app:destination="@id/listUniqueFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -61,6 +64,15 @@
         tools:layout="@layout/fragment_list_unique" >
         <action
             android:id="@+id/action_listUniqueFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.serpider.service.megastream.model.Network$SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
     </fragment>
 </navigation>

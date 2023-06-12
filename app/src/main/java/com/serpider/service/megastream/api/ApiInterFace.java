@@ -2,13 +2,16 @@ package com.serpider.service.megastream.api;
 
 
 
-import com.serpider.service.megastream.adapter.Season;
+import com.serpider.service.megastream.model.Season;
 import com.serpider.service.megastream.model.Country;
 import com.serpider.service.megastream.model.Film;
 import com.serpider.service.megastream.model.Genre;
 import com.serpider.service.megastream.model.Movie;
 import com.serpider.service.megastream.model.Network;
+import com.serpider.service.megastream.model.Section;
 import com.serpider.service.megastream.model.Slider;
+import com.serpider.service.megastream.model.Result;
+import com.serpider.service.megastream.model.User;
 
 import java.util.List;
 
@@ -58,6 +61,41 @@ public interface ApiInterFace {
     @POST("getSerialSeason.php?")
     Call<List<Season>> getSeason(
             @Field("ID_SERIAL") String id_serial
+    );
+
+    @FormUrlEncoded
+    @POST("userSignup.php?")
+    Call<Result> getUserSignUp(
+            @Field("USER_USERNAME") String username,
+            @Field("USER_NICKNAME") String nickname,
+            @Field("USER_PHONE") String phone,
+            @Field("USER_EMAIL") String email,
+            @Field("USER_PASSWORD") String password,
+            @Field("USER_VECTOR") String vector
+    );
+    @FormUrlEncoded
+    @POST("userLogin.php?")
+    Call<User> getUserLogin(
+            @Field("USER_USERNAME") String username,
+            @Field("USER_PASSWORD") String password
+    );
+
+    @FormUrlEncoded
+    @POST("getUser.php?")
+    Call<User> getUser(
+            @Field("USER_UNIQUE") String user_unique
+    );
+
+    @FormUrlEncoded
+    @POST("getSearch.php?")
+    Call<List<Film>> getSearch(
+            @Field("NAME_ITEM") String name_item
+    );
+
+    @FormUrlEncoded
+    @POST("getSerialSection.php?")
+    Call<List<Section>> getSerialSection(
+            @Field("ID_SECTION") String id_seasion
     );
 
 }

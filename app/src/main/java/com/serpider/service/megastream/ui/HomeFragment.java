@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.serpider.service.megastream.R;
 import com.serpider.service.megastream.adapter.GenreAdapter;
 import com.serpider.service.megastream.adapter.GropingAdapter;
 import com.serpider.service.megastream.adapter.ItemAdapter;
@@ -38,7 +40,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
-
     RecyclerView recyclerFilm, recyclerCountry, recyclerGenre, recyclerNetwork;
     List<Film> listAllFilm = new ArrayList<>();
     List<Country> listCountry = new ArrayList<>();
@@ -52,6 +53,8 @@ public class HomeFragment extends Fragment {
     GropingAdapter gropingAdapter;
     GenreAdapter genreAdapter;
     public int NumberAllItem;
+
+
     ApiInterFace requestAllFilm, requestCountry, requestSlider, requestGenre, requestNetwork;
 
     /*Animation Slider*/
@@ -63,7 +66,6 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -81,12 +83,16 @@ public class HomeFragment extends Fragment {
         loadNetwork();
         loadSlider();
         loadAllItem();
+        Network.DataSave dataSave = new Network.DataSave();
+        Toast.makeText(getActivity(), "Id: " + dataSave.UserGetId(getContext()), Toast.LENGTH_SHORT).show();
+
+        mBinding.btnHomeSearch.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_mainFragment_to_searchFragment));
 
     }
 
     private void loadNetwork() {
 
-        requestNetwork = ApiClinent.getApiClinent(ApiServer.urlData()).create(ApiInterFace.class);
+        requestNetwork = ApiClinent.getApiClinent(getActivity(),ApiServer.urlData()).create(ApiInterFace.class);
         recyclerNetwork = mBinding.recyclerNetwork;
         recyclerNetwork.setHasFixedSize(true);
         GridLayoutManager layoutManager =
@@ -109,7 +115,7 @@ public class HomeFragment extends Fragment {
 
     private void loadGenre() {
 
-        requestGenre = ApiClinent.getApiClinent(ApiServer.urlData()).create(ApiInterFace.class);
+        requestGenre = ApiClinent.getApiClinent(getActivity(),ApiServer.urlData()).create(ApiInterFace.class);
         recyclerGenre = mBinding.recyclerGenre;
         recyclerGenre.setHasFixedSize(true);
         GridLayoutManager layoutManager =
@@ -133,7 +139,7 @@ public class HomeFragment extends Fragment {
     /*Get All Country*/
     private void loadCountry() {
 
-        requestCountry = ApiClinent.getApiClinent(ApiServer.urlData()).create(ApiInterFace.class);
+        requestCountry = ApiClinent.getApiClinent(getActivity(),ApiServer.urlData()).create(ApiInterFace.class);
         recyclerCountry = mBinding.recyclerCountry;
         recyclerCountry.setHasFixedSize(true);
         GridLayoutManager layoutManager =
@@ -157,7 +163,7 @@ public class HomeFragment extends Fragment {
     /*Get All Item List*/
     private void loadAllItem() {
 
-        requestAllFilm = ApiClinent.getApiClinent(ApiServer.urlData()).create(ApiInterFace.class);
+        requestAllFilm = ApiClinent.getApiClinent(getActivity(),ApiServer.urlData()).create(ApiInterFace.class);
         recyclerFilm = mBinding.recyclerItem;
         recyclerFilm.setHasFixedSize(true);
         GridLayoutManager layoutManager =
@@ -169,16 +175,22 @@ public class HomeFragment extends Fragment {
                 listAllFilm = response.body();
                 itemAdapter = new ItemAdapter(getActivity().getApplicationContext(), listAllFilm, "HOME");
                 recyclerFilm.setAdapter(itemAdapter);
+                int itemSize = listAllFilm.size();
+                int subSize = (int) (itemSize * 1.8);
+                if (!listAllFilm.isEmpty()) {
+                    mBinding.numberAllItem.setText(String.valueOf(subSize));
+                }
             }
             @Override
             public void onFailure(Call<List<Film>> call, Throwable t) {
                 Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
+
         });
     }
     private void loadSlider() {
 
-        requestSlider = ApiClinent.getApiClinent(ApiServer.urlData()).create(ApiInterFace.class);
+        requestSlider = ApiClinent.getApiClinent(getActivity(),ApiServer.urlData()).create(ApiInterFace.class);
         viewPager = mBinding.sliderMain;
         requestSlider.getSlider().enqueue(new Callback<List<Slider>>() {
             @Override
@@ -186,6 +198,8 @@ public class HomeFragment extends Fragment {
                 sliderList = response.body();
                 sliderAdapter = new SliderAdapter(getContext(), getLayoutInflater(), sliderList);
                 viewPager.setAdapter(sliderAdapter);
+                mBinding.indicatorSlider.setViewPager(viewPager);
+                sliderAdapter.registerDataSetObserver(mBinding.indicatorSlider.getDataSetObserver());
             }
 
             @Override

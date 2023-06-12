@@ -10,7 +10,11 @@
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="@dimen/size_toolbar_height"/>
+        android:layout_height="@dimen/size_toolbar_height"
+        app:title="@string/profile"
+        app:titleTextColor="@color/theme_white_txt">
+
+    </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,8 +31,10 @@
 
             <!--Username-->
             <TextView
+                android:id="@+id/txtUsername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textAlignment="viewStart"
                 android:text="@string/test_username"
                 android:textSize="@dimen/size_txt_30"
                 android:textColor="@color/theme_white_txt"
@@ -36,8 +42,10 @@
 
             <!--Email-->
             <TextView
+                android:id="@+id/txtEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textAlignment="viewStart"
                 android:layout_marginTop="@dimen/size_padding_20"
                 android:text="@string/test_email"
                 android:textSize="@dimen/size_txt_30"
@@ -56,6 +64,7 @@
             android:shape="ring"
             android:thicknessRatio="1.9">
             <ImageView
+                android:id="@+id/imgVector"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
                 android:scaleType="centerCrop"
@@ -94,7 +103,104 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size_padding_20"
+                android:text="-"
+                android:textAlignment="center"
+                android:textSize="@dimen/size_txt_20"
+                android:textColor="@color/theme_white_txt"
+                android:fontFamily="@font/font_regular_en" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <!--Username-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/level_user"
+                android:textAlignment="center"
+                android:textSize="@dimen/size_txt_20"
+                android:textColor="@color/theme_gray_txt"
+                android:fontFamily="@font/font_regular_fa" />
+
+            <!--Email-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_padding_20"
                 android:text="0"
+                android:textAlignment="center"
+                android:textSize="@dimen/size_txt_20"
+                android:textColor="@color/theme_white_txt"
+                android:fontFamily="@font/font_regular_en" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <!--Username-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/date_register"
+                android:textAlignment="center"
+                android:textSize="@dimen/size_txt_20"
+                android:textColor="@color/theme_gray_txt"
+                android:fontFamily="@font/font_regular_fa" />
+
+            <!--Email-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_padding_20"
+                android:text="0"
+                android:textAlignment="center"
+                android:textSize="@dimen/size_txt_20"
+                android:textColor="@color/theme_white_txt"
+                android:fontFamily="@font/font_regular_en" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_padding_20"
+        android:layout_marginHorizontal="@dimen/size_padding_container"
+        android:padding="@dimen/size_padding_30"
+        android:background="@drawable/shape_body">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <!--Username-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/time_stream"
+                android:textAlignment="center"
+                android:textSize="@dimen/size_txt_20"
+                android:textColor="@color/theme_gray_txt"
+                android:fontFamily="@font/font_regular_fa" />
+
+            <!--Email-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_padding_20"
+                android:text="-"
                 android:textAlignment="center"
                 android:textSize="@dimen/size_txt_20"
                 android:textColor="@color/theme_white_txt"

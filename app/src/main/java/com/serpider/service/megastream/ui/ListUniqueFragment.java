@@ -90,7 +90,7 @@ public class ListUniqueFragment extends Fragment {
 
     private void loadData(String groupType, String groupName) {
 
-        requestList = ApiClinent.getApiClinent(ApiServer.urlData()).create(ApiInterFace.class);
+        requestList = ApiClinent.getApiClinent(getActivity(),ApiServer.urlData()).create(ApiInterFace.class);
         recyclerList = mBinding.listRecyclerView;
         recyclerList.setHasFixedSize(true);
         GridLayoutManager layoutManager =

@@ -334,28 +334,18 @@
 
                 <!--SerialMode-->
                 <LinearLayout
+                    android:id="@+id/bodySerial"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:padding="@dimen/size_padding_container"
                     android:orientation="vertical">
 
-                    <com.google.android.material.tabs.TabLayout
-                        android:id="@+id/seasionTabLayout"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerSeason"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layoutDirection="rtl"
-                        android:background="@drawable/shape_body"
-                        app:tabGravity="fill"
-                        app:tabMode="scrollable"
-                        app:tabSelectedTextColor="@color/theme_main"
-                        app:tabTextColor="@color/theme_white_txt"
-                        />
-
-                    <androidx.viewpager.widget.ViewPager
-                        android:id="@+id/seasionViewPager"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        tools:listitem="@layout/item_season"/>
 
                 </LinearLayout>
 
@@ -379,6 +369,5 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </FrameLayout>

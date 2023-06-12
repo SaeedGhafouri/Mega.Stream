@@ -21,4 +21,6 @@
     <color name="theme_main">#01C38E</color>
     <color name="theme_twitter">#1D9BF0</color>
 
+    <color name="theme_main_hormony">#3301C38E</color>
+
 </resources>

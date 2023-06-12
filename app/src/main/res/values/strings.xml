@@ -34,6 +34,7 @@
     <string name="networks">شبکه ها</string>
 
     <!--Profile-->
+    <string name="profile">پروفایل</string>
     <string name="date_register">تاریخ عضویت</string>
     <string name="level_user">سطح کاربر</string>
     <string name="time_stream">مدت استریم</string>
@@ -52,13 +53,10 @@
     <!--Player-->
     <string name="player">Player</string>
     <string name="title_activity_player">PlayerActivity</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <!--Search-->
+    <string name="search_hint">جستجو کنید...</string>
+    <string name="error_connection">خطا در اتصال به شبکه</string>
+    <string name="error_connection_btn">تلاش مجدد</string>
 
 </resources>

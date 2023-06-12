@@ -6,7 +6,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/theme_background"
     tools:context=".ui.LoginFragment"
-    android:padding="@dimen/size_padding_container">
+    android:paddingVertical="@dimen/size_status_bar_height"
+    android:paddingHorizontal="@dimen/size_padding_container">
+    
+    <ImageButton
+        android:id="@+id/btnLoginClose"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="@dimen/size_padding_20"
+        android:background="@drawable/ic_close"
+        android:backgroundTint="@color/theme_gray_txt"
+        android:layout_alignParentEnd="true"/>
     
     <LinearLayout
         android:layout_width="match_parent"
@@ -45,7 +55,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
+            android:visibility="visible"
             android:orientation="vertical">
             <TextView
                 android:layout_width="match_parent"
@@ -62,12 +72,16 @@
 
                 <!--Username-->
                 <EditText
+                    android:id="@+id/edLoginUsername"
                     style="@style/Theme.Original.EditText.Icon"
+                    android:fontFamily="@font/font_regular_en"
                     android:drawableEnd="@drawable/ic_username"
                     android:hint="@string/username" />
                 <!--Password-->
                 <EditText
+                    android:id="@+id/edLoginPassword"
                     style="@style/Theme.Original.EditText.Icon"
+                    android:fontFamily="@font/font_regular_en"
                     android:drawableEnd="@drawable/ic_password"
                     android:hint="@string/password" />
 
@@ -83,6 +97,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:visibility="gone"
             android:orientation="vertical">
             <TextView
                 android:layout_width="match_parent"
@@ -99,24 +114,28 @@
 
                 <!--Username-->
                 <EditText
+                    android:id="@+id/edUsername"
                     style="@style/Theme.Original.EditText.Icon"
                     android:drawableEnd="@drawable/ic_username"
                     android:inputType="text"
                     android:hint="@string/username" />
-                <!--Username-->
+                <!--Email-->
                 <EditText
+                    android:id="@+id/edEmail"
                     style="@style/Theme.Original.EditText.Icon"
                     android:drawableEnd="@drawable/ic_username"
                     android:inputType="textEmailAddress"
                     android:hint="@string/email" />
                 <!--Password-->
                 <EditText
+                    android:id="@+id/edPassword"
                     style="@style/Theme.Original.EditText.Icon"
                     android:drawableEnd="@drawable/ic_password"
                     android:inputType="textPassword"
                     android:hint="@string/password" />
                 <!--ConfigPassword-->
                 <EditText
+                    android:id="@+id/edConfigPassword"
                     style="@style/Theme.Original.EditText.Icon"
                     android:drawableEnd="@drawable/ic_password"
                     android:hint="@string/password_config" />
