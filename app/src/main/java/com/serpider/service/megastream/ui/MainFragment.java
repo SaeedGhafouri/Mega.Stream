@@ -1,5 +1,6 @@
 package com.serpider.service.megastream.ui;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.serpider.service.megastream.R;
@@ -19,8 +21,9 @@ import com.serpider.service.megastream.ui.HomeFragment;
 
 
 public class MainFragment extends Fragment {
-
+    private int count = 0;
     FragmentMainBinding mBinding;
+    private MainFragment mainFragment;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +55,11 @@ public class MainFragment extends Fragment {
     private BottomNavigationView.OnNavigationItemSelectedListener selectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            count++;
+            if (count > 2){
+                count = 0;
+                return true;
+            }
             switch (item.getItemId()) {
 
                 case R.id.home_desk:
@@ -59,6 +67,13 @@ public class MainFragment extends Fragment {
                     FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.content, fragmentExplore, "");
                     fragmentTransaction.commit();
+                    return true;
+
+                case R.id.category_desk:
+                    CategoryFragment fragmentCategory = new CategoryFragment();
+                    FragmentTransaction categoryTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    categoryTransaction.replace(R.id.content, fragmentCategory, "");
+                    categoryTransaction.commit();
                     return true;
 
                 case R.id.profile_desk:
@@ -69,8 +84,12 @@ public class MainFragment extends Fragment {
                     return true;
 
             }
-            return false;
+            return true;
         }
     };
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+    }
 }

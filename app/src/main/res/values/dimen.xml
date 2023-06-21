@@ -27,7 +27,7 @@
     <dimen name="size_edittext_height">45dp</dimen>
     <dimen name="size_button_height">55dp</dimen>
     <dimen name="size_line_height">1dp</dimen>
-    <dimen name="size_toolbar_height">85dp</dimen>
+    <dimen name="size_toolbar_height">55dp</dimen>
     <dimen name="size_status_bar_height">25dp</dimen>
 
 </resources>

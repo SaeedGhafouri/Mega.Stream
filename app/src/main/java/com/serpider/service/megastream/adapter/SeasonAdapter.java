@@ -37,7 +37,6 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.MyViewHold
     List<Season> data;
     FragmentActivity fragmentActivity;
     RecyclerView recyclerSection;
-
     ApiInterFace requestSection;
     List<Section> listSection = new ArrayList<>();
     SectionAdapter sectionAdapter;
@@ -105,9 +104,12 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.MyViewHold
         requestSection.getSerialSection(idSeasion).enqueue(new Callback<List<Section>>() {
             @Override
             public void onResponse(Call<List<Section>> call, Response<List<Section>> response) {
-                Toast.makeText(fragmentActivity, "Success", Toast.LENGTH_SHORT).show();
+                Toast.makeText(fragmentActivity, idSeasion, Toast.LENGTH_SHORT).show();
+                if (response.isSuccessful()) {
+                    Toast.makeText(fragmentActivity, "قسمت موفق", Toast.LENGTH_SHORT).show();
+                }
                 listSection = response.body();
-                sectionAdapter = new SectionAdapter(fragmentActivity.getApplicationContext(), listSection);
+                sectionAdapter = new SectionAdapter(fragmentActivity.getApplicationContext(), listSection, fragmentActivity);
                 recyclerSection.setAdapter(sectionAdapter);
             }
 

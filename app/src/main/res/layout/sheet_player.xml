@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:text="@string/quality_play"
+            android:text="@string/choice_player"
             android:fontFamily="@font/font_bold_fa"
             android:textSize="@dimen/size_txt_40"
             android:textColor="@color/theme_white_txt"/>
@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:text="@string/quality_play"
+            android:text="@string/choice_player_desc"
             android:fontFamily="@font/font_regular_fa"
             android:textSize="@dimen/size_txt_20"
             android:textColor="@color/theme_gray_txt"/>
@@ -53,8 +53,8 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:layout_gravity="center_horizontal"
                         android:src="@drawable/ic_mega_player" />
 
@@ -88,10 +88,10 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/ic_vlc_player"/>
+                        android:src="@drawable/ic_vlc_player" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -123,10 +123,10 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/ic_mx_player"/>
+                        android:src="@drawable/ic_mx_player" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -158,10 +158,10 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/ic_km_player"/>
+                        android:src="@drawable/ic_km_player" />
 
                     <TextView
                         android:layout_width="match_parent"

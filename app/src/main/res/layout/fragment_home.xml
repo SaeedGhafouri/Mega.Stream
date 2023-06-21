@@ -7,9 +7,38 @@
     tools:context=".ui.HomeFragment"
     android:background="@color/theme_background">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            style="@style/Theme.Original.Toolbar"
+            android:background="@color/theme_background">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_toolbar_height"
+                android:paddingEnd="@dimen/size_padding_container"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:tint="@color/theme_gray_txt"
+                    android:src="@drawable/logo_mega" />
+
+            </LinearLayout>
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@id/appbar">
         
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -19,7 +48,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:paddingTop="@dimen/size_status_bar_height"
                 android:paddingHorizontal="@dimen/size_padding_container">
 
                 <!--Slider-->
@@ -41,6 +69,7 @@
                     android:id="@+id/indicatorSlider"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size_padding_20"
                     app:ci_width="5dp"
                     app:ci_height="5dp"/>
 
@@ -122,6 +151,34 @@
                     android:layout_height="80dp"
                     android:layout_weight="1"
                     tools:listitem="@layout/item_country"/>
+
+                <!--Suggested-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/btnAllSuggested"
+                        style="@style/Theme.Original.TextView.Mini"
+                        android:text="@string/all"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/theme_main"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        style="@style/Theme.Original.TextView.Mini"
+                        android:text="@string/suggested"
+                        android:layout_weight="1"/>
+
+                </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerSuggested"
+                    android:layout_width="match_parent"
+                    android:layout_height="210dp"
+                    android:layout_marginTop="@dimen/size_padding_20"
+                    tools:listitem="@layout/item_film"/>
+
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerItem"

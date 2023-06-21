@@ -1,11 +1,17 @@
 package com.serpider.service.megastream.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -21,10 +27,15 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.serpider.service.megastream.R;
 import com.serpider.service.megastream.adapter.GropingAdapter;
 import com.serpider.service.megastream.adapter.QualityAdapter;
+import com.serpider.service.megastream.adapter.QualitySerialAdapter;
 import com.serpider.service.megastream.adapter.SeasonAdapter;
+import com.serpider.service.megastream.database.DatabaseClient;
+import com.serpider.service.megastream.model.Favorites;
 import com.serpider.service.megastream.model.Season;
 import com.serpider.service.megastream.api.ApiClinent;
 import com.serpider.service.megastream.api.ApiInterFace;
@@ -33,6 +44,7 @@ import com.serpider.service.megastream.databinding.FragmentDetailsBinding;
 import com.serpider.service.megastream.interfaces.Elements;
 import com.serpider.service.megastream.model.Film;
 import com.serpider.service.megastream.model.Movie;
+import com.serpider.service.megastream.model.Serial_Play;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -43,7 +55,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DetailsFragment extends Fragment {
-
     ApiInterFace requestFilm, requestSeason;
     String idUnique, urlTriler, typeItem;
     SeasonAdapter seasonAdapter;
@@ -52,19 +63,15 @@ public class DetailsFragment extends Fragment {
     List<Movie> listUrl = new ArrayList<>();
     List<Season> seasonList = new ArrayList<>();
     RecyclerView recyclerUrl, recyclerSeason;
-
+    MaterialButton btnPlay;
     FragmentDetailsBinding mBinding;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         mBinding = FragmentDetailsBinding.inflate(inflater, container, false);
         return mBinding.getRoot();
     }
@@ -72,30 +79,22 @@ public class DetailsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         loadData();
-
         /*Test Code*/
-        mBinding.btnTest.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_detailsFragment_to_listUniqueFragment));
-
-       mBinding.itemPoster.setOnClickListener(view1 -> qualitySheet());
-
+        btnPlay = getActivity().findViewById(R.id.btnPlay);
+        mBinding.btnComment.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_detailsFragment_to_commentFragment));
        /*Triler*/
         mBinding.btnTriler.setOnClickListener(view1 -> Elements.DialogVideoPlayer(getActivity(),urlTriler));
     }
-
     private void loadData() {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
         idUnique = sharedPreferences.getString("ID_ITEM", "0");
-        Toast.makeText(getActivity(), idUnique, Toast.LENGTH_SHORT).show();
-
         requestFilm = ApiClinent.getApiClinent(getActivity(),ApiServer.urlData()).create(ApiInterFace.class);
         requestFilm.getFilmById(idUnique).enqueue(new Callback<Film>() {
             @Override
             public void onResponse(Call<Film> call, Response<Film> response) {
                 Film film = response.body();
                 if(film != null){
-
                     mBinding.itemTitle.setText(film.getItem_title_en());
                     mBinding.itemTitleFa.setText(film.getItem_title_fa());
                     mBinding.itemYear.setText(film.getItem_year());
@@ -103,12 +102,11 @@ public class DetailsFragment extends Fragment {
                     mBinding.itemTime.setText(film.getItem_time());
                     mBinding.itemAge.setText(film.getItem_ages());
                     mBinding.itemImdb.setText(film.getItem_imdb());
-                    mBinding.itemSynopsis.setText(film.getItem_synopsis());
-                    mBinding.itemDesc.setText(film.getItem_desc());
+                    /*mBinding.itemSynopsis.setText(film.getItem_synopsis());
+                    mBinding.itemDesc.setText(film.getItem_desc());*/
                     urlTriler= film.getItem_trailer();
                     Picasso.get().load(film.getItem_poster()).into(mBinding.itemPoster);
                     Picasso.get().load(film.getItem_header()).into(mBinding.itemHeader);
-
                     typeItem= film.getItem_type();
                     if (typeItem.equals("Serial")){
                         serialModePlay(film.getItem_unique());
@@ -116,32 +114,68 @@ public class DetailsFragment extends Fragment {
                     }else {
                         mBinding.bodySerial.setVisibility(View.GONE);
                     }
+                    mBinding.itemPoster.setOnClickListener(view1 -> Elements.DialogPreImage(getActivity(), film.getItem_poster()));
+                    mBinding.btnComment.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_detailsFragment_to_commentFragment));
+                    btnPlay.setOnClickListener(view1 -> qualitySheet(film.getItem_unique()));
+                    /*Archive*/
+                    mBinding.btnArchive.setOnClickListener(view1 -> insertFavorites(film.getItem_unique() ,film.getItem_title_en(), film.getItem_country(), film.getItem_year(), film.getItem_poster()));
 
+                    /*Chip*/
+                    loadChip(film.getItem_genre());
+
+                }else {
+                    Toast.makeText(getActivity(), "پاک شده است", Toast.LENGTH_SHORT).show();
                 }
-
             }
-
             @Override
             public void onFailure(Call<Film> call, Throwable t) {
                 Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @SuppressLint("ResourceAsColor")
+    private void loadChip(String gnre) {
+
+        String[] genres = gnre.split(", ");
+        ChipGroup chipGroup = getActivity().findViewById(R.id.chipGroup);
+        for (String genre : genres) {
+            Toast.makeText(getActivity(), genre, Toast.LENGTH_SHORT).show();
+            Chip chip = new Chip(getActivity());
+            chip.setText(genre.trim());
+            chip.setClickable(true);
+            chip.setCheckable(false);
+            chip.setTextSize(12);
+            chip.setChipBackgroundColorResource(R.color.theme_background_body);
+            // تنظیم رنگ متن از R.color.themetxt
+            chip.setTextColor(ContextCompat.getColor(getActivity(), R.color.theme_main));
+            chipGroup.addView(chip);
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            chip.setOnClickListener(view -> {
+                Navigation.findNavController(view).navigate(R.id.action_detailsFragment_to_listUniqueFragment);
+                editor.putString("GROUP_TYPE", "item_genre");
+                editor.putString("GROUP_NAME", genre);
+                editor.putString("GROUP_VECTOR", "");
+                editor.apply();
+            });
+        }
+
 
     }
 
-    private void qualitySheet() {
+    private void qualitySheet(String unique) {
         View view = getActivity().getLayoutInflater().inflate(R.layout.sheet_quality, null);
         BottomSheetDialog QualitySheet = new BottomSheetDialog(getActivity());
         QualitySheet.setContentView(view);
         QualitySheet.show();
-
         requestUrl = ApiClinent.getApiClinent(getActivity(),ApiServer.urlData()).create(ApiInterFace.class);
         recyclerUrl = view.findViewById(R.id.qualityRecycler);
         recyclerUrl.setHasFixedSize(true);
         GridLayoutManager layoutManager =
                 new GridLayoutManager(getActivity(), 1, GridLayoutManager.VERTICAL, false);
         recyclerUrl.setLayoutManager(layoutManager);
-        requestUrl.getMovieUrl("").enqueue(new Callback<List<Movie>>() {
+        requestUrl.getMovieUrl(unique).enqueue(new Callback<List<Movie>>() {
             @Override
             public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
                 listUrl = response.body();
@@ -157,15 +191,9 @@ public class DetailsFragment extends Fragment {
     }
 
     private void serialModePlay(String idSerial) {
-
-        MaterialButton btnPlay;
-        btnPlay = getActivity().findViewById(R.id.btnPlay);
-
         btnPlay.setVisibility(View.GONE);
         btnPlay.setEnabled(false);
-
         requestSeason = ApiClinent.getApiClinent(getActivity(),ApiServer.urlData()).create(ApiInterFace.class);
-
         recyclerSeason = mBinding.recyclerSeason;
         recyclerSeason.setHasFixedSize(true);
         GridLayoutManager layoutManager =
@@ -189,4 +217,26 @@ public class DetailsFragment extends Fragment {
 
     }
 
+    private void insertFavorites(String id ,String title, String country, String year, String poster) {
+        class SaveFavorites extends AsyncTask<Void, Void, Void> {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                Favorites favorites = new Favorites();
+                favorites.setUnique_item(id);
+                favorites.setTitle_item(title);
+                favorites.setCountry_item(country);
+                favorites.setYear_item(year);
+                favorites.setPoster_item(poster);
+                DatabaseClient
+                        .getInstance(getActivity()).getAppDatabase()
+                        .favoritesDao()
+                        .insertFavorites(favorites);
+                return null;
+            }
+        }
+        SaveFavorites saveFavorites = new SaveFavorites();
+        saveFavorites.execute();
+        Elements.Message(getActivity(), "آیتم با موفقیت آرشیو شد", "SUCCESS");
+
+    }
 }

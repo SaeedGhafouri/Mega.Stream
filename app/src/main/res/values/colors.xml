@@ -17,10 +17,15 @@
     <color name="theme_black_txt">#000000</color>
     <color name="theme_white_txt">#FFFFFF</color>
     <color name="theme_white_fit">#FFFFFF</color>
+    <color name="theme_dark_fit">#000</color>
     <color name="theme_gray_txt">#727272</color>
     <color name="theme_main">#01C38E</color>
     <color name="theme_twitter">#1D9BF0</color>
+    <color name="theme_success">#66BB6A</color>
+    <color name="theme_warning">#FFCA28</color>
+    <color name="theme_danger">#EF5350</color>
 
     <color name="theme_main_hormony">#3301C38E</color>
+    <color name="theme_danger_hormony">#33EF5350</color>
 
 </resources>

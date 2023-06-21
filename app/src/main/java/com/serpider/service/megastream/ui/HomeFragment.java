@@ -1,5 +1,7 @@
 package com.serpider.service.megastream.ui;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -26,6 +28,7 @@ import com.serpider.service.megastream.api.ApiClinent;
 import com.serpider.service.megastream.api.ApiInterFace;
 import com.serpider.service.megastream.api.ApiServer;
 import com.serpider.service.megastream.databinding.FragmentHomeBinding;
+import com.serpider.service.megastream.interfaces.Elements;
 import com.serpider.service.megastream.model.Country;
 import com.serpider.service.megastream.model.Film;
 import com.serpider.service.megastream.model.Genre;
@@ -52,7 +55,11 @@ public class HomeFragment extends Fragment {
     SliderAdapter sliderAdapter;
     GropingAdapter gropingAdapter;
     GenreAdapter genreAdapter;
-    public int NumberAllItem;
+
+    /*Limit*/
+    ApiInterFace requestSuggested;
+    RecyclerView recyclerSuggested;
+    List<Film> listSuggested = new ArrayList<>();
 
 
     ApiInterFace requestAllFilm, requestCountry, requestSlider, requestGenre, requestNetwork;
@@ -83,6 +90,12 @@ public class HomeFragment extends Fragment {
         loadNetwork();
         loadSlider();
         loadAllItem();
+
+        loadLimitList();
+
+        Elements.Message(getActivity(), "" , "SUCCESS");
+
+
         Network.DataSave dataSave = new Network.DataSave();
         Toast.makeText(getActivity(), "Id: " + dataSave.UserGetId(getContext()), Toast.LENGTH_SHORT).show();
 
@@ -159,7 +172,6 @@ public class HomeFragment extends Fragment {
         });
 
     }
-
     /*Get All Item List*/
     private void loadAllItem() {
 
@@ -196,7 +208,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Slider>> call, Response<List<Slider>> response) {
                 sliderList = response.body();
-                sliderAdapter = new SliderAdapter(getContext(), getLayoutInflater(), sliderList);
+                sliderAdapter = new SliderAdapter(getContext(), getActivity().getLayoutInflater(), sliderList, getActivity());
                 viewPager.setAdapter(sliderAdapter);
                 mBinding.indicatorSlider.setViewPager(viewPager);
                 sliderAdapter.registerDataSetObserver(mBinding.indicatorSlider.getDataSetObserver());
@@ -222,6 +234,46 @@ public class HomeFragment extends Fragment {
             }
         };
         handler.postDelayed(runnable, 6000);
+
+    }
+
+    private void loadLimitList() {
+
+        loadSuggested("اکشن");
+
+    }
+
+    private void loadSuggested(String name) {
+
+        requestSuggested = ApiClinent.getApiClinent(getActivity(),ApiServer.urlData()).create(ApiInterFace.class);
+        recyclerSuggested = mBinding.recyclerSuggested;
+        recyclerSuggested.setHasFixedSize(true);
+        GridLayoutManager layoutManager =
+                new GridLayoutManager(getActivity(), 1, GridLayoutManager.HORIZONTAL, false);
+        recyclerSuggested.setLayoutManager(layoutManager);
+        requestSuggested.getItemGroupLimit(name).enqueue(new Callback<List<Film>>() {
+            @Override
+            public void onResponse(Call<List<Film>> call, Response<List<Film>> response) {
+                listSuggested = response.body();
+                itemAdapter = new ItemAdapter(getActivity().getApplicationContext(), listSuggested, "HOME");
+                recyclerSuggested.setAdapter(itemAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<Film>> call, Throwable t) {
+
+            }
+        });
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        mBinding.btnAllSuggested.setOnClickListener(view -> {
+            Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_listUniqueFragment);
+            editor.putString("GROUP_TYPE", "item_genre");
+            editor.putString("GROUP_NAME", name);
+            editor.putString("GROUP_VECTOR", "");
+            editor.apply();
+        });
 
     }
 

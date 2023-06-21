@@ -2,6 +2,8 @@ package com.serpider.service.megastream.api;
 
 
 
+import com.serpider.service.megastream.model.Comment;
+import com.serpider.service.megastream.model.Donate;
 import com.serpider.service.megastream.model.Season;
 import com.serpider.service.megastream.model.Country;
 import com.serpider.service.megastream.model.Film;
@@ -9,6 +11,7 @@ import com.serpider.service.megastream.model.Genre;
 import com.serpider.service.megastream.model.Movie;
 import com.serpider.service.megastream.model.Network;
 import com.serpider.service.megastream.model.Section;
+import com.serpider.service.megastream.model.Serial_Play;
 import com.serpider.service.megastream.model.Slider;
 import com.serpider.service.megastream.model.Result;
 import com.serpider.service.megastream.model.User;
@@ -38,6 +41,12 @@ public interface ApiInterFace {
     @GET("getSlider.php")
     Call<List<Slider>> getSlider();
 
+    @GET("getComment.php")
+    Call<List<Comment>> getComment();
+
+    @GET("getDonate.php")
+    Call<Donate> getDonate();
+
     @FormUrlEncoded
     @POST("getFilmById.php?")
     Call<Film> getFilmById(
@@ -58,9 +67,21 @@ public interface ApiInterFace {
     );
 
     @FormUrlEncoded
+    @POST("getItemByGroupLimit.php?")
+    Call<List<Film>> getItemGroupLimit(
+            @Field("GROUP_NAME") String groupName
+    );
+
+    @FormUrlEncoded
     @POST("getSerialSeason.php?")
     Call<List<Season>> getSeason(
             @Field("ID_SERIAL") String id_serial
+    );
+
+    @FormUrlEncoded
+    @POST("getSerialPlay.php?")
+    Call<List<Serial_Play>> getSerialPlay(
+            @Field("ID_SECTION") String id_section
     );
 
     @FormUrlEncoded
@@ -79,19 +100,16 @@ public interface ApiInterFace {
             @Field("USER_USERNAME") String username,
             @Field("USER_PASSWORD") String password
     );
-
     @FormUrlEncoded
     @POST("getUser.php?")
     Call<User> getUser(
             @Field("USER_UNIQUE") String user_unique
     );
-
     @FormUrlEncoded
     @POST("getSearch.php?")
     Call<List<Film>> getSearch(
             @Field("NAME_ITEM") String name_item
     );
-
     @FormUrlEncoded
     @POST("getSerialSection.php?")
     Call<List<Section>> getSerialSection(

@@ -2,62 +2,44 @@ package com.serpider.service.megastream.model;
 
 public class Section {
 
-    private String serial_season_id, serial_section_title, serial_section_value ,serial_section_quality, serial_section_size, serial_section_url;
+    private String section_unique, section_id_season, section_title, section_value;
 
-    public Section(String serial_season_id, String serial_section_title, String serial_section_value, String serial_section_quality, String serial_section_size, String serial_section_url) {
-        this.serial_season_id = serial_season_id;
-        this.serial_section_title = serial_section_title;
-        this.serial_section_value = serial_section_value;
-        this.serial_section_quality = serial_section_quality;
-        this.serial_section_size = serial_section_size;
-        this.serial_section_url = serial_section_url;
+    public Section(String section_unique, String section_id_season, String section_title, String section_value) {
+        this.section_unique = section_unique;
+        this.section_id_season = section_id_season;
+        this.section_title = section_title;
+        this.section_value = section_value;
     }
 
-    public String getSerial_season_id() {
-        return serial_season_id;
+    public String getSection_unique() {
+        return section_unique;
     }
 
-    public void setSerial_season_id(String serial_season_id) {
-        this.serial_season_id = serial_season_id;
+    public void setSection_unique(String section_unique) {
+        this.section_unique = section_unique;
     }
 
-    public String getSerial_section_title() {
-        return serial_section_title;
+    public String getSection_id_season() {
+        return section_id_season;
     }
 
-    public void setSerial_section_title(String serial_section_title) {
-        this.serial_section_title = serial_section_title;
+    public void setSection_id_season(String section_id_season) {
+        this.section_id_season = section_id_season;
     }
 
-    public String getSerial_section_value() {
-        return serial_section_value;
+    public String getSection_title() {
+        return section_title;
     }
 
-    public void setSerial_section_value(String serial_section_value) {
-        this.serial_section_value = serial_section_value;
+    public void setSection_title(String section_title) {
+        this.section_title = section_title;
     }
 
-    public String getSerial_section_quality() {
-        return serial_section_quality;
+    public String getSection_value() {
+        return section_value;
     }
 
-    public void setSerial_section_quality(String serial_section_quality) {
-        this.serial_section_quality = serial_section_quality;
-    }
-
-    public String getSerial_section_size() {
-        return serial_section_size;
-    }
-
-    public void setSerial_section_size(String serial_section_size) {
-        this.serial_section_size = serial_section_size;
-    }
-
-    public String getSerial_section_url() {
-        return serial_section_url;
-    }
-
-    public void setSerial_section_url(String serial_section_url) {
-        this.serial_section_url = serial_section_url;
+    public void setSection_value(String section_value) {
+        this.section_value = section_value;
     }
 }

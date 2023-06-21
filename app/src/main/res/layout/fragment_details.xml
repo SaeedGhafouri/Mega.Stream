@@ -25,28 +25,43 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <!--Header-->
-                <ImageView
-                    android:id="@+id/itemHeader"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:scaleType="centerCrop" />
+                    android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:padding="@dimen/size_padding_container">
+                    <!--Header-->
+                    <ImageView
+                        android:id="@+id/itemHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="160dp"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="160dp"
+                        android:src="@drawable/shape_shadow"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <LinearLayout
+                        android:id="@+id/linearLayout2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginTop="-50dp"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/size_padding_container"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/itemHeader">
 
                         <androidx.cardview.widget.CardView
                             android:layout_width="120dp"
                             android:layout_height="170dp"
+
                             app:cardCornerRadius="@dimen/size_radius_10">
 
                             <ImageView
@@ -54,7 +69,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="@color/theme_background_body"
-                                android:scaleType="centerCrop"/>
+                                android:scaleType="centerCrop" />
 
                         </androidx.cardview.widget.CardView>
 
@@ -71,12 +86,11 @@
                                 android:id="@+id/itemTitleFa"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/size_padding_20"
                                 android:fontFamily="@font/font_bold_fa"
                                 android:text="@string/test_title"
                                 android:textAlignment="viewEnd"
                                 android:textColor="@color/theme_gray_txt"
-                                android:textSize="@dimen/size_txt_20" />
+                                android:textSize="@dimen/size_txt_30" />
 
                             <!--Title-->
                             <TextView
@@ -103,11 +117,11 @@
                                     android:text="2022"
                                     android:textAlignment="textStart"
                                     android:textColor="@color/theme_gray_txt"
-                                    android:textSize="@dimen/size_txt_20" />
+                                    android:textSize="@dimen/size_txt_30" />
 
                                 <Space
                                     android:layout_width="@dimen/size_padding_10"
-                                    android:layout_height="0dp"/>
+                                    android:layout_height="0dp" />
 
                                 <!--Country-->
                                 <TextView
@@ -118,7 +132,7 @@
                                     android:text="امریکا"
                                     android:textAlignment="textStart"
                                     android:textColor="@color/theme_gray_txt"
-                                    android:textSize="@dimen/size_txt_20" />
+                                    android:textSize="@dimen/size_txt_30" />
                             </LinearLayout>
 
                             <!--Row 02-->
@@ -136,27 +150,28 @@
                                     android:text="120"
                                     android:textAlignment="textStart"
                                     android:textColor="@color/theme_gray_txt"
-                                    android:textSize="@dimen/size_txt_20" />
+                                    android:textSize="@dimen/size_txt_30" />
 
                                 <Space
                                     android:layout_width="@dimen/size_padding_10"
-                                    android:layout_height="0dp"/>
+                                    android:layout_height="0dp" />
 
                                 <!--Age-->
                                 <com.google.android.material.card.MaterialCardView
                                     android:layout_width="wrap_content"
                                     android:layout_height="17dp"
                                     android:backgroundTint="@color/theme_background"
-                                    app:strokeWidth="1dp"
-                                    app:strokeColor="@color/theme_gray_txt">
+                                    app:strokeColor="@color/theme_gray_txt"
+                                    app:strokeWidth="1dp">
+
                                     <TextView
                                         android:id="@+id/itemAge"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
                                         android:layout_marginHorizontal="@dimen/size_padding_10"
                                         android:fontFamily="@font/font_regular_en"
                                         android:text="15+"
-                                        android:layout_gravity="center_vertical"
                                         android:textColor="@color/theme_gray_txt"
                                         android:textSize="@dimen/size_txt_20" />
                                 </com.google.android.material.card.MaterialCardView>
@@ -176,7 +191,7 @@
                                     android:text="10/"
                                     android:textAlignment="textStart"
                                     android:textColor="@color/theme_gray_txt"
-                                    android:textSize="@dimen/size_txt_20" />
+                                    android:textSize="@dimen/size_txt_30" />
                                 <!--Imdb-->
                                 <TextView
                                     android:id="@+id/itemImdb"
@@ -186,13 +201,13 @@
                                     android:text="0"
                                     android:textAlignment="textStart"
                                     android:textColor="@color/theme_white_txt"
-                                    android:textSize="@dimen/size_txt_20" />
+                                    android:textSize="@dimen/size_txt_30" />
 
                                 <ImageView
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
                                     android:layout_marginStart="5dp"
-                                    android:src="@drawable/ic_imdb"/>
+                                    android:src="@drawable/ic_imdb" />
 
                             </LinearLayout>
 
@@ -200,13 +215,21 @@
 
                     </LinearLayout>
 
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/size_padding_container">
+
                     <!---->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/shape_body"
-                        android:paddingVertical="@dimen/size_padding_20"
-                        android:layout_marginTop="@dimen/size_padding_30">
+                        android:paddingVertical="@dimen/size_padding_20">
 
                         <!--Triler-->
                         <LinearLayout
@@ -236,6 +259,36 @@
 
                         <!--Archive-->
                         <LinearLayout
+                            android:id="@+id/btnArchive2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ToggleButton
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:textOn=""
+                                android:textOff=""
+                                android:background="@android:color/transparent"
+                                android:button="@drawable/selector_archive"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/size_padding_20"
+                                android:fontFamily="@font/font_regular_fa"
+                                android:text="@string/archive"
+                                android:textAlignment="center"
+                                android:textColor="@color/theme_gray_txt"
+                                android:textSize="@dimen/size_txt_20" />
+
+                        </LinearLayout>
+
+                        <!--Archive-->
+                        <LinearLayout
+                            android:id="@+id/btnArchive"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -261,6 +314,7 @@
 
                         <!--Triler-->
                         <LinearLayout
+                            android:id="@+id/btnComment"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -309,6 +363,19 @@
                                 android:textSize="@dimen/size_txt_20" />
 
                         </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!---->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/chipGroup"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:singleSelection="false" />
 
                     </LinearLayout>
 

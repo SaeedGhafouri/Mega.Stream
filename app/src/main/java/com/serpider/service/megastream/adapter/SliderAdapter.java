@@ -1,18 +1,26 @@
 package com.serpider.service.megastream.adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
+import androidx.navigation.Navigation;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.button.MaterialButton;
 import com.serpider.service.megastream.R;
+import com.serpider.service.megastream.WebFragment;
 import com.serpider.service.megastream.model.Country;
 import com.serpider.service.megastream.model.Slider;
 import com.squareup.picasso.Picasso;
@@ -26,15 +34,18 @@ public class SliderAdapter extends PagerAdapter {
     private ScaleGestureDetector mScaleGestureDetector;
     public ImageView imageView;
     public TextView titleSlider, descSlider;
-
+    private FragmentActivity fragmentActivity;
+    private MaterialButton btnSlider;
+    private WebFragment webFragment;
     List<Slider> data;
 
     private float mScaleFactor = 1.0f;
 
-    public SliderAdapter(Context context, LayoutInflater layoutInflater, List<Slider> data) {
+    public SliderAdapter(Context context, LayoutInflater layoutInflater, List<Slider> data, FragmentActivity fragmentActivity) {
         this.context = context;
         this.layoutInflater = layoutInflater;
         this.data = data;
+        this.fragmentActivity = fragmentActivity;
     }
 
     @Override
@@ -54,15 +65,52 @@ public class SliderAdapter extends PagerAdapter {
         imageView = (ImageView) view.findViewById(R.id.sliderImg);
         titleSlider = view.findViewById(R.id.titleSlider);
         descSlider = view.findViewById(R.id.descSlider);
+        btnSlider = view.findViewById(R.id.btnSlider);
         mScaleGestureDetector = new ScaleGestureDetector(context, new ScaleListener());
         // imageView.setImageResource();
         Picasso.get().load(data.get(position).getSlider_image()).into(imageView);
         titleSlider.setText(data.get(position).getSlider_title());
         descSlider.setText(data.get(position).getSlider_desc());
 
+        btnSlider.setBackgroundColor( ContextCompat.getColor(fragmentActivity, R.color.purple_200));
+
+        /*Check Mode*/
+        String MODE = data.get(position).getSlider_type();
+        String BTN_TEXT = data.get(position).getSlider_btn();
+        String BTN_COLOR = data.get(position).getSlider_btn_color();
+        String LINK = data.get(position).getSlider_link();
+        changeMode(MODE, BTN_TEXT, BTN_COLOR, LINK);
+
         ViewPager vp = (ViewPager) container;
         vp.addView(view, 0);
         return view;
+    }
+
+    private void changeMode(String mode, String btnText, String btnColor, String url) {
+
+        if (mode.equals("Donate")) {
+            btnSlider.setText(btnText);
+            view.setOnClickListener(view1 -> Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_donateFragment));
+        } else if (mode.equals("Ads")) {
+            btnSlider.setText(btnText);
+            view.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_mainFragment_to_webFragment));
+            webFragment.titleWeb = "";
+            webFragment.urlWeb = url;
+        } else if (mode.equals("Web")) {
+            view.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_mainFragment_to_webFragment));
+            webFragment.titleWeb = "";
+            webFragment.urlWeb = url;
+            btnSlider.setText(btnText);
+        }else if (mode.equals("Movie")) {
+            btnSlider.setText("تماشا");
+            String item_unique = url;
+     //       Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_detailsFragment);
+            SharedPreferences sharedPreferences = view.getContext().getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("ID_ITEM", item_unique);
+            editor.apply();
+        }
+
     }
 
     @Override

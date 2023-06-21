@@ -17,10 +17,8 @@ import com.serpider.service.megastream.model.Genre;
 import java.util.List;
 
 public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.MyViewHolder> {
-
     Context context;
     List<Genre> data;
-
     public GenreAdapter(Context context, List<Genre> data) {
         this.context = context;
         this.data = data;

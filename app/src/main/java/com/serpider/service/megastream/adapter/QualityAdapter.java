@@ -50,7 +50,7 @@ public class QualityAdapter extends RecyclerView.Adapter<QualityAdapter.MyViewHo
         holder.txtLangueg.setText(data.get(position).getMovie_language());
 
         holder.itemView.setOnClickListener(view -> {
-            playerSheet(data.get(position).getMovie_title(), data.get(position).getMovie_play_url());
+            playerSheet(fragmentActivity, data.get(position).getMovie_title(), data.get(position).getMovie_play_url());
         });
 
     }
@@ -73,7 +73,7 @@ public class QualityAdapter extends RecyclerView.Adapter<QualityAdapter.MyViewHo
     }
 
     @SuppressLint("MissingInflatedId")
-    public void playerSheet(String title, String url) {
+    static void playerSheet(FragmentActivity fragmentActivity, String title, String url) {
         View view = fragmentActivity.getLayoutInflater().inflate(R.layout.sheet_player, null);
         BottomSheetDialog PlayerSheet = new BottomSheetDialog(fragmentActivity);
         PlayerSheet.setContentView(view);

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:backgroundTint="@color/theme_background"
+    android:layout_margin="@dimen/size_padding_container"
+    app:cardCornerRadius="@dimen/size_radius_10"
+    app:strokeWidth="1dp"
+    app:strokeColor="@color/theme_background_body">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:gravity="center_vertical"
+        android:padding="@dimen/size_padding_container"
+        android:orientation="horizontal">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginEnd="@dimen/size_padding_20"
+            app:cardCornerRadius="@dimen/size_radius_10">
+            <ImageView
+                android:id="@+id/imgFavoritesPoster"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/theme_background_body"
+                android:scaleType="centerCrop"/>
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/txtFavoritesTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/test_title"
+                android:textColor="@color/theme_white_txt"
+                android:fontFamily="@font/font_bold_en"
+                android:textSize="@dimen/size_txt_30"/>
+
+            <TextView
+                android:id="@+id/txtFavoritesCountry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="viewStart"
+                android:layout_marginTop="@dimen/size_padding_20"
+                android:text="@string/test_title"
+                android:textColor="@color/theme_gray_txt"
+                android:fontFamily="@font/font_bold_fa"
+                android:textSize="@dimen/size_txt_20"/>
+
+            <TextView
+                android:id="@+id/txtFavoritesYear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/test_title"
+                android:textColor="@color/theme_gray_txt"
+                android:fontFamily="@font/font_bold_fa"
+                android:textSize="@dimen/size_txt_10"/>
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/btnFavoritesDelete"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ic_trash"
+            android:background="@drawable/shape_body"
+            android:backgroundTint="@color/theme_danger_hormony"/>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

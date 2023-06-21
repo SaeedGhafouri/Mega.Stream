@@ -6,7 +6,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.transition.Fade;
+import androidx.transition.Slide;
+import androidx.transition.Transition;
+import androidx.transition.TransitionManager;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +57,9 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        mBinding.btnLoginToSign.setOnClickListener(view1 -> toggleForm(1, true));
+        mBinding.btnSignToLogin.setOnClickListener(view1 -> toggleForm(2, true));
+
         mBinding.btnLogin.setOnClickListener(view1 -> userLogin(view1));
         mBinding.btnSignup.setOnClickListener(view1 -> userSignup());
         mBinding.btnLoginClose.setOnClickListener(view1 -> {
@@ -67,9 +75,9 @@ public class LoginFragment extends Fragment {
         String password = mBinding.edLoginPassword.getText().toString().trim();
 
         if (username.isEmpty() || username.length() < 5) {
-            Toast.makeText(getActivity(), "نام کاربری باید 4 کارکتر باشد", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "نام کاربری باید حداقل 4 کارکتر باشد", Toast.LENGTH_SHORT).show();
         }else if (password.isEmpty() || password.length() < 8){
-            Toast.makeText(getActivity(), "رمز عبور باید 8 کارکتر بیش تر باشد", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "رمز عبور باید حداقل 8 کارکتر باشد", Toast.LENGTH_SHORT).show();
         }else {
             requestSignup.getUserLogin(username, password).enqueue(new Callback<User>() {
                 @Override
@@ -77,12 +85,11 @@ public class LoginFragment extends Fragment {
                     user = response.body();
                     if (user.isSTATUS()){
                         Toast.makeText(getActivity(), user.getMESSAGE(), Toast.LENGTH_SHORT).show();
-
                         Network.DataSave dataSave = new Network.DataSave();
                         dataSave.UserIdSave(getContext(), user.getUNIQUE_ID());
                         Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_mainFragment);
                     }else {
-                        Toast.makeText(getActivity(), user.getUNIQUE_ID(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), user.getMESSAGE(), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -114,6 +121,7 @@ public class LoginFragment extends Fragment {
                 }else {
                     Toast.makeText(getActivity(), result.getMESSAGE() , Toast.LENGTH_SHORT).show();
                 }
+                Toast.makeText(getActivity(), response.message(), Toast.LENGTH_SHORT).show();
 
             }
 
@@ -122,7 +130,23 @@ public class LoginFragment extends Fragment {
                 Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
+    private void toggleForm(int form, boolean show) {
+
+        Transition transition = new Slide(Gravity.BOTTOM);
+        transition.setDuration(600);
+        if (form == 1) {
+            transition.addTarget(mBinding.formSignup);
+            TransitionManager.beginDelayedTransition(mBinding.formSignup, transition);
+            mBinding.formSignup.setVisibility(show ? View.VISIBLE : View.GONE);
+            mBinding.formLogin.setVisibility(show ? View.GONE : View.VISIBLE);
+        }else {
+            transition.addTarget(mBinding.formLogin);
+            TransitionManager.beginDelayedTransition(mBinding.formLogin, transition);
+            mBinding.formLogin.setVisibility(show ? View.VISIBLE : View.GONE);
+            mBinding.formSignup.setVisibility(show ? View.GONE : View.VISIBLE);
+        }
 
 
     }

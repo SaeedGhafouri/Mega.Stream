@@ -57,7 +57,7 @@ public class SplashScreenFragment extends Fragment {
 
         Handler handler2 = new Handler();
         handler2.postDelayed(() -> {
-            Navigation.findNavController(view).navigate(R.id.action_splashScreenFragment_to_loginFragment);
+            Navigation.findNavController(view).navigate(R.id.action_splashScreenFragment_to_wellcomeFragment);
         },3000);
 
     }

@@ -53,6 +53,7 @@
 
         <!--Form Login-->
         <LinearLayout
+            android:id="@+id/formLogin"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="visible"
@@ -88,13 +89,20 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnLogin"
                     style="@style/Theme.Original.Button"
-                    android:text="@string/username" />
+                    android:text="@string/login_btn" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnLoginToSign"
+                    style="@style/Theme.Original.Button.Transparet"
+                    android:text="@string/login_to_sign"
+                    android:backgroundTint="@android:color/transparent"/>
 
             </LinearLayout>
         </LinearLayout>
 
         <!--Form Signup-->
         <LinearLayout
+            android:id="@+id/formSignup"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
@@ -143,7 +151,13 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnSignup"
                     style="@style/Theme.Original.Button"
-                    android:text="@string/username" />
+                    android:text="@string/signup_btn" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSignToLogin"
+                    style="@style/Theme.Original.Button.Transparet"
+                    android:text="@string/sign_to_login"
+                    android:backgroundTint="@android:color/transparent"/>
 
             </LinearLayout>
         </LinearLayout>

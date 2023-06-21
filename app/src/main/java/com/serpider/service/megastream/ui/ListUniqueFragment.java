@@ -81,7 +81,7 @@ public class ListUniqueFragment extends Fragment {
         if (!groupVector.trim().isEmpty()) {
             Picasso.get().load(groupVector).into(mBinding.vectorList);
         }else {
-            mBinding.vectorList.setVisibility(View.GONE);
+            mBinding.cardVector.setVisibility(View.GONE);
         }
 
         loadData(groupType, groupName);

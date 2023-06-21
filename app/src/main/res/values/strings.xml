@@ -13,6 +13,8 @@
 
     <!--Login-->
     <string name="account_en">Account</string>
+    <string name="login_btn">ورود به حساب</string>
+    <string name="signup_btn">ثبت نام</string>
     <string name="username">نام کاربری</string>
     <string name="password">رمزعبور</string>
     <string name="password_config">تکرار رمزعبور</string>
@@ -20,6 +22,8 @@
     <string name="google_account">حساب گوگل</string>
     <string name="twitter_account">حساب توییتر</string>
     <string name="login_to_account">Login</string>
+    <string name="login_to_sign">ثبت نام</string>
+    <string name="sign_to_login">ورود به حساب</string>
 
     <!--Signup-->
     <string name="signup">Signup</string>
@@ -32,6 +36,10 @@
     <string name="genres">ژانرها</string>
     <string name="countrys">کشورها</string>
     <string name="networks">شبکه ها</string>
+    <!---->
+    <string name="all">همه</string>
+    <string name="suggested">پیشنهاد سردبیر</string>
+    <string name="serial">سریال</string>
 
     <!--Profile-->
     <string name="profile">پروفایل</string>
@@ -49,6 +57,8 @@
     <string name="trailer">تریلر</string>
     <string name="archive">آرشیو</string>
     <string name="quality_play">کیفیت پخش</string>
+    <string name="choice_player">پخش کننده</string>
+    <string name="choice_player_desc">انتخاب کنید ، برای نمایش بهتر زیر نویس ها می توانید از پخش کننده مگا استریم کنید</string>
 
     <!--Player-->
     <string name="player">Player</string>
@@ -58,5 +68,47 @@
     <string name="search_hint">جستجو کنید...</string>
     <string name="error_connection">خطا در اتصال به شبکه</string>
     <string name="error_connection_btn">تلاش مجدد</string>
+
+    <!--Profile-->
+    <string name="category">دسته بندی</string>
+    <string name="secrutiy_safe">امنیت و رمزعبور</string>
+    <string name="support">پشتیبانی</string>
+    <string name="roll">قوانین و مقررات</string>
+    <string name="Identification">کد معرف</string>
+    <string name="logou_in_account">خروج از حساب</string>
+    <string name="login_plz_title">حساب کاربری</string>
+    <string name="login_plz_desc">برای استفاده از تمام امکانات وارد حساب خود شوید</string>
+
+    <!--Comment-->
+    <string name="comment">نظرات</string>
+    <string name="replay">Replay</string>
+
+    <!--Favorites-->
+    <string name="favorites">علاقه مندی ها</string>
+
+    <!--Replay-->
+    <string name="replay_to">Replay to</string>
+
+
+    <!--Message-->
+    <string name="msg_login_success">ورود با موفقیت انجام شد</string>
+    <string name="msg_success_success">ثبت نام با موفقیت انجام شد</string>
+    <string name="msg_server_error">خطای سمت سرور</string>
+    <string name="msg_server_error_support">خطای سمت سرور، با پشتیبانی تماس بگیرید</string>
+    <string name="msg_server_error_try">خطای سمت سرور، دوباره تلاش کنید</string>
+    <string name="msg_lengt_min_username">حداقل 5 کارکتر وارد کنید</string>
+    <string name="msg_lengt_max_username">حداکثر 15 کارکتر وارد کنید</string>
+    <string name="msg_config_password">عدم تشابه تکرار رمز عبور</string>
+
+    <!--Message-->
+    <string name="donate">دونیت حمایتی</string>
+    <string name="donate_title">کمک مالی</string>
+    <string name="payment">تایید و پرداخت</string>
+    <string name="price_del">مبلغ دلخواه</string>
+
+    <!--Wellcome-->
+    <string name="login_signup">ثبت نام یا ورود</string>
+    <string name="skip">Skip</string>
+
 
 </resources>

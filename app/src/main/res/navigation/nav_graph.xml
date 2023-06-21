@@ -13,6 +13,12 @@
         <action
             android:id="@+id/action_splashScreenFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_splashScreenFragment_to_wellcomeFragment"
+            app:destination="@id/wellcomeFragment" />
+        <action
+            android:id="@+id/action_splashScreenFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -27,35 +33,40 @@
         android:id="@+id/wellcomeFragment"
         android:name="com.serpider.service.megastream.ui.WellcomeFragment"
         android:label="fragment_wellcome"
-        tools:layout="@layout/fragment_wellcome" />
+        tools:layout="@layout/fragment_wellcome" >
+        <action
+            android:id="@+id/action_wellcomeFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_wellcomeFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.serpider.service.megastream.ui.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
-            android:id="@+id/action_mainFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
-        <action
             android:id="@+id/action_mainFragment_to_listUniqueFragment"
             app:destination="@id/listUniqueFragment" />
         <action
             android:id="@+id/action_mainFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.serpider.service.megastream.ui.ProfileFragment"
-        android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
-    <fragment
-        android:id="@+id/detailsFragment"
-        android:name="com.serpider.service.megastream.ui.DetailsFragment"
-        android:label="fragment_details"
-        tools:layout="@layout/fragment_details" >
         <action
-            android:id="@+id/action_detailsFragment_to_listUniqueFragment"
-            app:destination="@id/listUniqueFragment" />
+            android:id="@+id/action_mainFragment_to_favoritesFragment"
+            app:destination="@id/favoritesFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_donateFragment"
+            app:destination="@id/donateFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_webFragment"
+            app:destination="@id/webFragment" />
     </fragment>
     <fragment
         android:id="@+id/listUniqueFragment"
@@ -74,5 +85,41 @@
         <action
             android:id="@+id/action_searchFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/webFragment"
+        android:name="com.serpider.service.megastream.WebFragment"
+        android:label="fragment_web"
+        tools:layout="@layout/fragment_web" />
+    <fragment
+        android:id="@+id/commentFragment"
+        android:name="com.serpider.service.megastream.CommentFragment"
+        android:label="fragment_comment"
+        tools:layout="@layout/fragment_comment" />
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.serpider.service.megastream.FavoritesFragment"
+        android:label="fragment_favorites"
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_favoritesFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/donateFragment"
+        android:name="com.serpider.service.megastream.DonateFragment"
+        android:label="fragment_donate"
+        tools:layout="@layout/fragment_donate" />
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.serpider.service.megastream.ui.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" >
+        <action
+            android:id="@+id/action_detailsFragment_to_commentFragment"
+            app:destination="@id/commentFragment" />
+        <action
+            android:id="@+id/action_detailsFragment_to_listUniqueFragment"
+            app:destination="@id/listUniqueFragment" />
     </fragment>
 </navigation>
