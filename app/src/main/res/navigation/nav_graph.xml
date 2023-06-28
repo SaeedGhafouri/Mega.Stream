@@ -50,9 +50,6 @@
             android:id="@+id/action_mainFragment_to_listUniqueFragment"
             app:destination="@id/listUniqueFragment" />
         <action
-            android:id="@+id/action_mainFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
-        <action
             android:id="@+id/action_mainFragment_to_favoritesFragment"
             app:destination="@id/favoritesFragment" />
         <action
@@ -67,6 +64,9 @@
         <action
             android:id="@+id/action_mainFragment_to_webFragment"
             app:destination="@id/webFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/listUniqueFragment"
@@ -88,17 +88,17 @@
     </fragment>
     <fragment
         android:id="@+id/webFragment"
-        android:name="com.serpider.service.megastream.WebFragment"
+        android:name="com.serpider.service.megastream.ui.WebFragment"
         android:label="fragment_web"
         tools:layout="@layout/fragment_web" />
     <fragment
         android:id="@+id/commentFragment"
-        android:name="com.serpider.service.megastream.CommentFragment"
+        android:name="com.serpider.service.megastream.ui.CommentFragment"
         android:label="fragment_comment"
         tools:layout="@layout/fragment_comment" />
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.serpider.service.megastream.FavoritesFragment"
+        android:name="com.serpider.service.megastream.ui.FavoritesFragment"
         android:label="fragment_favorites"
         tools:layout="@layout/fragment_favorites" >
         <action
@@ -107,7 +107,7 @@
     </fragment>
     <fragment
         android:id="@+id/donateFragment"
-        android:name="com.serpider.service.megastream.DonateFragment"
+        android:name="com.serpider.service.megastream.ui.DonateFragment"
         android:label="fragment_donate"
         tools:layout="@layout/fragment_donate" />
     <fragment
@@ -122,4 +122,9 @@
             android:id="@+id/action_detailsFragment_to_listUniqueFragment"
             app:destination="@id/listUniqueFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/networkFragment"
+        android:name="com.serpider.service.megastream.ui.NetworkFragment"
+        android:label="fragment_network"
+        tools:layout="@layout/fragment_network" />
 </navigation>

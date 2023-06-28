@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".CommentFragment"
+    tools:context=".ui.CommentFragment"
     android:background="@color/theme_background">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -79,6 +79,7 @@
         android:background="@color/theme_background_body">
 
         <EditText
+            android:id="@+id/edComment"
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_edittext_height"
             android:background="@drawable/shape_edit_text"
@@ -91,6 +92,7 @@
             android:textColor="@color/theme_white_txt"/>
 
         <ImageButton
+            android:id="@+id/btnSend"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:background="@android:color/transparent"

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.serpider.service.megastream.R;
 import com.serpider.service.megastream.database.DatabaseClient;
 import com.serpider.service.megastream.model.Favorites;
+import com.serpider.service.megastream.util.Connection;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
@@ -50,11 +51,15 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
 
         holder.itemView.setOnClickListener(view -> {
             String item_unique = favorites.getUnique_item();
-            SharedPreferences sharedPreferences = view.getContext().getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("ID_ITEM", item_unique);
-            editor.apply();
-            Navigation.findNavController(view).navigate(R.id.action_favoritesFragment_to_detailsFragment);
+            if (new Connection().isNetwork(context)) {
+                SharedPreferences sharedPreferences = view.getContext().getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("ID_ITEM", item_unique);
+                editor.apply();
+                Navigation.findNavController(view).navigate(R.id.action_favoritesFragment_to_detailsFragment);
+            }else {
+                new Connection().showDialog(context);
+            }
         });
 
         /*Delete*/

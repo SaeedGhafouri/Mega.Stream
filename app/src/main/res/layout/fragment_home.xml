@@ -24,6 +24,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/logoMain"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     app:tint="@color/theme_gray_txt"

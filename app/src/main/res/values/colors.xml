@@ -27,5 +27,6 @@
 
     <color name="theme_main_hormony">#3301C38E</color>
     <color name="theme_danger_hormony">#33EF5350</color>
+    <color name="theme_success_hormony">#3366BB6A</color>
 
 </resources>

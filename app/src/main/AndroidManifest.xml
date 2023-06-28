@@ -19,13 +19,22 @@
             android:name=".ui.PlayerActivity"
             android:exported="false"
             android:label="@string/title_activity_player"
-            android:theme="@style/Theme.MegaStream.NoActionBar" />
+            android:theme="@style/Theme.MegaStream.NoActionBar"
+            tools:ignore="AppLinkUrlError">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:host="moblnodezh.com" android:pathPrefix="/film/" android:scheme="http"/>
+                <data android:host="moblnodezh.com" android:pathPrefix="/film/" android:scheme="https"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

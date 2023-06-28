@@ -120,6 +120,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <!--Nickname-->
+                <EditText
+                    android:id="@+id/edNickname"
+                    style="@style/Theme.Original.EditText.Icon"
+                    android:drawableEnd="@drawable/ic_username"
+                    android:inputType="text"
+                    android:hint="@string/username" />
+
                 <!--Username-->
                 <EditText
                     android:id="@+id/edUsername"

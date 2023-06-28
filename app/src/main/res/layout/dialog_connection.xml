@@ -6,17 +6,37 @@
     android:background="@color/theme_background"
     android:padding="@dimen/size_padding_container">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:textAlignment="center"
-        android:text="@string/error_connection"
-        android:fontFamily="@font/font_bold_fa"
-        android:textColor="@color/theme_white_txt"
-        android:textSize="@dimen/size_txt_40"/>
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/error_connection"
+            android:fontFamily="@font/font_bold_fa"
+            android:textColor="@color/theme_white_txt"
+            android:textSize="@dimen/size_txt_40"/>
+
+        <TextView
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_padding_20"
+            android:layout_gravity="center"
+            android:fontFamily="@font/font_regular_fa"
+            android:text="@string/error_connection_vpn"
+            android:textAlignment="center"
+            android:textColor="@color/theme_gray_txt"
+            android:textSize="@dimen/size_txt_20" />
+
+    </LinearLayout>
+
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCheckConnection"
         style="@style/Theme.Original.Button"
         android:layout_alignParentBottom="true"
         android:backgroundTint="@color/theme_background"

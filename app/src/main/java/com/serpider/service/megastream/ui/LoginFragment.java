@@ -26,6 +26,7 @@ import com.serpider.service.megastream.model.Network;
 import com.serpider.service.megastream.model.Result;
 import com.serpider.service.megastream.model.User;
 import com.serpider.service.megastream.util.Connection;
+import com.serpider.service.megastream.util.DataSave;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,10 +35,8 @@ import retrofit2.Response;
 public class LoginFragment extends Fragment {
 
     FragmentLoginBinding mBinding;
-    ApiInterFace requestSignup, requestLogin;
-    private Result result;
+    ApiInterFace requestSignup;
     private User user;
-    private Connection connection;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,9 +62,12 @@ public class LoginFragment extends Fragment {
         mBinding.btnLogin.setOnClickListener(view1 -> userLogin(view1));
         mBinding.btnSignup.setOnClickListener(view1 -> userSignup());
         mBinding.btnLoginClose.setOnClickListener(view1 -> {
-            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_mainFragment);
+            if (new Connection().isNetwork(getActivity())) {
+                new Connection().showDialog(getActivity());
+            }else {
+                Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_mainFragment);
+            }
         });
-
     }
 
     private void userLogin(View view) {
@@ -85,7 +87,7 @@ public class LoginFragment extends Fragment {
                     user = response.body();
                     if (user.isSTATUS()){
                         Toast.makeText(getActivity(), user.getMESSAGE(), Toast.LENGTH_SHORT).show();
-                        Network.DataSave dataSave = new Network.DataSave();
+                        DataSave dataSave = new DataSave();
                         dataSave.UserIdSave(getContext(), user.getUNIQUE_ID());
                         Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_mainFragment);
                     }else {
@@ -107,26 +109,26 @@ public class LoginFragment extends Fragment {
 
         /*Init Strign from edit text*/
         String userName = mBinding.edUsername.getText().toString().trim();
-        String userNick = mBinding.edEmail.getText().toString().trim();
+        String userNick = mBinding.edNickname.getText().toString().trim();
         String userEmail = mBinding.edEmail.getText().toString().trim();
         String userPassword = mBinding.edPassword.getText().toString().trim();
 
-        requestSignup.getUserSignUp(userName, "", "", "", "", "").enqueue(new Callback<Result>() {
+        requestSignup.getUserSignUp(userName, userNick, "0", userEmail, userPassword, "0").enqueue(new Callback<User>() {
             @Override
-            public void onResponse(Call<Result> call, Response<Result> response) {
-                result = response.body();
+            public void onResponse(Call<User> call, Response<User> response) {
+                User user1 = response.body();
 
-                if (result.isSTATUS()) {
-                    Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                if (user1.isSTATUS()) {
+                    Toast.makeText(getActivity(), user1.getMESSAGE(), Toast.LENGTH_SHORT).show();
                 }else {
-                    Toast.makeText(getActivity(), result.getMESSAGE() , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), user1.getMESSAGE() , Toast.LENGTH_SHORT).show();
                 }
                 Toast.makeText(getActivity(), response.message(), Toast.LENGTH_SHORT).show();
 
             }
 
             @Override
-            public void onFailure(Call <Result> call, Throwable t) {
+            public void onFailure(Call <User> call, Throwable t) {
                 Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

@@ -1,27 +1,23 @@
 package com.serpider.service.megastream.ui;
 
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.serpider.service.megastream.R;
 import com.serpider.service.megastream.api.ApiClinent;
 import com.serpider.service.megastream.api.ApiInterFace;
 import com.serpider.service.megastream.api.ApiServer;
 import com.serpider.service.megastream.databinding.FragmentProfileBinding;
 import com.serpider.service.megastream.interfaces.Elements;
-import com.serpider.service.megastream.model.Network;
 import com.serpider.service.megastream.model.User;
+import com.serpider.service.megastream.util.DataSave;
 import com.squareup.picasso.Picasso;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,7 +26,7 @@ public class ProfileFragment extends Fragment {
     FragmentProfileBinding mBinding;
     ApiInterFace requestUser;
 
-    private Network.DataSave dataSave = new Network.DataSave();
+    private DataSave dataSave = new DataSave();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +77,12 @@ public class ProfileFragment extends Fragment {
                     mBinding.txtEmail.setText(user.getUser_email());
                     Picasso.get().load(user.getUser_vector()).into(mBinding.imgVector);
                     mBinding.imgVector.setOnClickListener(view -> Elements.DialogPreImage(getActivity(), user.getUser_vector()));
+
+                    if (user.getUser_status().equals("0")){
+                        mBinding.bodyProEmailApproval.setVisibility(View.VISIBLE);
+                        mBinding.bodyProClub.setVisibility(View.GONE);
+                    }
+
                 }else {
                     Toast.makeText(getActivity(), user.getMESSAGE(), Toast.LENGTH_SHORT).show();
                 }

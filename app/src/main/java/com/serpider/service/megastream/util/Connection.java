@@ -11,33 +11,36 @@ import android.view.WindowManager;
 
 import androidx.fragment.app.FragmentActivity;
 
+import com.google.android.material.button.MaterialButton;
 import com.serpider.service.megastream.R;
 
 public class Connection {
 
-    public boolean isNetwork(FragmentActivity fragmentActivity) {
+    public boolean isNetwork(Context context) {
         boolean isConnected = false;
-        ConnectivityManager connectivityManager = ((ConnectivityManager) fragmentActivity.getSystemService(Context.CONNECTIVITY_SERVICE));
+        ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
         NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
         if (activeNetwork != null && activeNetwork.isConnected())
             isConnected = true;
         return isConnected;
     }
 
-    public Dialog showDialog(FragmentActivity fragmentActivity) {
-        final Dialog dialog = new Dialog(fragmentActivity);
+    public Dialog showDialog(Context context) {
+        final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
         dialog.setContentView(R.layout.dialog_connection);
         dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.MATCH_PARENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-        if (isNetwork(fragmentActivity)) {
-            dialog.show();
-        }else {
-            dialog.dismiss();
-        }
+        dialog.show();
+        MaterialButton btnCheck;
+        btnCheck = dialog.findViewById(R.id.btnCheckConnection);
+        btnCheck.setOnClickListener(view -> {
+            if (isNetwork(context)){
+                dialog.dismiss();
+            }
+        });
 
         return dialog;
     }

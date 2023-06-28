@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,10 +35,10 @@ import com.serpider.service.megastream.model.Film;
 import com.serpider.service.megastream.model.Genre;
 import com.serpider.service.megastream.model.Network;
 import com.serpider.service.megastream.model.Slider;
-
+import com.serpider.service.megastream.ui.dialog.FilterFragment;
+import com.serpider.service.megastream.util.DataSave;
 import java.util.ArrayList;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -93,13 +94,22 @@ public class HomeFragment extends Fragment {
 
         loadLimitList();
 
+        mBinding.logoMain.setOnClickListener(view1 -> dialogFilter());
+
         Elements.Message(getActivity(), "" , "SUCCESS");
 
-
-        Network.DataSave dataSave = new Network.DataSave();
+        DataSave dataSave = new DataSave();
         Toast.makeText(getActivity(), "Id: " + dataSave.UserGetId(getContext()), Toast.LENGTH_SHORT).show();
 
         mBinding.btnHomeSearch.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_mainFragment_to_searchFragment));
+    }
+
+    private void dialogFilter() {
+
+        FragmentTransaction dialog = getActivity().getSupportFragmentManager().beginTransaction();
+        // Create and show the dialog.
+        FilterFragment filterFragment = new FilterFragment();
+        filterFragment.show(dialog, "dialog");
 
     }
 
@@ -138,7 +148,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Genre>> call, Response<List<Genre>> response) {
                 listGenre = response.body();
-                genreAdapter = new GenreAdapter(getActivity().getApplicationContext(), listGenre);
+                genreAdapter = new GenreAdapter(getActivity() ,getActivity().getApplicationContext(), listGenre);
                 recyclerGenre.setAdapter(genreAdapter);
             }
             @Override

@@ -17,6 +17,7 @@ import android.view.animation.AnimationUtils;
 
 import com.serpider.service.megastream.R;
 import com.serpider.service.megastream.databinding.FragmentWellcomeBinding;
+import com.serpider.service.megastream.util.Connection;
 
 public class WellcomeFragment extends Fragment {
     FragmentWellcomeBinding mBinding;
@@ -44,7 +45,13 @@ public class WellcomeFragment extends Fragment {
       //  mBinding.btnSkip.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.wel));
         mBinding.sliderWellcome.setAdapter(new CustomPagerAdapter(getActivity()));
 
-        mBinding.btnSkip.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_wellcomeFragment_to_mainFragment));
+        mBinding.btnSkip.setOnClickListener(view1 -> {
+            if (new Connection().isNetwork(getActivity())) {
+                Navigation.findNavController(view1).navigate(R.id.action_wellcomeFragment_to_mainFragment);
+            }else {
+                new Connection().showDialog(getActivity());
+            }
+        });
 
     }
 

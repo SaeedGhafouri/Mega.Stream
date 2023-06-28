@@ -1,4 +1,4 @@
-package com.serpider.service.megastream;
+package com.serpider.service.megastream.ui;
 
 import android.os.AsyncTask;
 import android.os.Bundle;

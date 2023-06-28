@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -85,11 +86,25 @@ public class DetailsFragment extends Fragment {
         mBinding.btnComment.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_detailsFragment_to_commentFragment));
        /*Triler*/
         mBinding.btnTriler.setOnClickListener(view1 -> Elements.DialogVideoPlayer(getActivity(),urlTriler));
+
+        Uri data = getActivity().getIntent().getData();
+        if (data !=null){
+            String path = data.getPath();
+            if (path != null && !path.isEmpty()){
+                String[] parts = path.split("/");
+                if (parts.length == 3){
+                    String filmId = parts[2];
+                    Toast.makeText(getActivity(), "ID: " + filmId, Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+
     }
     private void loadData() {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
         idUnique = sharedPreferences.getString("ID_ITEM", "0");
         requestFilm = ApiClinent.getApiClinent(getActivity(),ApiServer.urlData()).create(ApiInterFace.class);
+
         requestFilm.getFilmById(idUnique).enqueue(new Callback<Film>() {
             @Override
             public void onResponse(Call<Film> call, Response<Film> response) {
@@ -109,7 +124,7 @@ public class DetailsFragment extends Fragment {
                     Picasso.get().load(film.getItem_header()).into(mBinding.itemHeader);
                     typeItem= film.getItem_type();
                     if (typeItem.equals("Serial")){
-                        serialModePlay(film.getItem_unique());
+                        serialModePlay(film.getItem_id());
                         mBinding.bodySerial.setVisibility(View.VISIBLE);
                     }else {
                         mBinding.bodySerial.setVisibility(View.GONE);
@@ -140,7 +155,6 @@ public class DetailsFragment extends Fragment {
         String[] genres = gnre.split(", ");
         ChipGroup chipGroup = getActivity().findViewById(R.id.chipGroup);
         for (String genre : genres) {
-            Toast.makeText(getActivity(), genre, Toast.LENGTH_SHORT).show();
             Chip chip = new Chip(getActivity());
             chip.setText(genre.trim());
             chip.setClickable(true);

@@ -21,6 +21,7 @@ import com.romainpiel.shimmer.Shimmer;
 import com.romainpiel.shimmer.ShimmerTextView;
 import com.serpider.service.megastream.R;
 import com.serpider.service.megastream.databinding.FragmentSplashScreenBinding;
+import com.serpider.service.megastream.util.Connection;
 
 public class SplashScreenFragment extends Fragment {
 
@@ -53,7 +54,6 @@ public class SplashScreenFragment extends Fragment {
             txtShimmer.start(mBinding.txtSplash);
             animLogo();
         },1000);
-
 
         Handler handler2 = new Handler();
         handler2.postDelayed(() -> {

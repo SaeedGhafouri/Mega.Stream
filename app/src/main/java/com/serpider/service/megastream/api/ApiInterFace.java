@@ -2,7 +2,9 @@ package com.serpider.service.megastream.api;
 
 
 
+import com.serpider.service.megastream.adapter.Replay;
 import com.serpider.service.megastream.model.Comment;
+import com.serpider.service.megastream.model.CommentPOJO;
 import com.serpider.service.megastream.model.Donate;
 import com.serpider.service.megastream.model.Season;
 import com.serpider.service.megastream.model.Country;
@@ -18,7 +20,9 @@ import com.serpider.service.megastream.model.User;
 
 import java.util.List;
 
+import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -43,6 +47,12 @@ public interface ApiInterFace {
 
     @GET("getComment.php")
     Call<List<Comment>> getComment();
+
+    @FormUrlEncoded
+    @POST("getReplay.php?")
+    Call<List<Replay>> getReplay(
+            @Field("ID") int id_comment
+    );
 
     @GET("getDonate.php")
     Call<Donate> getDonate();
@@ -83,10 +93,9 @@ public interface ApiInterFace {
     Call<List<Serial_Play>> getSerialPlay(
             @Field("ID_SECTION") String id_section
     );
-
     @FormUrlEncoded
     @POST("userSignup.php?")
-    Call<Result> getUserSignUp(
+    Call<User> getUserSignUp(
             @Field("USER_USERNAME") String username,
             @Field("USER_NICKNAME") String nickname,
             @Field("USER_PHONE") String phone,
@@ -94,6 +103,15 @@ public interface ApiInterFace {
             @Field("USER_PASSWORD") String password,
             @Field("USER_VECTOR") String vector
     );
+
+    @FormUrlEncoded
+    @POST("addComment.php?")
+    Call<CommentPOJO> getAddComment(
+            @Field("USER_ID") String user_id,
+            @Field("ITEM_ID") String item_id,
+            @Field("MSG") String message
+    );
+
     @FormUrlEncoded
     @POST("userLogin.php?")
     Call<User> getUserLogin(

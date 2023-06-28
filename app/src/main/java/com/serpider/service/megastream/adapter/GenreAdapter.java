@@ -8,20 +8,25 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.serpider.service.megastream.R;
 import com.serpider.service.megastream.model.Genre;
+import com.serpider.service.megastream.util.Connection;
 
 import java.util.List;
 
 public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.MyViewHolder> {
     Context context;
     List<Genre> data;
-    public GenreAdapter(Context context, List<Genre> data) {
+    FragmentActivity activity;
+
+    public GenreAdapter(Context context, List<Genre> data, FragmentActivity activity) {
         this.context = context;
         this.data = data;
+        this.activity = activity;
     }
 
     @NonNull
@@ -35,16 +40,19 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.MyViewHolder
     public void onBindViewHolder(@NonNull GenreAdapter.MyViewHolder holder, int position) {
         holder.txtTitle.setText(data.get(position).getGenre_name());
 
-        SharedPreferences sharedPreferences = context.getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = activity.getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         holder.itemView.setOnClickListener(view ->{
-            Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_listUniqueFragment);
-            editor.putString("GROUP_TYPE", "item_genre");
-            editor.putString("GROUP_NAME", data.get(position).getGenre_name());
-            editor.putString("GROUP_VECTOR", "");
-            editor.apply();
+            if (new Connection().isNetwork(activity)) {
+                Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_listUniqueFragment);
+                editor.putString("GROUP_TYPE", "item_genre");
+                editor.putString("GROUP_NAME", data.get(position).getGenre_name());
+                editor.putString("GROUP_VECTOR", "");
+                editor.apply();
+            }else {
+                new Connection().showDialog(activity);
+            }
         });
-
     }
 
     @Override

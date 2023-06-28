@@ -2,14 +2,12 @@ package com.serpider.service.megastream.adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -20,8 +18,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.button.MaterialButton;
 import com.serpider.service.megastream.R;
-import com.serpider.service.megastream.WebFragment;
-import com.serpider.service.megastream.model.Country;
+import com.serpider.service.megastream.ui.WebFragment;
 import com.serpider.service.megastream.model.Slider;
 import com.squareup.picasso.Picasso;
 

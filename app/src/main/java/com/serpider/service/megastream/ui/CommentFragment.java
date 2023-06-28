@@ -1,4 +1,4 @@
-package com.serpider.service.megastream;
+package com.serpider.service.megastream.ui;
 
 import android.os.Bundle;
 
@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.serpider.service.megastream.adapter.CommentAdapter;
 import com.serpider.service.megastream.adapter.ItemAdapter;
@@ -19,7 +20,10 @@ import com.serpider.service.megastream.api.ApiInterFace;
 import com.serpider.service.megastream.api.ApiServer;
 import com.serpider.service.megastream.databinding.FragmentCommentBinding;
 import com.serpider.service.megastream.model.Comment;
+import com.serpider.service.megastream.model.CommentPOJO;
 import com.serpider.service.megastream.model.Film;
+import com.serpider.service.megastream.model.Result;
+import com.serpider.service.megastream.util.DataSave;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +38,7 @@ public class CommentFragment extends Fragment {
     List<Comment> listComment = new ArrayList<>();
     RecyclerView recyclerComment;
     FragmentCommentBinding mBinding;
+    public String itemId;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +58,33 @@ public class CommentFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         loadComment();
+        DataSave dataSave = new DataSave();
+        mBinding.btnSend.setOnClickListener(view1 -> addComment("12", "13"));
+
+    }
+
+    private void addComment(String user_id, String item_id) {
+        String msg = mBinding.edComment.getText().toString().trim();
+
+        requestComment = ApiClinent.getApiClinent(getActivity(), ApiServer.urlData()).create(ApiInterFace.class);
+
+        requestComment.getAddComment(user_id, item_id, msg).enqueue(new Callback<CommentPOJO>() {
+            @Override
+            public void onResponse(Call<CommentPOJO> call, Response<CommentPOJO> response) {
+                CommentPOJO result = response.body();
+                if (result.isSTATUS()){
+                    Toast.makeText(getActivity(), result.getMESSAGE(), Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getActivity(), result.getMESSAGE(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CommentPOJO> call, Throwable t) {
+
+            }
+        });
+
 
     }
 
@@ -74,7 +106,7 @@ public class CommentFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Comment>> call, Throwable t) {
-
+                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Mega Stream</string>
     <string name="mega">Mega</string>
     <string name="stream">Stream</string>
@@ -16,6 +16,7 @@
     <string name="login_btn">ورود به حساب</string>
     <string name="signup_btn">ثبت نام</string>
     <string name="username">نام کاربری</string>
+    <string name="nickname">نام مستعار</string>
     <string name="password">رمزعبور</string>
     <string name="password_config">تکرار رمزعبور</string>
     <string name="or_en">Or</string>
@@ -67,6 +68,7 @@
     <!--Search-->
     <string name="search_hint">جستجو کنید...</string>
     <string name="error_connection">خطا در اتصال به شبکه</string>
+    <string name="error_connection_vpn">اتصال به اینترنت خود را بررسی کنید یا از خاموش بودن فیلترشکن خود مطمئن شوید</string>
     <string name="error_connection_btn">تلاش مجدد</string>
 
     <!--Profile-->
@@ -99,6 +101,7 @@
     <string name="msg_lengt_min_username">حداقل 5 کارکتر وارد کنید</string>
     <string name="msg_lengt_max_username">حداکثر 15 کارکتر وارد کنید</string>
     <string name="msg_config_password">عدم تشابه تکرار رمز عبور</string>
+    <string name="msg_try">تلاش مجدد</string>
 
     <!--Message-->
     <string name="donate">دونیت حمایتی</string>
@@ -110,5 +113,12 @@
     <string name="login_signup">ثبت نام یا ورود</string>
     <string name="skip">Skip</string>
 
+    <!--Filter-->
+    <string name="filter_title">فیلتر پیشرفته</string>
+    <string name="filter_type">نوع آیتم</string>
+    <string name="filter_genre">ژانر</string>
+    <string name="filter_">ژانر</string>
+    <string name="filter_submit">اعمال فیلتر</string>
+    <string name="defult">پیشفرض</string>
 
 </resources>

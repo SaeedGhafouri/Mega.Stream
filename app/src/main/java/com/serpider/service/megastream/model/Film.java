@@ -2,9 +2,11 @@ package com.serpider.service.megastream.model;
 
 public class Film {
 
+    private String item_id;
     private String item_unique, item_type, item_title_en, item_title_fa, item_genre, item_grouping, item_year, item_time, item_country, item_language, item_imdb, item_ages, item_synopsis, item_desc, item_network, item_volume, item_subtitle, item_double, item_stars, item_poster, item_header, item_trailer;
 
-    public Film(String item_unique, String item_type, String item_title_en, String item_title_fa, String item_genre, String item_grouping, String item_year, String item_time, String item_country, String item_language, String item_imdb, String item_ages, String item_synopsis, String item_desc, String item_network, String item_volume, String item_subtitle, String item_double, String item_stars, String item_poster, String item_header, String item_trailer) {
+    public Film(String item_id, String item_unique, String item_type, String item_title_en, String item_title_fa, String item_genre, String item_grouping, String item_year, String item_time, String item_country, String item_language, String item_imdb, String item_ages, String item_synopsis, String item_desc, String item_network, String item_volume, String item_subtitle, String item_double, String item_stars, String item_poster, String item_header, String item_trailer) {
+        this.item_id = item_id;
         this.item_unique = item_unique;
         this.item_type = item_type;
         this.item_title_en = item_title_en;
@@ -27,6 +29,14 @@ public class Film {
         this.item_poster = item_poster;
         this.item_header = item_header;
         this.item_trailer = item_trailer;
+    }
+
+    public String getItem_id() {
+        return item_id;
+    }
+
+    public void setItem_id(String item_id) {
+        this.item_id = item_id;
     }
 
     public String getItem_unique() {

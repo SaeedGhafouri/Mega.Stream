@@ -49,6 +49,18 @@ public class QualityAdapter extends RecyclerView.Adapter<QualityAdapter.MyViewHo
         holder.txtSize.setText(data.get(position).getMovie_size());
         holder.txtLangueg.setText(data.get(position).getMovie_language());
 
+        if (data.get(position).getMovie_quality().equals("2160p")) {
+            holder.imgQuality.setImageResource(R.drawable.ic_2160);
+        }else if (data.get(position).getMovie_quality().equals("1080p")) {
+            holder.imgQuality.setImageResource(R.drawable.ic_1080);
+        } else if (data.get(position).getMovie_quality().equals("720p")) {
+            holder.imgQuality.setImageResource(R.drawable.ic_720);
+        }else if (data.get(position).getMovie_quality().equals("480p")) {
+            holder.imgQuality.setImageResource(R.drawable.ic_480);
+        }else if (data.get(position).getMovie_quality().equals("360p")) {
+            holder.imgQuality.setImageResource(R.drawable.ic_360);
+        }
+
         holder.itemView.setOnClickListener(view -> {
             playerSheet(fragmentActivity, data.get(position).getMovie_title(), data.get(position).getMovie_play_url());
         });
