@@ -42,8 +42,11 @@ public class WellcomeFragment extends Fragment {
 
         loadBgAnim();
 
-      //  mBinding.btnSkip.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.wel));
         mBinding.sliderWellcome.setAdapter(new CustomPagerAdapter(getActivity()));
+
+        mBinding.btnLogin.setOnClickListener(view1 -> {
+            Navigation.findNavController(view1).navigate(R.id.action_wellcomeFragment_to_loginFragment);
+        });
 
         mBinding.btnSkip.setOnClickListener(view1 -> {
             if (new Connection().isNetwork(getActivity())) {

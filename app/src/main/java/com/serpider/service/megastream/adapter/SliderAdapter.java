@@ -19,7 +19,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.button.MaterialButton;
 import com.serpider.service.megastream.R;
 import com.serpider.service.megastream.ui.WebFragment;
-import com.serpider.service.megastream.model.Slider;
+import com.serpider.service.megastream.model.Ads;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -34,11 +34,11 @@ public class SliderAdapter extends PagerAdapter {
     private FragmentActivity fragmentActivity;
     private MaterialButton btnSlider;
     private WebFragment webFragment;
-    List<Slider> data;
+    List<Ads> data;
 
     private float mScaleFactor = 1.0f;
 
-    public SliderAdapter(Context context, LayoutInflater layoutInflater, List<Slider> data, FragmentActivity fragmentActivity) {
+    public SliderAdapter(Context context, LayoutInflater layoutInflater, List<Ads> data, FragmentActivity fragmentActivity) {
         this.context = context;
         this.layoutInflater = layoutInflater;
         this.data = data;
@@ -65,17 +65,17 @@ public class SliderAdapter extends PagerAdapter {
         btnSlider = view.findViewById(R.id.btnSlider);
         mScaleGestureDetector = new ScaleGestureDetector(context, new ScaleListener());
         // imageView.setImageResource();
-        Picasso.get().load(data.get(position).getSlider_image()).into(imageView);
-        titleSlider.setText(data.get(position).getSlider_title());
-        descSlider.setText(data.get(position).getSlider_desc());
+        Picasso.get().load(data.get(position).getBanner()).into(imageView);
+        titleSlider.setText(data.get(position).getTitle());
+        descSlider.setText(data.get(position).getCaption());
 
         btnSlider.setBackgroundColor( ContextCompat.getColor(fragmentActivity, R.color.purple_200));
 
         /*Check Mode*/
-        String MODE = data.get(position).getSlider_type();
-        String BTN_TEXT = data.get(position).getSlider_btn();
-        String BTN_COLOR = data.get(position).getSlider_btn_color();
-        String LINK = data.get(position).getSlider_link();
+        int MODE = data.get(position).getType();
+        String BTN_TEXT = data.get(position).getButton_text();
+        String BTN_COLOR = data.get(position).getButton_bg();
+        String LINK = data.get(position).getLink();
         changeMode(MODE, BTN_TEXT, BTN_COLOR, LINK);
 
         ViewPager vp = (ViewPager) container;
@@ -83,22 +83,28 @@ public class SliderAdapter extends PagerAdapter {
         return view;
     }
 
-    private void changeMode(String mode, String btnText, String btnColor, String url) {
+    private void changeMode(int mode, String btnText, String btnColor, String url) {
 
-        if (mode.equals("Donate")) {
+        /*
+        1 = Donate
+        2 = Ads
+        3 = Web
+        4 = Watch
+        */
+        if (mode == 1) {
             btnSlider.setText(btnText);
             view.setOnClickListener(view1 -> Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_donateFragment));
-        } else if (mode.equals("Ads")) {
+        } else if (mode == 2) {
             btnSlider.setText(btnText);
             view.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_mainFragment_to_webFragment));
             webFragment.titleWeb = "";
             webFragment.urlWeb = url;
-        } else if (mode.equals("Web")) {
+        } else if (mode == 3) {
             view.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_mainFragment_to_webFragment));
             webFragment.titleWeb = "";
             webFragment.urlWeb = url;
             btnSlider.setText(btnText);
-        }else if (mode.equals("Movie")) {
+        }else if (mode == 4) {
             btnSlider.setText("تماشا");
             String item_unique = url;
      //       Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_detailsFragment);

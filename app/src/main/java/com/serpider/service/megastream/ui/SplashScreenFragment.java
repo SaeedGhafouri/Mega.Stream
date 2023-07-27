@@ -24,10 +24,8 @@ import com.serpider.service.megastream.databinding.FragmentSplashScreenBinding;
 import com.serpider.service.megastream.util.Connection;
 
 public class SplashScreenFragment extends Fragment {
-
     FragmentSplashScreenBinding mBinding;
     Animation animLogo;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,10 +53,15 @@ public class SplashScreenFragment extends Fragment {
             animLogo();
         },1000);
 
-        Handler handler2 = new Handler();
-        handler2.postDelayed(() -> {
-            Navigation.findNavController(view).navigate(R.id.action_splashScreenFragment_to_wellcomeFragment);
-        },3000);
+
+        if (new Connection().isNetwork(getContext())) {
+            Handler handler2 = new Handler();
+            handler2.postDelayed(() -> {
+                Navigation.findNavController(view).navigate(R.id.action_splashScreenFragment_to_wellcomeFragment);
+            },3000);
+        }else {
+            new Connection().showView(view, R.id.action_splashScreenFragment_to_networkFragment);
+        }
 
     }
 

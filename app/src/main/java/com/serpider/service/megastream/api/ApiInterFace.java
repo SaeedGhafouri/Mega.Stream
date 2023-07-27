@@ -14,15 +14,12 @@ import com.serpider.service.megastream.model.Movie;
 import com.serpider.service.megastream.model.Network;
 import com.serpider.service.megastream.model.Section;
 import com.serpider.service.megastream.model.Serial_Play;
-import com.serpider.service.megastream.model.Slider;
-import com.serpider.service.megastream.model.Result;
+import com.serpider.service.megastream.model.Ads;
 import com.serpider.service.megastream.model.User;
 
 import java.util.List;
 
-import okhttp3.RequestBody;
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -43,7 +40,7 @@ public interface ApiInterFace {
     Call<List<Network>> getNetwork();
 
     @GET("getSlider.php")
-    Call<List<Slider>> getSlider();
+    Call<List<Ads>> getSlider();
 
     @GET("getComment.php")
     Call<List<Comment>> getComment();
@@ -79,7 +76,8 @@ public interface ApiInterFace {
     @FormUrlEncoded
     @POST("getItemByGroupLimit.php?")
     Call<List<Film>> getItemGroupLimit(
-            @Field("GROUP_NAME") String groupName
+            @Field("GROUP_NAME") String groupName,
+            @Field("GROUP_QUERY") String groupQuery
     );
 
     @FormUrlEncoded
@@ -121,7 +119,7 @@ public interface ApiInterFace {
     @FormUrlEncoded
     @POST("getUser.php?")
     Call<User> getUser(
-            @Field("USER_UNIQUE") String user_unique
+            @Field("USER_UNIQUE") int user_unique
     );
     @FormUrlEncoded
     @POST("getSearch.php?")
@@ -132,6 +130,42 @@ public interface ApiInterFace {
     @POST("getSerialSection.php?")
     Call<List<Section>> getSerialSection(
             @Field("ID_SECTION") String id_seasion
+    );
+
+
+    /*New Api Setup*/
+    @GET("getGenres/")
+    Call<List<Genre>> getGenres();
+    @GET("getCountries/")
+    Call<List<Country>> getCountrys();
+    @GET("getNetworks/")
+    Call<List<Network>> getNetworks();
+    @GET("getAds/")
+    Call<List<Ads>> getAds();
+
+    @FormUrlEncoded
+    @POST("getUser/")
+    Call<User> getUserInfo(
+            @Field("id") int user_id
+    );
+
+    @FormUrlEncoded
+    @POST("userSignUp/")
+    Call<User> userSignUp(
+            @Field("USER_USERNAME") String username,
+            @Field("USER_NICKNAME") String nickname,
+            @Field("USER_PHONE") String phone,
+            @Field("USER_EMAIL") String email,
+            @Field("USER_PASSWORD") String password,
+            @Field("USER_VECTOR") String vector,
+            @Field("USER_MAC_ADDRESS") String mac_address
+    );
+
+    @FormUrlEncoded
+    @POST("userLogin/")
+    Call<User> userLogin(
+            @Field("USER_USERNAME") String username,
+            @Field("USER_PASSWORD") String password
     );
 
 }

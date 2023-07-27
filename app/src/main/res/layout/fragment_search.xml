@@ -39,10 +39,10 @@
                         android:textColor="@color/theme_white_txt"/>
 
                     <ImageButton
-                        style="@style/Theme.Original.Toolbar.Button.Back"
                         android:id="@+id/btnSearch"
-                        android:layout_height="30dp"
-                        android:layout_width="30dp"
+                        android:layout_height="27dp"
+                        android:layout_width="27dp"
+                        android:background="@android:color/transparent"
                         app:tint="@color/theme_gray_txt"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/ic_search" />
@@ -66,5 +66,31 @@
         android:layout_height="match_parent"
         android:padding="@dimen/size_padding_container"
         android:layout_below="@id/appbar"/>
+
+    <LinearLayout
+        android:id="@+id/bodyEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/ic_harmony_not"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_padding_30"
+            android:text="موردی یافت نشد"
+            android:textAlignment="center"
+            android:textSize="@dimen/size_txt_30"
+            android:fontFamily="@font/font_bold_fa"
+            android:textColor="@color/theme_white_txt"/>
+
+    </LinearLayout>
 
 </RelativeLayout>

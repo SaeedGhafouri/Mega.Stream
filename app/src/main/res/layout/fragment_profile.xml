@@ -305,7 +305,7 @@
 
             <!--Item One-->
             <LinearLayout
-                android:id="@+id/btnSecruity"
+                android:id="@+id/btnInfo"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_button_height"
                 android:paddingHorizontal="@dimen/size_padding_30"

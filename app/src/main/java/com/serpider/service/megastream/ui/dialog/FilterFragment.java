@@ -15,7 +15,6 @@ import com.serpider.service.megastream.R;
 import com.serpider.service.megastream.databinding.FragmentFilterBinding;
 
 public class FilterFragment extends DialogFragment {
-
     FragmentFilterBinding mBinding;
     @Override
     public void onCreate(Bundle savedInstanceState) {

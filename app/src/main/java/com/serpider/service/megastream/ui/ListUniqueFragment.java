@@ -40,8 +40,6 @@ public class ListUniqueFragment extends Fragment {
     List<Film> listItem = new ArrayList<>();
     RecyclerView recyclerList;
     Typeface typeFontFa, typeFontEn;
-    public final static String PERSIAN_STRING = "ا آ ب پ ت ث ج چ ح خ د ذ ر ز ژ س ش ص ض ط ظ ع غ ف ق ک گ ل م ن و ه ی";
-    public final static String LATIN_STRING = "a b c d e f g h i j k l m n o p q r s t u v w x y z";
     FragmentListUniqueBinding mBinding;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,16 +64,6 @@ public class ListUniqueFragment extends Fragment {
         String groupType = sharedPreferences.getString("GROUP_TYPE", "");
         String groupName = sharedPreferences.getString("GROUP_NAME", "");
         String groupVector = sharedPreferences.getString("GROUP_VECTOR", "");
-
-        /*Fa*//*
-        typeFontFa = ResourcesCompat.getFont(getActivity(), R.font.font_bold_fa);
-        *//*En*//*
-        typeFontEn = ResourcesCompat.getFont(getActivity(), R.font.font_bold_en);
-        if (PERSIAN_STRING.contains(groupName)) {
-            mBinding.titleList.setTypeface(typeFontFa);
-        }else {
-            mBinding.titleList.setTypeface(typeFontEn);
-        }*/
 
         mBinding.titleList.setText(groupName);
         if (!groupVector.trim().isEmpty()) {
@@ -102,6 +90,9 @@ public class ListUniqueFragment extends Fragment {
                 listItem = response.body();
                 itemAdapter = new ItemAdapter(getActivity().getApplicationContext(), listItem, "LIST");
                 recyclerList.setAdapter(itemAdapter);
+                if (itemAdapter.getItemCount() == 0) {
+                    mBinding.bodyEmpty.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override

@@ -55,6 +55,7 @@
         android:orientation="vertical">
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLogin"
             style="@style/Theme.Original.Button"
             android:text="@string/login_signup" />
 
@@ -62,7 +63,6 @@
             android:id="@+id/btnSkip"
             style="@style/Theme.Original.Button.Transparet"
             android:layout_marginTop="10dp"
-            android:fontFamily="@font/font_regular_en"
             android:text="@string/skip" />
 
     </LinearLayout>

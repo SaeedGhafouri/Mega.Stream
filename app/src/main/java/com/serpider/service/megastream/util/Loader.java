@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class Loader extends Dialog {
-
     public Loader(@NonNull Context context) {
         super(context);
     }

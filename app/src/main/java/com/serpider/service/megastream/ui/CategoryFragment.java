@@ -66,7 +66,7 @@ public class CategoryFragment extends Fragment {
         GridLayoutManager layoutManager =
                 new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        requestCategor.getGenre().enqueue(new Callback<List<Genre>>() {
+        requestCategor.getGenres().enqueue(new Callback<List<Genre>>() {
             @Override
             public void onResponse(Call<List<Genre>> call, Response<List<Genre>> response) {
 

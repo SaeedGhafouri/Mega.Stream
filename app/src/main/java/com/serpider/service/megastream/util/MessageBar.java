@@ -12,10 +12,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.serpider.service.megastream.R;
 
 public class MessageBar{
-
     public static MessageBar make(ViewGroup parent, @BaseTransientBottomBar.Duration int duration) {
         return null;
     }
-
-
 }

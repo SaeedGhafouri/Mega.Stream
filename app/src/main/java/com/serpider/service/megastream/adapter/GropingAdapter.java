@@ -41,16 +41,16 @@ public class GropingAdapter extends RecyclerView.Adapter<GropingAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull GropingAdapter.MyViewHolder holder, int position) {
-        holder.txtTitle.setText(data.get(position).getCountry_title());
-        Picasso.get().load(data.get(position).getCountry_image()).into(holder.imgPoster);
+        holder.txtTitle.setText(data.get(position).getFa_name());
+        Picasso.get().load(data.get(position).getVector()).into(holder.imgPoster);
 
         SharedPreferences sharedPreferences = context.getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         holder.itemView.setOnClickListener(view ->{
             Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_listUniqueFragment);
             editor.putString("GROUP_TYPE", "item_country");
-            editor.putString("GROUP_NAME", data.get(position).getCountry_title());
-            editor.putString("GROUP_VECTOR", data.get(position).getCountry_image());
+            editor.putString("GROUP_NAME", data.get(position).getFa_name());
+            editor.putString("GROUP_VECTOR", data.get(position).getVector());
             editor.apply();
         });
 

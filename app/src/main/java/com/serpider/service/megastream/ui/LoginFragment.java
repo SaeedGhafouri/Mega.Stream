@@ -22,28 +22,26 @@ import com.serpider.service.megastream.api.ApiClinent;
 import com.serpider.service.megastream.api.ApiInterFace;
 import com.serpider.service.megastream.api.ApiServer;
 import com.serpider.service.megastream.databinding.FragmentLoginBinding;
+import com.serpider.service.megastream.interfaces.Elements;
 import com.serpider.service.megastream.model.Network;
 import com.serpider.service.megastream.model.Result;
 import com.serpider.service.megastream.model.User;
 import com.serpider.service.megastream.util.Connection;
 import com.serpider.service.megastream.util.DataSave;
+import com.serpider.service.megastream.util.MessageBar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginFragment extends Fragment {
-
     FragmentLoginBinding mBinding;
     ApiInterFace requestSignup;
     private User user;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -68,8 +66,11 @@ public class LoginFragment extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_mainFragment);
             }
         });
-    }
 
+        mBinding.btnLoginWithGoogle.setOnClickListener(view1 -> {
+            Elements.Message(getActivity(), "امکان ورود با حساب گوگل نمی باشد", "SUCCESS");
+        });
+    }
     private void userLogin(View view) {
         requestSignup = ApiClinent.getApiClinent(getActivity(),ApiServer.urlData()).create(ApiInterFace.class);
 
@@ -81,14 +82,14 @@ public class LoginFragment extends Fragment {
         }else if (password.isEmpty() || password.length() < 8){
             Toast.makeText(getActivity(), "رمز عبور باید حداقل 8 کارکتر باشد", Toast.LENGTH_SHORT).show();
         }else {
-            requestSignup.getUserLogin(username, password).enqueue(new Callback<User>() {
+            requestSignup.userLogin(username, password).enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
                     user = response.body();
                     if (user.isSTATUS()){
                         Toast.makeText(getActivity(), user.getMESSAGE(), Toast.LENGTH_SHORT).show();
                         DataSave dataSave = new DataSave();
-                        dataSave.UserIdSave(getContext(), user.getUNIQUE_ID());
+                        dataSave.UserIdSave(getContext(), user.getId());
                         Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_mainFragment);
                     }else {
                         Toast.makeText(getActivity(), user.getMESSAGE(), Toast.LENGTH_SHORT).show();
@@ -113,17 +114,18 @@ public class LoginFragment extends Fragment {
         String userEmail = mBinding.edEmail.getText().toString().trim();
         String userPassword = mBinding.edPassword.getText().toString().trim();
 
-        requestSignup.getUserSignUp(userName, userNick, "0", userEmail, userPassword, "0").enqueue(new Callback<User>() {
+        requestSignup.userSignUp(userName, userNick, "0", userEmail, userPassword, "0", "127.0.0.1").enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                User user1 = response.body();
+                user = response.body();
 
-                if (user1.isSTATUS()) {
+                Toast.makeText(getContext(), user.getMESSAGE(), Toast.LENGTH_SHORT).show();
+
+               /* if (user1.isSTATUS()) {
                     Toast.makeText(getActivity(), user1.getMESSAGE(), Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(getActivity(), user1.getMESSAGE() , Toast.LENGTH_SHORT).show();
-                }
-                Toast.makeText(getActivity(), response.message(), Toast.LENGTH_SHORT).show();
+                }*/
 
             }
 
@@ -135,7 +137,6 @@ public class LoginFragment extends Fragment {
     }
 
     private void toggleForm(int form, boolean show) {
-
         Transition transition = new Slide(Gravity.BOTTOM);
         transition.setDuration(600);
         if (form == 1) {
@@ -149,7 +150,5 @@ public class LoginFragment extends Fragment {
             mBinding.formLogin.setVisibility(show ? View.VISIBLE : View.GONE);
             mBinding.formSignup.setVisibility(show ? View.GONE : View.VISIBLE);
         }
-
-
     }
 }

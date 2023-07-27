@@ -6,13 +6,18 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
 
 import com.google.android.material.button.MaterialButton;
 import com.serpider.service.megastream.R;
+import com.serpider.service.megastream.ui.NetworkFragment;
 
 public class Connection {
 
@@ -21,8 +26,12 @@ public class Connection {
         ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
         NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
         if (activeNetwork != null && activeNetwork.isConnected())
-            isConnected = true;
+             isConnected = true;
         return isConnected;
+    }
+
+    public void showView(View view, int idAction) {
+        Navigation.findNavController(view).navigate(idAction);
     }
 
     public Dialog showDialog(Context context) {

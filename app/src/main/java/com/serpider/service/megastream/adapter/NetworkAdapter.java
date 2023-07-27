@@ -38,19 +38,18 @@ public class NetworkAdapter extends RecyclerView.Adapter<NetworkAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull NetworkAdapter.MyViewHolder holder, int position) {
-        holder.txtTitle.setText(data.get(position).getNetwork_name());
-        Picasso.get().load(data.get(position).getNetwork_image()).into(holder.imgPoster);
+        holder.txtTitle.setText(data.get(position).getName());
+        Picasso.get().load(data.get(position).getVector()).into(holder.imgPoster);
 
         SharedPreferences sharedPreferences = context.getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         holder.itemView.setOnClickListener(view ->{
             Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_listUniqueFragment);
             editor.putString("GROUP_TYPE", "item_network");
-            editor.putString("GROUP_NAME", data.get(position).getNetwork_name());
-            editor.putString("GROUP_VECTOR", data.get(position).getNetwork_image());
+            editor.putString("GROUP_NAME", data.get(position).getName());
+            editor.putString("GROUP_VECTOR", data.get(position).getVector());
             editor.apply();
         });
-
     }
 
     @Override

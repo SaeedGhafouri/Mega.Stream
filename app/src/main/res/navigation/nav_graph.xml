@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_splashScreenFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_splashScreenFragment_to_networkFragment"
+            app:destination="@id/networkFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -28,6 +31,9 @@
         <action
             android:id="@+id/action_loginFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_networkFragment"
+            app:destination="@id/networkFragment" />
     </fragment>
     <fragment
         android:id="@+id/wellcomeFragment"
@@ -40,6 +46,9 @@
         <action
             android:id="@+id/action_wellcomeFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_wellcomeFragment_to_networkFragment"
+            app:destination="@id/networkFragment" />
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
@@ -67,6 +76,15 @@
         <action
             android:id="@+id/action_mainFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_networkFragment"
+            app:destination="@id/networkFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_infoUserFragment"
+            app:destination="@id/infoUserFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_webFragment2"
+            app:destination="@id/webFragment" />
     </fragment>
     <fragment
         android:id="@+id/listUniqueFragment"
@@ -79,7 +97,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.serpider.service.megastream.model.Network$SearchFragment"
+        android:name="com.serpider.service.megastream.ui.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" >
         <action
@@ -127,4 +145,9 @@
         android:name="com.serpider.service.megastream.ui.NetworkFragment"
         android:label="fragment_network"
         tools:layout="@layout/fragment_network" />
+    <fragment
+        android:id="@+id/infoUserFragment"
+        android:name="com.serpider.service.megastream.InfoUserFragment"
+        android:label="fragment_info_user"
+        tools:layout="@layout/fragment_info_user" />
 </navigation>

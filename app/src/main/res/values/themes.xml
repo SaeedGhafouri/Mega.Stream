@@ -47,6 +47,8 @@
         <item name="android:textColor">@color/theme_white_txt</item>
         <item name="android:textSize">@dimen/size_txt_30</item>
         <item name="android:fontFamily">@font/font_medium_fa</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:maxLines">1</item>
     </style>
 
     <!--Button Main-->

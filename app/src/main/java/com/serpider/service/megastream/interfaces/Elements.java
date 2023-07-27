@@ -2,6 +2,8 @@ package com.serpider.service.megastream.interfaces;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -15,6 +17,7 @@ import android.widget.VideoView;
 
 import androidx.fragment.app.FragmentActivity;
 
+import com.airbnb.lottie.animation.content.Content;
 import com.google.android.material.snackbar.Snackbar;
 import com.serpider.service.megastream.R;
 import com.squareup.picasso.Picasso;
@@ -75,16 +78,15 @@ public interface Elements {
         bgMsg = view.findViewById(R.id.snackBg);
 
         if (option.equals("SUCCESS")) {
-            bgMsg.setBackgroundColor(R.color.theme_success);
+            bgMsg.setBackgroundResource(R.color.theme_success);
             icoMsg.setImageResource(R.drawable.ic_close);
         }else if (option.equals("WARNING")){
-            bgMsg.setBackgroundColor(R.color.theme_warning);
+            bgMsg.setBackgroundResource(R.color.theme_warning);
             icoMsg.setImageResource(R.drawable.ic_close);
         } else if (option.equals("ERROR")) {
-            bgMsg.setBackgroundColor(R.color.theme_danger);
+            bgMsg.setBackgroundResource(R.color.theme_danger);
             icoMsg.setImageResource(R.drawable.ic_close);
         }
-
 
         return snackbar;
     }

@@ -9,11 +9,11 @@
     <item
         android:id="@+id/profile_desk"
         android:title="@string/profile"
-        android:icon="@drawable/selector_home" />
+        android:icon="@drawable/selector_profile" />
 
     <item
         android:id="@+id/category_desk"
         android:title="@string/category"
-        android:icon="@drawable/selector_home" />
+        android:icon="@drawable/selector_category" />
 
 </menu>

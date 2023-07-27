@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/theme_background_body"
+    android:paddingHorizontal="@dimen/size_padding_container"
+    android:paddingTop="@dimen/size_padding_30"
+    android:paddingBottom="@dimen/size_padding_40"
+    android:gravity="center_horizontal">
+
+    <View
+        style="@style/Theme.Original.Line.Sheet"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="@string/report_title"
+        android:fontFamily="@font/font_bold_fa"
+        android:textSize="@dimen/size_txt_40"
+        android:textColor="@color/theme_white_txt"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="@string/report_desc"
+        android:fontFamily="@font/font_regular_fa"
+        android:textSize="@dimen/size_txt_20"
+        android:textColor="@color/theme_gray_txt"/>
+
+    <!--Title-->
+    <EditText
+        android:id="@+id/edReportTitle"
+        style="@style/Theme.Original.EditText"
+        android:layout_marginTop="@dimen/size_padding_30"
+        android:hint="@string/report_ed_title" />
+
+    <!--Type-->
+    <EditText
+        android:id="@+id/edReportType"
+        style="@style/Theme.Original.EditText"
+        android:layout_marginTop="@dimen/size_padding_20"
+        android:hint="@string/report_ed_type" />
+
+    <!--Type-->
+    <EditText
+        android:id="@+id/edReportDesc"
+        style="@style/Theme.Original.EditText"
+        android:layout_height="150dp"
+        android:layout_marginTop="@dimen/size_padding_20"
+        android:hint="@string/report_ed_desc" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnPlay"
+        android:layout_marginTop="@dimen/size_padding_20"
+        style="@style/Theme.Original.Button"
+        android:text="@string/report_btn"/>
+
+
+</LinearLayout>

@@ -24,6 +24,7 @@ import com.serpider.service.megastream.api.ApiClinent;
 import com.serpider.service.megastream.api.ApiInterFace;
 import com.serpider.service.megastream.api.ApiServer;
 import com.serpider.service.megastream.databinding.FragmentSearchBinding;
+import com.serpider.service.megastream.interfaces.Elements;
 import com.serpider.service.megastream.model.Film;
 
 import java.util.ArrayList;
@@ -36,8 +37,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SearchFragment extends Fragment {
-    ApiInterFace requestSearch;
-    ItemAdapter itemAdapter;
+    private ApiInterFace requestSearch;
+    private ItemAdapter itemAdapter;
     List<Film> listSearch = new ArrayList<>();
     RecyclerView recyclerSearch;
     String name;
@@ -49,7 +50,6 @@ public class SearchFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -96,6 +96,11 @@ public class SearchFragment extends Fragment {
                 listSearch = response.body();
                 itemAdapter = new ItemAdapter(getActivity().getApplicationContext(), listSearch, "SEARCH");
                 recyclerSearch.setAdapter(itemAdapter);
+
+                if (itemAdapter.getItemCount() == 0) {
+                    mBinding.bodyEmpty.setVisibility(View.VISIBLE);
+                }
+
                 /*History*/
                 searchItems.add(name);
                 if (searchItems.size() > 10) {
@@ -108,7 +113,7 @@ public class SearchFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Film>> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                Elements.Message(getActivity(),"خطای سمت سرور", "ERROR");
             }
         });
 

@@ -47,6 +47,18 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
+                    <ImageView
+                        android:id="@+id/btnReport"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        style="@style/ShapeAppearance.Material3.Corner.Large"
+                        android:layout_marginStart="@dimen/size_padding_container"
+                        android:layout_marginTop="40dp"
+                        android:src="@drawable/ic_report"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/theme_white_fit" />
+
                     <LinearLayout
                         android:id="@+id/linearLayout2"
                         android:layout_width="match_parent"
@@ -259,35 +271,6 @@
 
                         <!--Archive-->
                         <LinearLayout
-                            android:id="@+id/btnArchive2"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <ToggleButton
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:textOn=""
-                                android:textOff=""
-                                android:background="@android:color/transparent"
-                                android:button="@drawable/selector_archive"/>
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/size_padding_20"
-                                android:fontFamily="@font/font_regular_fa"
-                                android:text="@string/archive"
-                                android:textAlignment="center"
-                                android:textColor="@color/theme_gray_txt"
-                                android:textSize="@dimen/size_txt_20" />
-
-                        </LinearLayout>
-
-                        <!--Archive-->
-                        <LinearLayout
                             android:id="@+id/btnArchive"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -389,6 +372,7 @@
                          />
 
                     <TextView
+                        android:id="@+id/titleDesc"
                         style="@style/Theme.Original.TextView.Mini"
                         android:text="@string/description" />
 

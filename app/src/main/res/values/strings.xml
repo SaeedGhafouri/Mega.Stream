@@ -73,7 +73,7 @@
 
     <!--Profile-->
     <string name="category">دسته بندی</string>
-    <string name="secrutiy_safe">امنیت و رمزعبور</string>
+    <string name="secrutiy_safe">اطلاعات حساب</string>
     <string name="support">پشتیبانی</string>
     <string name="roll">قوانین و مقررات</string>
     <string name="Identification">کد معرف</string>
@@ -111,7 +111,7 @@
 
     <!--Wellcome-->
     <string name="login_signup">ثبت نام یا ورود</string>
-    <string name="skip">Skip</string>
+    <string name="skip">الان نه</string>
 
     <!--Filter-->
     <string name="filter_title">فیلتر پیشرفته</string>
@@ -120,5 +120,30 @@
     <string name="filter_">ژانر</string>
     <string name="filter_submit">اعمال فیلتر</string>
     <string name="defult">پیشفرض</string>
+
+    <!--Report-->
+    <string name="report_title">گزارش مشکل</string>
+    <string name="report_desc">درصورت وجود مشکل در ارائه سرویس لطفا آن را با تیم پشتیبانی درمیان بگذارید</string>
+    <string name="report_ed_title">عنوان</string>
+    <string name="report_ed_type">نوع مشکل</string>
+    <string name="report_ed_desc">توضیح</string>
+    <string name="report_btn">ارسال</string>
+
+    <!--Info User-->
+    <string name="info">اطلاعات کاربری</string>
+    <string name="info_username">نام کاربری</string>
+    <string name="info_nick">اسم مستعار</string>
+    <string name="info_email">ایمیل</string>
+    <string name="info_phone">شمازه موبایل</string>
+    <string name="info_password">رمزعبور</string>
+    <string name="info_new_password">رمزعبور جدید</string>
+    <string name="info_edit">ویرایش</string>
+
+
+    <string name="support_caption">در هر لحظه کنارتان هستیم</string>
+    <string name="support_tel">تماس</string>
+    <string name="support_email">ایمیل</string>
+    <string name="support_telegram">تلگرام</string>
+    <string name="support_report">تیکت گزارش</string>
 
 </resources>

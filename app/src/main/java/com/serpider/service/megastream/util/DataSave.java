@@ -5,15 +5,15 @@ import android.content.SharedPreferences;
 
 public class DataSave {
 
-    public void UserIdSave(Context context, String unique) {
+    public void UserIdSave(Context context, int unique) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("USER_DETAILS", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("USER_UNIQUE", unique);
+        editor.putInt("USER_UNIQUE", unique);
         editor.apply();
     }
-    public String UserGetId(Context context) {
+    public int UserGetId(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("USER_DETAILS", Context.MODE_PRIVATE);
-        return sharedPreferences.getString("USER_UNIQUE", "");
+        return sharedPreferences.getInt("USER_UNIQUE", 0);
     }
 
 }
