@@ -113,7 +113,7 @@ public class SearchFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Film>> call, Throwable t) {
-                Elements.Message(getActivity(),"خطای سمت سرور", "ERROR");
+
             }
         });
 

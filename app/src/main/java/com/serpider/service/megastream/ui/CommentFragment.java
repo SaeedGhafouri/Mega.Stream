@@ -72,11 +72,6 @@ public class CommentFragment extends Fragment {
             @Override
             public void onResponse(Call<CommentPOJO> call, Response<CommentPOJO> response) {
                 CommentPOJO result = response.body();
-                if (result.isSTATUS()){
-                    Toast.makeText(getActivity(), result.getMESSAGE(), Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(getActivity(), result.getMESSAGE(), Toast.LENGTH_SHORT).show();
-                }
             }
 
             @Override
@@ -106,7 +101,6 @@ public class CommentFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Comment>> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 

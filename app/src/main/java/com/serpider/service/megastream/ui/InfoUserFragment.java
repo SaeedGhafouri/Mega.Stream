@@ -1,4 +1,4 @@
-package com.serpider.service.megastream;
+package com.serpider.service.megastream.ui;
 
 import android.os.Bundle;
 
@@ -16,6 +16,7 @@ import com.serpider.service.megastream.api.ApiInterFace;
 import com.serpider.service.megastream.api.ApiServer;
 import com.serpider.service.megastream.databinding.FragmentInfoUserBinding;
 import com.serpider.service.megastream.interfaces.Elements;
+import com.serpider.service.megastream.interfaces.Key;
 import com.serpider.service.megastream.model.User;
 import com.serpider.service.megastream.util.DataSave;
 import com.squareup.picasso.Picasso;
@@ -46,36 +47,32 @@ public class InfoUserFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         loadUserInfo();
-
     }
 
     private void loadUserInfo() {
 
-        requestUser = ApiClinent.getApiClinent(getActivity(), ApiServer.urlData()).create(ApiInterFace.class);
+        requestUser = ApiClinent.getApiClinent(getActivity(), Key.BASE_URL).create(ApiInterFace.class);
 
-        requestUser.getUser(dataSave.UserGetId(getContext())).enqueue(new Callback<User>() {
+        requestUser.getUserInfo(dataSave.UserGetId(getContext())).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 User user = response.body();
                 if (user.isSTATUS()){
                     Toast.makeText(getActivity(), user.getMESSAGE(), Toast.LENGTH_SHORT).show();
-                    Elements.Message(getActivity(),user.getMESSAGE(), "SUCCESS");
-                    mBinding.edInfoUsername.setText(user.getUser_name());
+                    mBinding.edInfoUsername.setText(user.getUsername());
                     mBinding.edInfoEmail.setText(user.getEmail());
                     mBinding.edInfoNickName.setText(user.getNickname());
                     Picasso.get().load(user.getProfile()).into(mBinding.imgVector);
+                    Toast.makeText(getContext(), user.getProfile(), Toast.LENGTH_SHORT).show();
                     mBinding.imgVector.setOnClickListener(view -> Elements.DialogPreImage(getActivity(), user.getProfile()));
 
                 }else {
-                    Elements.Message(getActivity(),user.getMESSAGE(), "ERROR");
                 }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                Elements.Message(getActivity(),"خطای سمت سرور", "ERROR");
             }
         });
     }

@@ -38,6 +38,9 @@ import com.serpider.service.megastream.model.Network;
 import com.serpider.service.megastream.model.Ads;
 import com.serpider.service.megastream.ui.dialog.FilterFragment;
 import com.serpider.service.megastream.util.DataSave;
+import com.serpider.service.megastream.util.Loader;
+import com.serpider.service.megastream.util.SnackBoard;
+
 import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Call;
@@ -65,6 +68,7 @@ public class HomeFragment extends Fragment {
 
     ApiInterFace requestAllFilm, requestCountry, requestSlider, requestGenre, requestNetwork;
 
+    private Loader loader;
     /*Animation Slider*/
     private Runnable runnable = null;
     public Handler handler = new Handler();
@@ -85,183 +89,45 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        loader = Loader.getInstance(getActivity());
+        loader.show();
 
         /*loadCountry();
         loadNetwork();
         loadSlider();
         loadAllItem();
         loadLimitList();*/
-
         loadGenres();
         loadCountrys();
         loadNetworks();
         loadAds();
+        loadSuggested("item_genre", "پیشنهاد سردبیر");
 
-        mBinding.logoMain.setOnClickListener(view1 -> dialogFilter());
+       // mBinding.logoMain.setOnClickListener(view1 -> dialogFilter());
+        mBinding.logoMain.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_mainFragment_to_detailsFragment));
 
         DataSave dataSave = new DataSave();
-        Toast.makeText(getActivity(), "Id: " + dataSave.UserGetId(getContext()), Toast.LENGTH_SHORT).show();
 
         mBinding.btnHomeSearch.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_mainFragment_to_searchFragment));
+
+        mBinding.btnFilter.setOnClickListener(view1 -> dialogFilter());
+
     }
-
-
-
     /*BUG*/
-    private void dialogFilter() {
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        FilterFragment filterFragment = new FilterFragment();
-
-        filterFragment.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
-
-        transaction.add(android.R.id.content, filterFragment)
-                .addToBackStack(null)
-                .commit();
-        filterFragment.show(transaction, "dialog");
-    }
-
-    private void loadNetwork() {
-
-        requestNetwork = ApiClinent.getApiClinent(getActivity(),ApiServer.urlData()).create(ApiInterFace.class);
-        recyclerNetwork = mBinding.recyclerNetwork;
-        recyclerNetwork.setHasFixedSize(true);
-        GridLayoutManager layoutManager =
-                new GridLayoutManager(getActivity(), 1, GridLayoutManager.HORIZONTAL, false);
-        recyclerNetwork.setLayoutManager(layoutManager);
-        requestNetwork.getNetwork().enqueue(new Callback<List<Network>>() {
-            @Override
-            public void onResponse(Call<List<Network>> call, Response<List<Network>> response) {
-                listNetwork = response.body();
-                networkAdapter = new NetworkAdapter(getContext(), listNetwork);
-                recyclerNetwork.setAdapter(networkAdapter);
-            }
-            @Override
-            public void onFailure(Call<List<Network>> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+    public void dialogFilter() {
+        FilterFragment dialogFragment = new FilterFragment();
+        dialogFragment.show(getActivity().getSupportFragmentManager(), "dialog_fragment_tag");
 
     }
 
-    private void loadGenre2() {
-
-        requestGenre = ApiClinent.getApiClinent(getActivity(),ApiServer.urlData()).create(ApiInterFace.class);
-        recyclerGenre = mBinding.recyclerGenre;
-        recyclerGenre.setHasFixedSize(true);
-        GridLayoutManager layoutManager =
-                new GridLayoutManager(getActivity(), 1, GridLayoutManager.HORIZONTAL, false);
-        recyclerGenre.setLayoutManager(layoutManager);
-        requestGenre.getGenre().enqueue(new Callback<List<Genre>>() {
-            @Override
-            public void onResponse(Call<List<Genre>> call, Response<List<Genre>> response) {
-                listGenre = response.body();
-                genreAdapter = new GenreAdapter(getActivity() , listGenre, getActivity());
-                recyclerGenre.setAdapter(genreAdapter);
-            }
-            @Override
-            public void onFailure(Call<List<Genre>> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
-
-    /*Get All Country*/
-    private void loadCountry() {
-
-        requestCountry = ApiClinent.getApiClinent(getActivity(),ApiServer.urlData()).create(ApiInterFace.class);
-        recyclerCountry = mBinding.recyclerCountry;
-        recyclerCountry.setHasFixedSize(true);
-        GridLayoutManager layoutManager =
-                new GridLayoutManager(getActivity(), 1, GridLayoutManager.HORIZONTAL, false);
-        recyclerCountry.setLayoutManager(layoutManager);
-        requestCountry.getCountry().enqueue(new Callback<List<Country>>() {
-            @Override
-            public void onResponse(Call<List<Country>> call, Response<List<Country>> response) {
-                listCountry = response.body();
-                gropingAdapter = new GropingAdapter(getActivity().getApplicationContext(), listCountry);
-                recyclerCountry.setAdapter(gropingAdapter);
-            }
-            @Override
-            public void onFailure(Call<List<Country>> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
-    /*Get All Item List*/
-    /*private void loadAllItem() {
-        requestAllFilm = ApiClinent.getApiClinent(getActivity(),ApiServer.urlData()).create(ApiInterFace.class);
-        recyclerFilm = mBinding.recyclerItem;
-        recyclerFilm.setHasFixedSize(true);
-        GridLayoutManager layoutManager =
-                new GridLayoutManager(getActivity(), 3, GridLayoutManager.VERTICAL, false);
-        recyclerFilm.setLayoutManager(layoutManager);
-        requestAllFilm.getAllFilm().enqueue(new Callback<List<Film>>() {
-            @Override
-            public void onResponse(Call<List<Film>> call, Response<List<Film>> response) {
-                listAllFilm = response.body();
-                itemAdapter = new ItemAdapter(getActivity().getApplicationContext(), listAllFilm, "HOME");
-                recyclerFilm.setAdapter(itemAdapter);
-                int itemSize = listAllFilm.size();
-                int subSize = (int) (itemSize * 1.8);
-                if (!listAllFilm.isEmpty()) {
-                    mBinding.numberAllItem.setText(String.valueOf(subSize));
-                }
-            }
-            @Override
-            public void onFailure(Call<List<Film>> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-
-        });
-    }*/
-    private void loadSlider() {
-        requestSlider = ApiClinent.getApiClinent(getActivity(),ApiServer.urlData()).create(ApiInterFace.class);
-        viewPager = mBinding.sliderMain;
-        requestSlider.getSlider().enqueue(new Callback<List<Ads>>() {
-            @Override
-            public void onResponse(Call<List<Ads>> call, Response<List<Ads>> response) {
-                adsList = response.body();
-                sliderAdapter = new SliderAdapter(getContext(), getActivity().getLayoutInflater(), adsList, getActivity());
-                viewPager.setAdapter(sliderAdapter);
-                mBinding.indicatorSlider.setViewPager(viewPager);
-                sliderAdapter.registerDataSetObserver(mBinding.indicatorSlider.getDataSetObserver());
-            }
-            @Override
-            public void onFailure(Call<List<Ads>> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-        //startAutoSlider(sliderAdapter.getCount());
-
-    }
-    private void startAutoSlider(final int count) {
-        runnable = new Runnable() {
-            @Override
-            public void run() {
-                int pos = viewPager.getCurrentItem();
-                pos = pos + 1;
-                if (pos >= count) pos = 0;
-                viewPager.setCurrentItem(pos);
-                handler.postDelayed(runnable, 3000);
-            }
-        };
-        handler.postDelayed(runnable, 6000);
-    }
-    private void loadLimitList() {
-        loadSuggested("اکشن", "item_genre");
-        loadSerial("Serial", "item_type");
-    }
-    private void loadSuggested(String name, String query) {
-        requestSuggested = ApiClinent.getApiClinent(getActivity(),ApiServer.urlData()).create(ApiInterFace.class);
+    private void loadSuggested(String query, String name) {
+        requestSuggested = ApiClinent.getApiClinent(getActivity(),Key.BASE_URL).create(ApiInterFace.class);
         recyclerSuggested = mBinding.recyclerSuggested;
         recyclerSuggested.setHasFixedSize(true);
         GridLayoutManager layoutManager =
                 new GridLayoutManager(getActivity(), 1, GridLayoutManager.HORIZONTAL, false);
         recyclerSuggested.setLayoutManager(layoutManager);
-        requestSuggested.getItemGroupLimit(name, query).enqueue(new Callback<List<Film>>() {
+        requestSuggested.getItem(query, name, 0).enqueue(new Callback<List<Film>>() {
             @Override
             public void onResponse(Call<List<Film>> call, Response<List<Film>> response) {
                 listSuggested = response.body();
@@ -271,7 +137,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Film>> call, Throwable t) {
-                Toast.makeText(getActivity(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -302,7 +168,6 @@ public class HomeFragment extends Fragment {
             }
             @Override
             public void onFailure(Call<List<Film>> call, Throwable t) {
-                Toast.makeText(getActivity(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -336,11 +201,13 @@ public class HomeFragment extends Fragment {
                 listGenre = response.body();
                 genreAdapter = new GenreAdapter(getActivity() , listGenre, getActivity());
                 recyclerGenre.setAdapter(genreAdapter);
+                loader.close();
+
             }
 
             @Override
             public void onFailure(Call<List<Genre>> call, Throwable t) {
-                Toast.makeText(getActivity(), "Error Genre: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                SnackBoard.show(getActivity(),"خطای سمت سرور", 0);
             }
         });
 
@@ -358,6 +225,7 @@ public class HomeFragment extends Fragment {
                 listCountry = response.body();
                 gropingAdapter = new GropingAdapter(getActivity().getApplicationContext(), listCountry);
                 recyclerCountry.setAdapter(gropingAdapter);
+
             }
 
             @Override
@@ -382,7 +250,6 @@ public class HomeFragment extends Fragment {
             }
             @Override
             public void onFailure(Call<List<Network>> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -400,7 +267,6 @@ public class HomeFragment extends Fragment {
             }
             @Override
             public void onFailure(Call<List<Ads>> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

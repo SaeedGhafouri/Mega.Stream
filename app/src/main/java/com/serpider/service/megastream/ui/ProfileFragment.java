@@ -24,6 +24,7 @@ import com.serpider.service.megastream.interfaces.Elements;
 import com.serpider.service.megastream.interfaces.Key;
 import com.serpider.service.megastream.model.User;
 import com.serpider.service.megastream.util.DataSave;
+import com.serpider.service.megastream.util.SnackBoard;
 import com.squareup.picasso.Picasso;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -83,17 +84,17 @@ public class ProfileFragment extends Fragment {
             public void onResponse(Call<User> call, Response<User> response) {
                 User user = response.body();
                 if (user.isSTATUS()){
-                    Toast.makeText(getActivity(), user.getMESSAGE(), Toast.LENGTH_SHORT).show();
-                    mBinding.txtUsername.setText(user.getUser_name());
-                    /*if (user.getUser_nickname().isEmpty()) {
+                    SnackBoard.show(getActivity(),"اطلاعات دریافت شد", 1);
+                    mBinding.txtUsername.setText(user.getUsername());
+                    if (user.getNickname().isEmpty()) {
                         mBinding.txtNickName.setVisibility(View.GONE);
                     }else {
-                        mBinding.txtNickName.setText(user.getUser_nickname());
-                    }*/
+                        mBinding.txtNickName.setText(user.getNickname());
+                    }
                     mBinding.txtEmail.setText(user.getEmail());
                     Picasso.get().load(user.getProfile()).into(mBinding.imgVector);
                     mBinding.imgVector.setOnClickListener(view -> Elements.DialogPreImage(getActivity(), user.getProfile()));
-                    Toast.makeText(getContext(), String.valueOf(user.getStatus()), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), user.getProfile(), Toast.LENGTH_SHORT).show();
                     if (user.getStatus() == 0){
                         mBinding.bodyProEmailApproval.setVisibility(View.VISIBLE);
                         mBinding.bodyProClub.setVisibility(View.GONE);

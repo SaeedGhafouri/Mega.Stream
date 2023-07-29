@@ -50,11 +50,11 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         Picasso.get().load(favorites.getPoster_item()).into(holder.imgPoster);
 
         holder.itemView.setOnClickListener(view -> {
-            String item_unique = favorites.getUnique_item();
+            int item_unique = favorites.getId();
             if (new Connection().isNetwork(context)) {
                 SharedPreferences sharedPreferences = view.getContext().getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("ID_ITEM", item_unique);
+                editor.putString("ID_ITEM", String.valueOf(item_unique));
                 editor.apply();
                 Navigation.findNavController(view).navigate(R.id.action_favoritesFragment_to_detailsFragment);
             }else {
@@ -63,7 +63,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         });
 
         /*Delete*/
-        holder.btnDelete.setOnClickListener(view -> deleteItem(favorites.getUnique_item()));
+        holder.btnDelete.setOnClickListener(view -> deleteItem(String.valueOf(favorites.getId())));
 
     }
 

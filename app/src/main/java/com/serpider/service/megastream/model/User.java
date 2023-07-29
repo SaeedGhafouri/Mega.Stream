@@ -17,14 +17,14 @@ public class User {
 
     /*User Model*/
     private int id, status;
-    private String user_name ,nickname , password, password_2fa, profile, phone, email, mac_address, role, join_date;
+    private String username ,nickname , password, password_2fa, profile, phone, email, mac_address, role, join_date;
 
     public int getId() {
         return id;
     }
 
-    public String getUser_name() {
-        return user_name;
+    public String getUsername() {
+        return username;
     }
 
     public String getNickname() {

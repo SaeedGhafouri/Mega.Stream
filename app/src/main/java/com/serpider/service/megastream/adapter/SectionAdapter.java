@@ -5,8 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -105,7 +103,6 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.MyViewHo
             }
             @Override
             public void onFailure(Call<List<Serial_Play>> call, Throwable t) {
-                Toast.makeText(activity, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

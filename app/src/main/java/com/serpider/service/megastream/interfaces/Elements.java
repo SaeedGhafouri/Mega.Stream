@@ -59,36 +59,5 @@ public interface Elements {
         return dialog;
     }
 
-    @SuppressLint({"MissingInflatedId", "ResourceAsColor"})
-    static Snackbar Message(FragmentActivity activity, String messgae, String option){
-        final Snackbar snackbar = Snackbar.make(activity.findViewById(R.id.content), "", Snackbar.LENGTH_SHORT);
-        View view = activity.getLayoutInflater().inflate(R.layout.snack_message, null);
-        snackbar.getView().setBackgroundColor(Color.TRANSPARENT);
-        Snackbar.SnackbarLayout snackbarLayout = (Snackbar.SnackbarLayout) snackbar.getView();
-        snackbarLayout.setPadding(0,0,0,0);
-        snackbarLayout.addView(view,0);
-        snackbar.show();
-
-        TextView txtMsg;
-        ImageView icoMsg;
-        LinearLayout bgMsg;
-        txtMsg = view.findViewById(R.id.snackText);
-        txtMsg.setText(messgae);
-        icoMsg = view.findViewById(R.id.snackIcon);
-        bgMsg = view.findViewById(R.id.snackBg);
-
-        if (option.equals("SUCCESS")) {
-            bgMsg.setBackgroundResource(R.color.theme_success);
-            icoMsg.setImageResource(R.drawable.ic_close);
-        }else if (option.equals("WARNING")){
-            bgMsg.setBackgroundResource(R.color.theme_warning);
-            icoMsg.setImageResource(R.drawable.ic_close);
-        } else if (option.equals("ERROR")) {
-            bgMsg.setBackgroundResource(R.color.theme_danger);
-            icoMsg.setImageResource(R.drawable.ic_close);
-        }
-
-        return snackbar;
-    }
 
 }

@@ -115,9 +115,14 @@
 
     <!--Filter-->
     <string name="filter_title">فیلتر پیشرفته</string>
-    <string name="filter_type">نوع آیتم</string>
+    <string name="filter_type">نوع</string>
     <string name="filter_genre">ژانر</string>
-    <string name="filter_">ژانر</string>
+    <string name="filter_country">کشور</string>
+    <string name="filter_network">شبکه</string>
+    <string name="filter_year">سال ساخت</string>
+    <string name="filter_age">محدوده سنی</string>
+    <string name="filter_Langueg">زبان</string>
+    <string name="filter_imdb">امتیاز</string>
     <string name="filter_submit">اعمال فیلتر</string>
     <string name="defult">پیشفرض</string>
 

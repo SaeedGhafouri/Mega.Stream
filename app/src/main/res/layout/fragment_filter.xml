@@ -102,19 +102,23 @@
                             android:textColor="@color/theme_gray_txt"/>
 
                         <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="17dp"
+                            android:layout_height="17dp"
                             android:layout_marginStart="5dp"
-                            android:src="@drawable/ic_refresh"
+                            android:src="@drawable/ic_genre"
                             app:tint="@color/theme_gray_txt"/>
 
                     </LinearLayout>
 
-                    <androidx.appcompat.widget.AppCompatSpinner
+                    <Spinner
+                        android:id="@+id/spinnerGenre"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_marginTop="@dimen/size_padding_10"
-                        android:background="@drawable/shape_body" />
+                        android:layout_height="wrap_content"
+                        android:spinnerMode="dropdown"
+                        android:background="@android:color/transparent"
+                        android:popupBackground="@color/theme_background_body"
+                        tools:listitem="@layout/dropdown_menu_popup_item"
+                        android:layout_marginTop="@dimen/size_padding_10" />
 
                 </LinearLayout>
 
@@ -145,19 +149,23 @@
                             android:textColor="@color/theme_gray_txt"/>
 
                         <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="17dp"
+                            android:layout_height="17dp"
                             android:layout_marginStart="5dp"
-                            android:src="@drawable/ic_refresh"
+                            android:src="@drawable/ic_film"
                             app:tint="@color/theme_gray_txt"/>
 
                     </LinearLayout>
 
-                    <androidx.appcompat.widget.AppCompatSpinner
+                    <Spinner
+                        android:id="@+id/spinnerType"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_marginTop="@dimen/size_padding_10"
-                        android:background="@drawable/shape_body" />
+                        android:layout_height="wrap_content"
+                        android:spinnerMode="dropdown"
+                        android:background="@android:color/transparent"
+                        android:popupBackground="@color/theme_background_body"
+                        tools:listitem="@layout/dropdown_menu_popup_item"
+                        android:layout_marginTop="@dimen/size_padding_10" />
 
                 </LinearLayout>
 
@@ -187,25 +195,29 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/filter_genre"
+                            android:text="@string/filter_network"
                             android:textSize="@dimen/size_txt_20"
                             android:fontFamily="@font/font_regular_fa"
                             android:textColor="@color/theme_gray_txt"/>
 
                         <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="17dp"
+                            android:layout_height="17dp"
                             android:layout_marginStart="5dp"
-                            android:src="@drawable/ic_refresh"
+                            android:src="@drawable/ic_network"
                             app:tint="@color/theme_gray_txt"/>
 
                     </LinearLayout>
 
-                    <androidx.appcompat.widget.AppCompatSpinner
+                    <Spinner
+                        android:id="@+id/spinnerNetwork"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_marginTop="@dimen/size_padding_10"
-                        android:background="@drawable/shape_body" />
+                        android:layout_height="wrap_content"
+                        android:spinnerMode="dropdown"
+                        android:background="@android:color/transparent"
+                        android:popupBackground="@color/theme_background_body"
+                        tools:listitem="@layout/dropdown_menu_popup_item"
+                        android:layout_marginTop="@dimen/size_padding_10" />
 
                 </LinearLayout>
 
@@ -230,25 +242,29 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/filter_type"
+                            android:text="@string/filter_country"
                             android:fontFamily="@font/font_regular_fa"
                             android:textSize="@dimen/size_txt_20"
                             android:textColor="@color/theme_gray_txt"/>
 
                         <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="17dp"
+                            android:layout_height="17dp"
                             android:layout_marginStart="5dp"
-                            android:src="@drawable/ic_refresh"
+                            android:src="@drawable/ic_country"
                             app:tint="@color/theme_gray_txt"/>
 
                     </LinearLayout>
 
-                    <androidx.appcompat.widget.AppCompatSpinner
+                    <Spinner
+                        android:id="@+id/spinnerCountry"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_marginTop="@dimen/size_padding_10"
-                        android:background="@drawable/shape_body" />
+                        android:layout_height="wrap_content"
+                        android:spinnerMode="dropdown"
+                        android:background="@android:color/transparent"
+                        android:popupBackground="@color/theme_background_body"
+                        tools:listitem="@layout/dropdown_menu_popup_item"
+                        android:layout_marginTop="@dimen/size_padding_10" />
 
                 </LinearLayout>
 
@@ -278,7 +294,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/filter_genre"
+                            android:text="@string/filter_imdb"
                             android:textSize="@dimen/size_txt_20"
                             android:fontFamily="@font/font_regular_fa"
                             android:textColor="@color/theme_gray_txt"/>
@@ -287,16 +303,21 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_marginStart="5dp"
-                            android:src="@drawable/ic_refresh"
+                            android:src="@drawable/ic_imdb_put"
                             app:tint="@color/theme_gray_txt"/>
 
                     </LinearLayout>
 
-                    <androidx.appcompat.widget.AppCompatSpinner
+                    <Spinner
+                        android:id="@+id/spinnerImdb"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_marginTop="@dimen/size_padding_10"
-                        android:background="@drawable/shape_body" />
+                        android:layout_height="wrap_content"
+                        android:spinnerMode="dropdown"
+                        android:background="@android:color/transparent"
+                        android:popupBackground="@color/theme_background_body"
+                        tools:listitem="@layout/dropdown_menu_popup_item"
+                        android:layout_marginTop="@dimen/size_padding_10" />
+
 
                 </LinearLayout>
 
@@ -321,25 +342,30 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/filter_type"
+                            android:text="@string/filter_year"
                             android:fontFamily="@font/font_regular_fa"
                             android:textSize="@dimen/size_txt_20"
                             android:textColor="@color/theme_gray_txt"/>
 
                         <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="17dp"
+                            android:layout_height="17dp"
                             android:layout_marginStart="5dp"
-                            android:src="@drawable/ic_refresh"
+                            android:src="@drawable/ic_date"
                             app:tint="@color/theme_gray_txt"/>
 
                     </LinearLayout>
 
-                    <androidx.appcompat.widget.AppCompatSpinner
+                    <Spinner
+                        android:id="@+id/spinnerYear"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_marginTop="@dimen/size_padding_10"
-                        android:background="@drawable/shape_body" />
+                        android:layout_height="wrap_content"
+                        android:spinnerMode="dropdown"
+                        android:background="@android:color/transparent"
+                        android:popupBackground="@color/theme_background_body"
+                        tools:listitem="@layout/dropdown_menu_popup_item"
+                        android:layout_marginTop="@dimen/size_padding_10" />
+
 
                 </LinearLayout>
 
@@ -369,25 +395,30 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/filter_genre"
+                            android:text="@string/filter_Langueg"
                             android:textSize="@dimen/size_txt_20"
                             android:fontFamily="@font/font_regular_fa"
                             android:textColor="@color/theme_gray_txt"/>
 
                         <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="17dp"
+                            android:layout_height="17dp"
                             android:layout_marginStart="5dp"
-                            android:src="@drawable/ic_refresh"
+                            android:src="@drawable/ic_translate"
                             app:tint="@color/theme_gray_txt"/>
 
                     </LinearLayout>
 
-                    <androidx.appcompat.widget.AppCompatSpinner
+                    <Spinner
+                        android:id="@+id/spinnerLangueg"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_marginTop="@dimen/size_padding_10"
-                        android:background="@drawable/shape_body" />
+                        android:layout_height="wrap_content"
+                        android:spinnerMode="dropdown"
+                        android:background="@android:color/transparent"
+                        android:popupBackground="@color/theme_background_body"
+                        tools:listitem="@layout/dropdown_menu_popup_item"
+                        android:layout_marginTop="@dimen/size_padding_10" />
+
 
                 </LinearLayout>
 
@@ -412,31 +443,37 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/filter_type"
+                            android:text="@string/filter_age"
                             android:fontFamily="@font/font_regular_fa"
                             android:textSize="@dimen/size_txt_20"
                             android:textColor="@color/theme_gray_txt"/>
 
                         <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="17dp"
+                            android:layout_height="17dp"
                             android:layout_marginStart="5dp"
-                            android:src="@drawable/ic_refresh"
+                            android:src="@drawable/ic_ages"
                             app:tint="@color/theme_gray_txt"/>
 
                     </LinearLayout>
 
-                    <androidx.appcompat.widget.AppCompatSpinner
+                    <Spinner
+                        android:id="@+id/spinnerAge"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_marginTop="@dimen/size_padding_10"
-                        android:background="@drawable/shape_body" />
+                        android:layout_height="wrap_content"
+                        android:spinnerMode="dropdown"
+                        android:background="@android:color/transparent"
+                        android:popupBackground="@color/theme_background_body"
+                        tools:listitem="@layout/dropdown_menu_popup_item"
+                        android:layout_marginTop="@dimen/size_padding_10" />
+
 
                 </LinearLayout>
 
             </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSubmit"
                 style="@style/Theme.Original.Button"
                 android:layout_marginTop="@dimen/size_padding_40"
                 android:text="@string/filter_submit"/>

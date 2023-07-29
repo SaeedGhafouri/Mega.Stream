@@ -14,13 +14,11 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
@@ -37,9 +35,7 @@ import com.serpider.service.megastream.adapter.GropingAdapter;
 import com.serpider.service.megastream.adapter.QualityAdapter;
 import com.serpider.service.megastream.adapter.QualitySerialAdapter;
 import com.serpider.service.megastream.adapter.SeasonAdapter;
-import com.serpider.service.megastream.database.Database;
 import com.serpider.service.megastream.database.DatabaseClient;
-import com.serpider.service.megastream.database.FavoritesDao;
 import com.serpider.service.megastream.model.Favorites;
 import com.serpider.service.megastream.model.Season;
 import com.serpider.service.megastream.api.ApiClinent;
@@ -88,7 +84,7 @@ public class DetailsFragment extends Fragment {
         /*Test Code*/
         btnPlay = getActivity().findViewById(R.id.btnPlay);
         mBinding.btnComment.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_detailsFragment_to_commentFragment));
-       /*Triler*/
+        /*Triler*/
         mBinding.btnTriler.setOnClickListener(view1 -> Elements.DialogVideoPlayer(getActivity(),urlTriler));
 
         Uri data = getActivity().getIntent().getData();
@@ -103,20 +99,18 @@ public class DetailsFragment extends Fragment {
             }
         }
 
-        mBinding.btnReport.setOnClickListener(view1 -> ProfileFragment.sheetReport(getActivity()));
-
     }
-
     private void loadData() {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
         idUnique = sharedPreferences.getString("ID_ITEM", "0");
         requestFilm = ApiClinent.getApiClinent(getActivity(),ApiServer.urlData()).create(ApiInterFace.class);
 
-        requestFilm.getFilmById(idUnique).enqueue(new Callback<Film>() {
+        requestFilm.getItemByItem(idUnique).enqueue(new Callback<Film>() {
             @Override
             public void onResponse(Call<Film> call, Response<Film> response) {
                 Film film = response.body();
                 if(film != null){
+                    Toast.makeText(getContext(), idUnique, Toast.LENGTH_SHORT).show();
                     mBinding.itemTitle.setText(film.getItem_title_en());
                     mBinding.itemTitleFa.setText(film.getItem_title_fa());
                     mBinding.itemYear.setText(film.getItem_year());
@@ -124,11 +118,8 @@ public class DetailsFragment extends Fragment {
                     mBinding.itemTime.setText(film.getItem_time());
                     mBinding.itemAge.setText(film.getItem_ages());
                     mBinding.itemImdb.setText(film.getItem_imdb());
-                    mBinding.itemSynopsis.setText(film.getItem_synopsis());
-                    mBinding.itemDesc.setText(film.getItem_desc());
-                    if (film.getItem_desc().trim().isEmpty()){
-                        mBinding.titleDesc.setVisibility(View.GONE);
-                    }
+                    /*mBinding.itemSynopsis.setText(film.getItem_synopsis());
+                    mBinding.itemDesc.setText(film.getItem_desc());*/
                     urlTriler= film.getItem_trailer();
                     Picasso.get().load(film.getItem_poster()).into(mBinding.itemPoster);
                     Picasso.get().load(film.getItem_header()).into(mBinding.itemHeader);
@@ -213,6 +204,7 @@ public class DetailsFragment extends Fragment {
         });
 
     }
+
     private void serialModePlay(String idSerial) {
         btnPlay.setVisibility(View.GONE);
         btnPlay.setEnabled(false);
@@ -239,6 +231,7 @@ public class DetailsFragment extends Fragment {
         });
 
     }
+
     private void insertFavorites(String id ,String title, String country, String year, String poster) {
         class SaveFavorites extends AsyncTask<Void, Void, Void> {
             @Override
@@ -258,7 +251,6 @@ public class DetailsFragment extends Fragment {
         }
         SaveFavorites saveFavorites = new SaveFavorites();
         saveFavorites.execute();
-        Elements.Message(getActivity(), "آیتم با موفقیت آرشیو شد", "SUCCESS");
-    }
 
+    }
 }

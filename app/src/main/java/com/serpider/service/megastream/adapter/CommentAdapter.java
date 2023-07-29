@@ -8,8 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
@@ -24,6 +22,7 @@ import com.serpider.service.megastream.api.ApiServer;
 import com.serpider.service.megastream.interfaces.Elements;
 import com.serpider.service.megastream.model.Comment;
 import com.serpider.service.megastream.model.Network;
+import com.serpider.service.megastream.util.SnackBoard;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -116,7 +115,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
 
             @Override
             public void onFailure(Call<List<Replay>> call, Throwable t) {
-                Toast.makeText(new FragmentActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                SnackBoard.show(activity,"خطای سمت سرور", 0);
             }
         });
 

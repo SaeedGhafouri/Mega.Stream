@@ -168,4 +168,18 @@ public interface ApiInterFace {
             @Field("USER_PASSWORD") String password
     );
 
+    @FormUrlEncoded
+    @POST("getItem/")
+    Call<List<Film>> getItem(
+            @Field("ITEM_GROUP") String group,
+            @Field("ITEM_NAME") String name,
+            @Field("ITEM_LENGTH") int length
+    );
+
+    @FormUrlEncoded
+    @POST("getItemById/")
+    Call<Film> getItemByItem(
+            @Field("ITEM_ID") String id
+    );
+
 }

@@ -49,7 +49,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
 
         holder.itemView.setOnClickListener(view -> {
 
-            String item_unique = data.get(position).getItem_unique();
+            String item_unique = data.get(position).getItem_id();
             SharedPreferences sharedPreferences = view.getContext().getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("ID_ITEM", item_unique);

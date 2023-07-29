@@ -19,6 +19,7 @@ import com.serpider.service.megastream.databinding.FragmentDonateBinding;
 import com.serpider.service.megastream.model.Donate;
 import com.serpider.service.megastream.model.Result;
 import com.serpider.service.megastream.model.User;
+import com.serpider.service.megastream.util.SnackBoard;
 import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
@@ -30,7 +31,6 @@ public class DonateFragment extends Fragment {
     private Donate donate;
     private String Price;
     FragmentDonateBinding mBinding;
-    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,9 +48,7 @@ public class DonateFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         loadDonate();
-
 
     }
 
@@ -68,10 +66,10 @@ public class DonateFragment extends Fragment {
                     mBinding.descDonate.setText(donate.getDonate_desc());
                     Picasso.get().load(donate.getDonate_image()).into(mBinding.bannerDonate);
 
-                    runPsyment();
+                    runPeyment();
 
                 }else {
-                    Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+                    SnackBoard.show(getActivity(),"دونیتی برای حمایت وجود ندارد", 0);
                 }
             }
             @Override
@@ -82,7 +80,7 @@ public class DonateFragment extends Fragment {
 
     }
 
-    private void runPsyment() {
+    private void runPeyment() {
 
         mBinding.btnPayment.setEnabled(true);
         mBinding.btnPayment.setOnClickListener(view -> {
@@ -95,12 +93,10 @@ public class DonateFragment extends Fragment {
 
                 switch (id) {
                     case R.id.price10:
-                        Toast.makeText(getActivity(), "ده هزار تومان", Toast.LENGTH_SHORT).show();
+                        SnackBoard.show(getActivity(),"10.000", 0);
                         break;
                 }
             }
-
-
 
         });
 
