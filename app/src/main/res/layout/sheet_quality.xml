@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:text="@string/quality_play"
-            android:fontFamily="@font/font_bold_fa"
+            android:fontFamily="@font/font_medium_fa"
             android:textSize="@dimen/size_txt_40"
             android:textColor="@color/theme_white_txt"/>
 

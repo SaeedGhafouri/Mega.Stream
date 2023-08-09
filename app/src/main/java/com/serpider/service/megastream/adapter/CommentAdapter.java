@@ -14,6 +14,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.serpider.service.megastream.R;
 import com.serpider.service.megastream.api.ApiClinent;
@@ -23,7 +24,7 @@ import com.serpider.service.megastream.interfaces.Elements;
 import com.serpider.service.megastream.model.Comment;
 import com.serpider.service.megastream.model.Network;
 import com.serpider.service.megastream.util.SnackBoard;
-import com.squareup.picasso.Picasso;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,13 +57,21 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull CommentAdapter.MyViewHolder holder, int position) {
-        holder.txtNick.setText(data.get(position).getUser_nickname());
-        holder.txtUsername.setText("@" + data.get(position).getUser_name());
-        holder.txtMsg.setText(data.get(position).getComment_msg());
-        holder.txtDate.setText(data.get(position).getComment_date());
-        Picasso.get().load(data.get(position).getUser_vector()).into(holder.imgVector);
-        holder.btnReply.setOnClickListener(view -> loadReplay(data.get(position).getComment_id() , data.get(position).getUser_nickname(), data.get(position).getUser_name()));
-        holder.imgVector.setOnClickListener(view -> Elements.DialogPreImage(activity, data.get(position).getUser_vector()));
+        holder.txtNick.setText(data.get(position).getNickname());
+        holder.txtUsername.setText("@" + data.get(position).getUsername());
+        holder.txtMsg.setText(data.get(position).getMsg());
+        holder.txtDate.setText(data.get(position).getDate());
+        Glide.with(context).load(data.get(position).getProfile()).into(holder.imgVector);
+
+        holder.btnReply.setOnClickListener(view -> loadReplay(data.get(position).getId() , data.get(position).getNickname(), data.get(position).getUsername()));
+        holder.imgVector.setOnClickListener(view -> Elements.DialogPreImage(activity, data.get(position).getProfile()));
+        if (data.get(position).getCnt() == 0){
+            holder.btnReply.setText("Replay");
+        }else {
+            holder.btnReply.setText(data.get(position).getCnt() + " Replay");
+        }
+
+
     }
     @Override
     public int getItemCount() {
@@ -80,12 +89,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
             txtMsg = itemView.findViewById(R.id.txtCommentMsg);
             btnReply = itemView.findViewById(R.id.btnCommentReplay);
             imgVector = itemView.findViewById(R.id.imgCommentVector);
-
         }
     }
 
     @SuppressLint("MissingInflatedId")
-    private void loadReplay(int idComment ,String nickName, String userName) {
+    private void loadReplay(int id ,String nickName, String userName) {
         View view = activity.getLayoutInflater().inflate(R.layout.sheet_replay, null);
         BottomSheetDialog replaySheet = new BottomSheetDialog(activity);
         replaySheet.setContentView(view);
@@ -105,7 +113,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
         GridLayoutManager layoutManager =
                 new GridLayoutManager(new FragmentActivity(), 1, GridLayoutManager.VERTICAL, false);
         recyclerViewReplay.setLayoutManager(layoutManager);
-        requestReplay.getReplay(idComment).enqueue(new Callback<List<Replay>>() {
+        requestReplay.getReplys(id).enqueue(new Callback<List<Replay>>() {
             @Override
             public void onResponse(Call<List<Replay>> call, Response<List<Replay>> response) {
                 listReplay = response.body();

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.FavoritesFragment"
+    tools:context=".ui.fragment.FavoritesFragment"
     android:background="@color/theme_background">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -49,5 +49,36 @@
         android:layout_height="match_parent"
         android:layout_below="@id/appbar"
         tools:listitem="@layout/item_favorites"/>
+
+    <!--Empty-->
+    <LinearLayout
+        android:id="@+id/bodyEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_direct"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_padding_30"
+            android:text="@string/favorites_empty"
+            android:textColor="@color/theme_white_txt"
+            android:fontFamily="@font/font_bold_fa"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_padding_10"
+            android:src="@drawable/ic_text_archive"/>
+
+    </LinearLayout>
 
 </RelativeLayout>

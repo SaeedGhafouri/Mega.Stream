@@ -16,4 +16,9 @@
         android:title="@string/category"
         android:icon="@drawable/selector_category" />
 
+    <item
+        android:id="@+id/web_desk"
+        android:title="@string/explore"
+        android:icon="@drawable/selector_explore" />
+
 </menu>

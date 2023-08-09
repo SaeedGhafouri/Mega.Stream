@@ -13,11 +13,13 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 import com.serpider.service.megastream.R;
 import com.serpider.service.megastream.database.DatabaseClient;
 import com.serpider.service.megastream.model.Favorites;
 import com.serpider.service.megastream.util.Connection;
-import com.squareup.picasso.Picasso;
+
 
 import org.w3c.dom.Text;
 
@@ -47,7 +49,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         holder.titleItem.setText(favorites.getTitle_item());
         holder.countryItem.setText(favorites.getCountry_item());
         holder.yearItem.setText(favorites.getYear_item());
-        Picasso.get().load(favorites.getPoster_item()).into(holder.imgPoster);
+        Glide.with(context).load(favorites.getPoster_item()).into(holder.imgPoster);
 
         holder.itemView.setOnClickListener(view -> {
             int item_unique = favorites.getId();

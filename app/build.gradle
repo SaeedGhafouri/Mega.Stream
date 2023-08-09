@@ -49,10 +49,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
-    /*Picasso*/
-    //noinspection GradleDependency
-    implementation 'com.squareup.picasso:picasso:2.8'
-
     //*Bubble Navigation*//*
     /*implementation 'com.gauravk.bubblenavigation:bubblenavigation:1.0.7'*/
 
@@ -85,6 +81,10 @@ dependencies {
     /*OTP Edit Text*/
     implementation 'io.github.chaosleung:pinview:1.4.4'
 
-    /*Zarin Pal*/
+    /*Player*/
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0'
+
+    /*Glide*/
+    implementation 'com.github.bumptech.glide:glide:4.15.1'
 
 }

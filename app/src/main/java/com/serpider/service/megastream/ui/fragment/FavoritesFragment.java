@@ -1,4 +1,4 @@
-package com.serpider.service.megastream.ui;
+package com.serpider.service.megastream.ui.fragment;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -68,6 +68,11 @@ public class FavoritesFragment extends Fragment {
                 FavoriteAdapter adapter = new FavoriteAdapter(getActivity(), getActivity(), favoritesList);
 
                 mBinding.recyclerFavorite.setAdapter(adapter);
+
+                if (favoritesList.isEmpty()){
+                    mBinding.bodyEmpty.setVisibility(View.VISIBLE);
+                }
+
             }
         }
         GetTasks gt = new GetTasks();

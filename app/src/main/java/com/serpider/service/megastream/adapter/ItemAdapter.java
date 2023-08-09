@@ -12,9 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.serpider.service.megastream.R;
 import com.serpider.service.megastream.model.Film;
-import com.squareup.picasso.Picasso;
+
 
 import java.util.List;
 
@@ -22,7 +23,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
 
     Context context;
     List<Film> data;
-
     private String fromAction;
 
     public ItemAdapter(Context context, List<Film> data, String fromAction) {
@@ -45,7 +45,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
         holder.txtTitle.setSelected(true);
         holder.txtYear.setText(data.get(position).getItem_year());
         holder.txtCountry.setText(data.get(position).getItem_country());
-        Picasso.get().load(data.get(position).getItem_poster()).into(holder.imgPoster);
+        Glide.with(context).load(data.get(position).getItem_poster()).into(holder.imgPoster);
 
         holder.itemView.setOnClickListener(view -> {
 

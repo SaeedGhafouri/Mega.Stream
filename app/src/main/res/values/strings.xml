@@ -87,6 +87,7 @@
 
     <!--Favorites-->
     <string name="favorites">علاقه مندی ها</string>
+    <string name="favorites_empty">لیست آرشیو خالی است!</string>
 
     <!--Replay-->
     <string name="replay_to">Replay to</string>
@@ -127,8 +128,8 @@
     <string name="defult">پیشفرض</string>
 
     <!--Report-->
-    <string name="report_title">گزارش مشکل</string>
-    <string name="report_desc">درصورت وجود مشکل در ارائه سرویس لطفا آن را با تیم پشتیبانی درمیان بگذارید</string>
+    <string name="report_title">ارتباط با پشتیبانی</string>
+    <string name="report_desc">درصورت وجود مشکل در ارائه سرویس و یا پیشنهادات و ... لطفا آن را با تیم پشتیبانی درمیان بگذارید</string>
     <string name="report_ed_title">عنوان</string>
     <string name="report_ed_type">نوع مشکل</string>
     <string name="report_ed_desc">توضیح</string>
@@ -150,5 +151,14 @@
     <string name="support_email">ایمیل</string>
     <string name="support_telegram">تلگرام</string>
     <string name="support_report">تیکت گزارش</string>
+
+    <!--Explore-->
+    <string name="explore">کاوش</string>
+
+    <!--Settins-->
+    <string name="settings">تنظیمات</string>
+    <string name="settings_main">اصلی</string>
+    <string name="settings_password">امنیت و رمزعبور</string>
+    <string name="settings_notification">اعلان ها و خبرنامه</string>
 
 </resources>

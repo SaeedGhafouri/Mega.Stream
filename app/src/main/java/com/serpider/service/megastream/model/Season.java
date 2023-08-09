@@ -4,7 +4,6 @@ public class Season {
 
     private int id;
     private String season_unique, season_title, season_value;
-
     public Season(int id, String season_unique, String season_title, String season_value) {
         this.id = id;
         this.season_unique = season_unique;

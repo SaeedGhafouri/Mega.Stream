@@ -1,7 +1,6 @@
 package com.serpider.service.megastream.model;
 
 public class Ads {
-
     private int id, type;
     private String title, caption, banner, button_text, button_bg, link;
 

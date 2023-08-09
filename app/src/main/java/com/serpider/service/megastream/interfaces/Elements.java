@@ -18,9 +18,10 @@ import android.widget.VideoView;
 import androidx.fragment.app.FragmentActivity;
 
 import com.airbnb.lottie.animation.content.Content;
+import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
 import com.serpider.service.megastream.R;
-import com.squareup.picasso.Picasso;
+
 
 public interface Elements {
 
@@ -54,10 +55,10 @@ public interface Elements {
         dialog.show();
 
         ImageView img = dialog.findViewById(R.id.previewImage);
-        Picasso.get().load(urlImage).into(img);
+        Glide.with(activity).load(urlImage).into(img);
+
 
         return dialog;
     }
-
 
 }

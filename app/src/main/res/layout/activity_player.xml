@@ -1,135 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.PlayerActivity">
+    android:orientation="vertical"
+    tools:context=".ui.activity.PlayerActivity">
 
-    <VideoView
-        android:id="@+id/videoPlayer"
+    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+        android:id="@+id/youtube_player_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/size_padding_20"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:autoPlay="true" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/font_bold_en"
-                android:text="@string/mega"
-                android:textColor="@color/theme_white_txt"
-                android:textSize="@dimen/size_txt_30" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="2.5dp"
-                android:fontFamily="@font/font_regular_en"
-                android:text="@string/player"
-                android:textColor="@color/theme_white_txt"
-                android:textSize="@dimen/size_txt_30" />
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/txtNameFilm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_padding_10"
-            android:fontFamily="@font/font_regular_en"
-            android:text="@string/player"
-            android:textColor="@color/theme_white_txt"
-            android:textSize="@dimen/size_txt_10" />
-
-    </LinearLayout>
-
-    <SeekBar
-        android:id="@+id/seekBarVolume"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:max="100"
-        android:progress="50"
-        android:rotation="90"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <SeekBar
-        android:id="@+id/seekBarBrightness"
-        android:layout_width="wrap_content"
-        android:layout_height="200dp"
-        android:max="100"
-        android:progress="50"
-        android:rotation="90"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:paddingHorizontal="@dimen/size_padding_container"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <ToggleButton
-            android:id="@+id/toggleButtonPlayPause"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_centerVertical="true" />
-
-        <TextView
-            android:id="@+id/textViewTotalDuration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/size_padding_10"
-            android:layout_toEndOf="@id/toggleButtonPlayPause"
-            android:fontFamily="@font/font_regular_en"
-            android:text="00:00"
-            android:textColor="@color/theme_white_fit" />
-
-        <SeekBar
-            android:id="@+id/seekBar"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/size_padding_10"
-            android:layout_toEndOf="@id/textViewTotalDuration"
-            android:layout_toStartOf="@id/textViewCurrentDuration" />
-
-        <TextView
-            android:id="@+id/textViewCurrentDuration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/size_padding_10"
-            android:fontFamily="@font/font_regular_en"
-            android:text="00:00"
-            android:textColor="@color/theme_white_fit" />
-
-    </RelativeLayout>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

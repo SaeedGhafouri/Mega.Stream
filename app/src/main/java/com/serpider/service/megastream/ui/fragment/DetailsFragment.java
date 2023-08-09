@@ -1,10 +1,8 @@
-package com.serpider.service.megastream.ui;
+package com.serpider.service.megastream.ui.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,31 +10,27 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.serpider.service.megastream.R;
-import com.serpider.service.megastream.adapter.GropingAdapter;
 import com.serpider.service.megastream.adapter.QualityAdapter;
-import com.serpider.service.megastream.adapter.QualitySerialAdapter;
 import com.serpider.service.megastream.adapter.SeasonAdapter;
 import com.serpider.service.megastream.database.DatabaseClient;
 import com.serpider.service.megastream.model.Favorites;
+import com.serpider.service.megastream.model.Movie_Play;
 import com.serpider.service.megastream.model.Season;
 import com.serpider.service.megastream.api.ApiClinent;
 import com.serpider.service.megastream.api.ApiInterFace;
@@ -44,9 +38,8 @@ import com.serpider.service.megastream.api.ApiServer;
 import com.serpider.service.megastream.databinding.FragmentDetailsBinding;
 import com.serpider.service.megastream.interfaces.Elements;
 import com.serpider.service.megastream.model.Film;
-import com.serpider.service.megastream.model.Movie;
-import com.serpider.service.megastream.model.Serial_Play;
-import com.squareup.picasso.Picasso;
+import com.serpider.service.megastream.util.LoaderFullScreen;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,11 +54,12 @@ public class DetailsFragment extends Fragment {
     SeasonAdapter seasonAdapter;
     ApiInterFace requestUrl ;
     QualityAdapter qualityAdapter;
-    List<Movie> listUrl = new ArrayList<>();
+    List<Movie_Play> listUrl = new ArrayList<>();
     List<Season> seasonList = new ArrayList<>();
     RecyclerView recyclerUrl, recyclerSeason;
     MaterialButton btnPlay;
     FragmentDetailsBinding mBinding;
+    private LoaderFullScreen loader;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +74,9 @@ public class DetailsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        loader = LoaderFullScreen.getInstance(getContext());
+        loader.show();
+
         loadData();
         /*Test Code*/
         btnPlay = getActivity().findViewById(R.id.btnPlay);
@@ -99,6 +96,8 @@ public class DetailsFragment extends Fragment {
             }
         }
 
+        mBinding.btnReport.setOnClickListener(view1 -> ProfileFragment.sheetReport(getActivity()));
+
     }
     private void loadData() {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
@@ -110,7 +109,6 @@ public class DetailsFragment extends Fragment {
             public void onResponse(Call<Film> call, Response<Film> response) {
                 Film film = response.body();
                 if(film != null){
-                    Toast.makeText(getContext(), idUnique, Toast.LENGTH_SHORT).show();
                     mBinding.itemTitle.setText(film.getItem_title_en());
                     mBinding.itemTitleFa.setText(film.getItem_title_fa());
                     mBinding.itemYear.setText(film.getItem_year());
@@ -118,11 +116,11 @@ public class DetailsFragment extends Fragment {
                     mBinding.itemTime.setText(film.getItem_time());
                     mBinding.itemAge.setText(film.getItem_ages());
                     mBinding.itemImdb.setText(film.getItem_imdb());
-                    /*mBinding.itemSynopsis.setText(film.getItem_synopsis());
-                    mBinding.itemDesc.setText(film.getItem_desc());*/
+                    mBinding.itemSynopsis.setText(film.getItem_synopsis());
+                    mBinding.itemDesc.setText(film.getItem_desc());
                     urlTriler= film.getItem_trailer();
-                    Picasso.get().load(film.getItem_poster()).into(mBinding.itemPoster);
-                    Picasso.get().load(film.getItem_header()).into(mBinding.itemHeader);
+                    Glide.with(getActivity()).load(film.getItem_poster()).into(mBinding.itemPoster);
+                    Glide.with(getActivity()).load(film.getItem_header()).into(mBinding.itemHeader);
                     typeItem= film.getItem_type();
                     if (typeItem.equals("Serial")){
                         serialModePlay(film.getItem_id());
@@ -131,8 +129,11 @@ public class DetailsFragment extends Fragment {
                         mBinding.bodySerial.setVisibility(View.GONE);
                     }
                     mBinding.itemPoster.setOnClickListener(view1 -> Elements.DialogPreImage(getActivity(), film.getItem_poster()));
-                    mBinding.btnComment.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_detailsFragment_to_commentFragment));
-                    btnPlay.setOnClickListener(view1 -> qualitySheet(film.getItem_unique()));
+
+                    mBinding.btnComment.setOnClickListener(view -> {
+                        Navigation.findNavController(view).navigate(R.id.action_detailsFragment_to_commentFragment);
+                    });
+                    btnPlay.setOnClickListener(view1 -> qualitySheet(film.getItem_id()));
                     /*Archive*/
                     mBinding.btnArchive.setOnClickListener(view1 -> insertFavorites(film.getItem_unique() ,film.getItem_title_en(), film.getItem_country(), film.getItem_year(), film.getItem_poster()));
 
@@ -141,11 +142,13 @@ public class DetailsFragment extends Fragment {
 
                 }else {
                     Toast.makeText(getActivity(), "پاک شده است", Toast.LENGTH_SHORT).show();
+                    loader.close();
                 }
             }
             @Override
             public void onFailure(Call<Film> call, Throwable t) {
                 Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                loader.close();
             }
         });
     }
@@ -179,7 +182,7 @@ public class DetailsFragment extends Fragment {
 
     }
 
-    private void qualitySheet(String unique) {
+    private void qualitySheet(String id) {
         View view = getActivity().getLayoutInflater().inflate(R.layout.sheet_quality, null);
         BottomSheetDialog QualitySheet = new BottomSheetDialog(getActivity());
         QualitySheet.setContentView(view);
@@ -190,15 +193,15 @@ public class DetailsFragment extends Fragment {
         GridLayoutManager layoutManager =
                 new GridLayoutManager(getActivity(), 1, GridLayoutManager.VERTICAL, false);
         recyclerUrl.setLayoutManager(layoutManager);
-        requestUrl.getMovieUrl(unique).enqueue(new Callback<List<Movie>>() {
+        requestUrl.getMoviePlay(id).enqueue(new Callback<List<Movie_Play>>() {
             @Override
-            public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
+            public void onResponse(Call<List<Movie_Play>> call, Response<List<Movie_Play>> response) {
                 listUrl = response.body();
                 qualityAdapter = new QualityAdapter(getActivity().getApplicationContext(), listUrl, getActivity());
                 recyclerUrl.setAdapter(qualityAdapter);
             }
             @Override
-            public void onFailure(Call<List<Movie>> call, Throwable t) {
+            public void onFailure(Call<List<Movie_Play>> call, Throwable t) {
                 Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

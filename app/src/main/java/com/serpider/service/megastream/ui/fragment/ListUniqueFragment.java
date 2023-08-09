@@ -1,4 +1,4 @@
-package com.serpider.service.megastream.ui;
+package com.serpider.service.megastream.ui.fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.serpider.service.megastream.R;
 import com.serpider.service.megastream.adapter.ItemAdapter;
 import com.serpider.service.megastream.adapter.QualityAdapter;
@@ -23,9 +24,10 @@ import com.serpider.service.megastream.api.ApiClinent;
 import com.serpider.service.megastream.api.ApiInterFace;
 import com.serpider.service.megastream.api.ApiServer;
 import com.serpider.service.megastream.databinding.FragmentListUniqueBinding;
+import com.serpider.service.megastream.interfaces.Key;
 import com.serpider.service.megastream.model.Film;
 import com.serpider.service.megastream.model.Movie;
-import com.squareup.picasso.Picasso;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +41,6 @@ public class ListUniqueFragment extends Fragment {
     ItemAdapter itemAdapter;
     List<Film> listItem = new ArrayList<>();
     RecyclerView recyclerList;
-    Typeface typeFontFa, typeFontEn;
     FragmentListUniqueBinding mBinding;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,8 @@ public class ListUniqueFragment extends Fragment {
 
         mBinding.titleList.setText(groupName);
         if (!groupVector.trim().isEmpty()) {
-            Picasso.get().load(groupVector).into(mBinding.vectorList);
+            Glide.with(getActivity()).load(groupVector).into(mBinding.vectorList);
+
         }else {
             mBinding.cardVector.setVisibility(View.GONE);
         }
@@ -78,13 +80,13 @@ public class ListUniqueFragment extends Fragment {
 
     private void loadData(String groupType, String groupName) {
 
-        requestList = ApiClinent.getApiClinent(getActivity(),ApiServer.urlData()).create(ApiInterFace.class);
+        requestList = ApiClinent.getApiClinent(getActivity(), Key.BASE_URL).create(ApiInterFace.class);
         recyclerList = mBinding.listRecyclerView;
         recyclerList.setHasFixedSize(true);
         GridLayoutManager layoutManager =
                 new GridLayoutManager(getActivity(), 3, GridLayoutManager.VERTICAL, false);
         recyclerList.setLayoutManager(layoutManager);
-        requestList.getItemGroup(groupType, groupName).enqueue(new Callback<List<Film>>() {
+        requestList.getItem(groupType, groupName, 0).enqueue(new Callback<List<Film>>() {
             @Override
             public void onResponse(Call<List<Film>> call, Response<List<Film>> response) {
                 listItem = response.body();

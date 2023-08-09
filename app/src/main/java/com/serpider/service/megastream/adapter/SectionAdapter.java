@@ -15,10 +15,8 @@ import com.serpider.service.megastream.R;
 import com.serpider.service.megastream.api.ApiClinent;
 import com.serpider.service.megastream.api.ApiInterFace;
 import com.serpider.service.megastream.api.ApiServer;
-import com.serpider.service.megastream.model.Season;
 import com.serpider.service.megastream.model.Section;
 import com.serpider.service.megastream.model.Serial_Play;
-import com.serpider.service.megastream.ui.DetailsFragment;
 
 import java.util.ArrayList;
 import java.util.List;

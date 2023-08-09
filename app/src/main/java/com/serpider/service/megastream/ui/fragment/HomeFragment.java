@@ -1,4 +1,4 @@
-package com.serpider.service.megastream.ui;
+package com.serpider.service.megastream.ui.fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Handler;
@@ -102,6 +103,27 @@ public class HomeFragment extends Fragment {
         loadNetworks();
         loadAds();
         loadSuggested("item_genre", "پیشنهاد سردبیر");
+        loadSerial("item_type", "Serial");
+
+        /*Refresh Infomation*/
+        mBinding.refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadGenres();
+                loadCountrys();
+                loadNetworks();
+                loadAds();
+                loadSuggested("item_genre", "پیشنهاد سردبیر");
+                loadSerial("item_type", "Serial");
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mBinding.refresh.setRefreshing(false);
+                    }
+                },2000);
+
+            }
+        });
 
        // mBinding.logoMain.setOnClickListener(view1 -> dialogFilter());
         mBinding.logoMain.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_mainFragment_to_detailsFragment));
@@ -153,13 +175,13 @@ public class HomeFragment extends Fragment {
 
     }
     private void loadSerial(String name, String query) {
-        requestSerial = ApiClinent.getApiClinent(getActivity(),ApiServer.urlData()).create(ApiInterFace.class);
+        requestSerial = ApiClinent.getApiClinent(getActivity(),Key.BASE_URL).create(ApiInterFace.class);
         recyclerSerial = mBinding.recyclerSerial;
         recyclerSerial.setHasFixedSize(true);
         GridLayoutManager layoutManager =
                 new GridLayoutManager(getActivity(), 1, GridLayoutManager.HORIZONTAL, false);
         recyclerSerial.setLayoutManager(layoutManager);
-        requestSerial.getItemGroupLimit(name, query).enqueue(new Callback<List<Film>>() {
+        requestSerial.getItem(name, query, 10).enqueue(new Callback<List<Film>>() {
             @Override
             public void onResponse(Call<List<Film>> call, Response<List<Film>> response) {
                 listSerial = response.body();

@@ -17,19 +17,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.serpider.service.megastream.R;
-import com.serpider.service.megastream.model.Movie;
-import com.serpider.service.megastream.ui.MainActivity;
-import com.serpider.service.megastream.ui.PlayerActivity;
+import com.serpider.service.megastream.model.Movie_Play;
+import com.serpider.service.megastream.ui.activity.PlayerActivity;
 
 import java.util.List;
 
 public class QualityAdapter extends RecyclerView.Adapter<QualityAdapter.MyViewHolder> {
 
     Context context;
-    List<Movie> data;
+    List<Movie_Play> data;
     FragmentActivity fragmentActivity;
 
-    public QualityAdapter(Context context, List<Movie> data, FragmentActivity fragmentActivity) {
+    public QualityAdapter(Context context, List<Movie_Play> data, FragmentActivity fragmentActivity) {
         this.context = context;
         this.data = data;
         this.fragmentActivity = fragmentActivity;

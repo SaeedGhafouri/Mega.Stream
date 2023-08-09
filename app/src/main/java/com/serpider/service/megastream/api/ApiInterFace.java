@@ -1,11 +1,9 @@
 package com.serpider.service.megastream.api;
 
-
-
 import com.serpider.service.megastream.adapter.Replay;
 import com.serpider.service.megastream.model.Comment;
-import com.serpider.service.megastream.model.CommentPOJO;
 import com.serpider.service.megastream.model.Donate;
+import com.serpider.service.megastream.model.Movie_Play;
 import com.serpider.service.megastream.model.Season;
 import com.serpider.service.megastream.model.Country;
 import com.serpider.service.megastream.model.Film;
@@ -24,7 +22,6 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-
 public interface ApiInterFace {
 
     @GET("Test-List.php")
@@ -103,14 +100,6 @@ public interface ApiInterFace {
     );
 
     @FormUrlEncoded
-    @POST("addComment.php?")
-    Call<CommentPOJO> getAddComment(
-            @Field("USER_ID") String user_id,
-            @Field("ITEM_ID") String item_id,
-            @Field("MSG") String message
-    );
-
-    @FormUrlEncoded
     @POST("userLogin.php?")
     Call<User> getUserLogin(
             @Field("USER_USERNAME") String username,
@@ -182,4 +171,27 @@ public interface ApiInterFace {
             @Field("ITEM_ID") String id
     );
 
+    @FormUrlEncoded
+    @POST("getUrlMovie/")
+    Call<List<Movie_Play>> getMoviePlay(
+            @Field("ID_MOVIE") String id_movie
+    );
+
+    @FormUrlEncoded
+    @POST("getItemComment/")
+    Call<List<Comment>> getComments(
+            @Field("ID_ITEM") int id_item
+    );
+
+    @FormUrlEncoded
+    @POST("getCommentReply/")
+    Call<List<Replay>> getReplys(
+            @Field("ID_COMMENT") int id_comment
+    );
+
+    @FormUrlEncoded
+    @POST("getSearch/")
+    Call<List<Film>> getSearchItem(
+            @Field("ITEM_NAME") String item_name
+    );
 }

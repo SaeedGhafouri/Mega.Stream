@@ -12,10 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.serpider.service.megastream.R;
 import com.serpider.service.megastream.model.Country;
 import com.serpider.service.megastream.model.Network;
-import com.squareup.picasso.Picasso;
+
 
 import java.util.List;
 
@@ -39,7 +40,8 @@ public class NetworkAdapter extends RecyclerView.Adapter<NetworkAdapter.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull NetworkAdapter.MyViewHolder holder, int position) {
         holder.txtTitle.setText(data.get(position).getName());
-        Picasso.get().load(data.get(position).getVector()).into(holder.imgPoster);
+        Glide.with(context).load(data.get(position).getVector()).into(holder.imgPoster);
+
 
         SharedPreferences sharedPreferences = context.getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();

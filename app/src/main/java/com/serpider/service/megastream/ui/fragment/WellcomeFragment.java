@@ -1,4 +1,4 @@
-package com.serpider.service.megastream.ui;
+package com.serpider.service.megastream.ui.fragment;
 
 import android.content.Context;
 import android.os.Bundle;

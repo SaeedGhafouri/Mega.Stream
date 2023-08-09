@@ -1,4 +1,4 @@
-package com.serpider.service.megastream.ui;
+package com.serpider.service.megastream.ui.fragment;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -11,21 +11,26 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.serpider.service.megastream.R;
 import com.serpider.service.megastream.api.ApiClinent;
 import com.serpider.service.megastream.api.ApiInterFace;
-import com.serpider.service.megastream.api.ApiServer;
 import com.serpider.service.megastream.databinding.FragmentProfileBinding;
+import com.serpider.service.megastream.databinding.SheetReportBinding;
 import com.serpider.service.megastream.interfaces.Elements;
 import com.serpider.service.megastream.interfaces.Key;
 import com.serpider.service.megastream.model.User;
 import com.serpider.service.megastream.util.DataSave;
 import com.serpider.service.megastream.util.SnackBoard;
-import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -63,7 +68,6 @@ public class ProfileFragment extends Fragment {
         }else {
             loadUserInfo();
         }
-        mBinding.btnInfo.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_mainFragment_to_infoUserFragment));
 
         mBinding.btnSupport.setOnClickListener(view1 -> sheetSupport(getActivity()));
 
@@ -73,13 +77,15 @@ public class ProfileFragment extends Fragment {
             webFragment.urlWeb = Key.PRIVACY_POLICY;
         });
 
+        mBinding.btnSettings.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_mainFragment_to_settingsFragment));
+
     }
 
     private void loadUserInfo() {
         
         requestUser = ApiClinent.getApiClinent(getActivity(), Key.BASE_URL).create(ApiInterFace.class);
         
-        requestUser.getUserInfo(5).enqueue(new Callback<User>() {
+        requestUser.getUserInfo(dataSave.UserGetId(getContext())).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 User user = response.body();
@@ -92,7 +98,8 @@ public class ProfileFragment extends Fragment {
                         mBinding.txtNickName.setText(user.getNickname());
                     }
                     mBinding.txtEmail.setText(user.getEmail());
-                    Picasso.get().load(user.getProfile()).into(mBinding.imgVector);
+                    Glide.with(getContext()).load(user.getProfile()).into(mBinding.imgVector);
+
                     mBinding.imgVector.setOnClickListener(view -> Elements.DialogPreImage(getActivity(), user.getProfile()));
                     Toast.makeText(getContext(), user.getProfile(), Toast.LENGTH_SHORT).show();
                     if (user.getStatus() == 0){
@@ -154,10 +161,27 @@ public class ProfileFragment extends Fragment {
     }
 
     public static void sheetReport(FragmentActivity activity) {
-        View view = activity.getLayoutInflater().inflate(R.layout.sheet_report, null);
+        SheetReportBinding binding = SheetReportBinding.inflate(activity.getLayoutInflater());
         BottomSheetDialog reportSheet = new BottomSheetDialog(activity);
-        reportSheet.setContentView(view);
+        reportSheet.setContentView(binding.getRoot());
         reportSheet.show();
-    }
 
+        List<String> spinnerData = new ArrayList<>();
+        spinnerData.add("پیشنهاد و انتقاد");
+        spinnerData.add("تبلیغات");
+        spinnerData.add("مشکل در پخش یا دانلود");
+        spinnerData.add("اطلاعات غلط");
+        spinnerData.add("مشکل کاربری");
+        spinnerData.add("فراموشی رمزعبور و امنیت");
+        spinnerData.add("اشتراک");
+        spinnerData.add("محتوای نا مناسب و نابهتجار");
+        spinnerData.add("همکاری با ما");
+        spinnerData.add("سایر");
+
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(activity, android.R.layout.simple_spinner_item, spinnerData);
+        spinnerAdapter.setDropDownViewResource(R.layout.dropdown_menu_popup_item);
+        binding.spinnerReportType.setAdapter(spinnerAdapter);
+
+
+    }
 }

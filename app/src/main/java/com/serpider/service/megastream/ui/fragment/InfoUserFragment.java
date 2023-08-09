@@ -1,4 +1,4 @@
-package com.serpider.service.megastream.ui;
+package com.serpider.service.megastream.ui.fragment;
 
 import android.os.Bundle;
 
@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.serpider.service.megastream.api.ApiClinent;
 import com.serpider.service.megastream.api.ApiInterFace;
 import com.serpider.service.megastream.api.ApiServer;
@@ -19,7 +20,7 @@ import com.serpider.service.megastream.interfaces.Elements;
 import com.serpider.service.megastream.interfaces.Key;
 import com.serpider.service.megastream.model.User;
 import com.serpider.service.megastream.util.DataSave;
-import com.squareup.picasso.Picasso;
+
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -63,7 +64,8 @@ public class InfoUserFragment extends Fragment {
                     mBinding.edInfoUsername.setText(user.getUsername());
                     mBinding.edInfoEmail.setText(user.getEmail());
                     mBinding.edInfoNickName.setText(user.getNickname());
-                    Picasso.get().load(user.getProfile()).into(mBinding.imgVector);
+                    Glide.with(getContext()).load(user.getProfile()).into(mBinding.imgVector);
+
                     Toast.makeText(getContext(), user.getProfile(), Toast.LENGTH_SHORT).show();
                     mBinding.imgVector.setOnClickListener(view -> Elements.DialogPreImage(getActivity(), user.getProfile()));
 

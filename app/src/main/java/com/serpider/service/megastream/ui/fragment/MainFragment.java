@@ -1,6 +1,7 @@
-package com.serpider.service.megastream.ui;
+package com.serpider.service.megastream.ui.fragment;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,7 +16,6 @@ import android.view.ViewGroup;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.serpider.service.megastream.R;
 import com.serpider.service.megastream.databinding.FragmentMainBinding;
-import com.serpider.service.megastream.ui.HomeFragment;
 import com.serpider.service.megastream.util.Connection;
 
 
@@ -46,14 +46,28 @@ public class MainFragment extends Fragment {
     }
 
     public void setUpNavigation(){
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MENU", Context.MODE_PRIVATE);
+        int item = sharedPreferences.getInt("ITEM", 1);
         mBinding.bottomNavigation.setOnNavigationItemSelectedListener(selectedListener);
-        mBinding.bottomNavigation.setSelectedItemId(R.id.home_desk);
+        if (item == 1){
+            mBinding.bottomNavigation.setSelectedItemId(R.id.home_desk);
+        }else if (item == 2) {
+            mBinding.bottomNavigation.setSelectedItemId(R.id.category_desk);
+        }else if (item == 3) {
+            mBinding.bottomNavigation.setSelectedItemId(R.id.profile_desk);
+        }else if (item == 4) {
+            mBinding.bottomNavigation.setSelectedItemId(R.id.web_desk);
+        }
 
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener selectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MENU", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+
             switch (item.getItemId()) {
 
                 case R.id.home_desk:
@@ -62,6 +76,8 @@ public class MainFragment extends Fragment {
                     FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.content, fragmentExplore, "");
                     fragmentTransaction.commit();
+                    editor.putInt("ITEM", 1);
+                    editor.commit();
                     return true;
                     }else {
                         new Connection().showView(getView(), R.id.action_mainFragment_to_networkFragment);
@@ -74,6 +90,8 @@ public class MainFragment extends Fragment {
                     FragmentTransaction categoryTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                     categoryTransaction.replace(R.id.content, fragmentCategory, "");
                     categoryTransaction.commit();
+                        editor.putInt("ITEM", 2);
+                        editor.commit();
                     return true;
                     }else {
                         new Connection().showView(getView(), R.id.action_mainFragment_to_networkFragment);
@@ -87,7 +105,23 @@ public class MainFragment extends Fragment {
                     FragmentTransaction profileTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                     profileTransaction.replace(R.id.content, fragmentProfile, "");
                     profileTransaction.commit();
+                        editor.putInt("ITEM", 3);
+                        editor.commit();
                     return true;
+                    }else {
+                        new Connection().showView(getView(), R.id.action_mainFragment_to_networkFragment);
+                    }
+                    break;
+
+                case R.id.web_desk:
+                    if (new Connection().isNetwork(getContext())) {
+                        WebMainFragment webMainFragment = new WebMainFragment();
+                        FragmentTransaction webMainTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        webMainTransaction.replace(R.id.content, webMainFragment, "");
+                        webMainTransaction.commit();
+                        editor.putInt("ITEM", 4);
+                        editor.commit();
+                        return true;
                     }else {
                         new Connection().showView(getView(), R.id.action_mainFragment_to_networkFragment);
                     }

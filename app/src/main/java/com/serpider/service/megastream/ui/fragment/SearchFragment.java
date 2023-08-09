@@ -1,4 +1,4 @@
-package com.serpider.service.megastream.ui;
+package com.serpider.service.megastream.ui.fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -7,7 +7,10 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +28,7 @@ import com.serpider.service.megastream.api.ApiInterFace;
 import com.serpider.service.megastream.api.ApiServer;
 import com.serpider.service.megastream.databinding.FragmentSearchBinding;
 import com.serpider.service.megastream.interfaces.Elements;
+import com.serpider.service.megastream.interfaces.Key;
 import com.serpider.service.megastream.model.Film;
 
 import java.util.ArrayList;
@@ -64,6 +68,13 @@ public class SearchFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Animation slideDownAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.down);
+        mBinding.bodySearch.startAnimation(slideDownAnimation);
+
+        mBinding.edSearch.requestFocus();
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mBinding.edSearch, InputMethodManager.SHOW_IMPLICIT);
+
         historyOption();
 
         mBinding.edSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -82,7 +93,7 @@ public class SearchFragment extends Fragment {
     }
     private void getSearch() {
         name = mBinding.edSearch.getText().toString().trim();
-        requestSearch = ApiClinent.getApiClinent(getActivity(), ApiServer.urlData()).create(ApiInterFace.class);
+        requestSearch = ApiClinent.getApiClinent(getActivity(), Key.BASE_URL).create(ApiInterFace.class);
 
         recyclerSearch = mBinding.recyclerSearch;
         recyclerSearch.setHasFixedSize(true);
@@ -90,7 +101,7 @@ public class SearchFragment extends Fragment {
                 new GridLayoutManager(getActivity(), 3, GridLayoutManager.VERTICAL, false);
         recyclerSearch.setLayoutManager(layoutManager);
 
-        requestSearch.getSearch(name).enqueue(new Callback<List<Film>>() {
+        requestSearch.getSearchItem(name).enqueue(new Callback<List<Film>>() {
             @Override
             public void onResponse(Call<List<Film>> call, Response<List<Film>> response) {
                 listSearch = response.body();
@@ -99,6 +110,8 @@ public class SearchFragment extends Fragment {
 
                 if (itemAdapter.getItemCount() == 0) {
                     mBinding.bodyEmpty.setVisibility(View.VISIBLE);
+                }else {
+                    mBinding.bodyEmpty.setVisibility(View.GONE);
                 }
 
                 /*History*/
@@ -110,22 +123,18 @@ public class SearchFragment extends Fragment {
                 adapter.setItems(searchItems);
                 adapter.notifyDataSetChanged();
             }
-
             @Override
             public void onFailure(Call<List<Film>> call, Throwable t) {
 
             }
         });
 
-
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
         getSearch();
-
     }
 
     private void historyOption() {

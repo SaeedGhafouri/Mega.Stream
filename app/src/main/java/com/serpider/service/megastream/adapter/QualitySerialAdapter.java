@@ -15,19 +15,10 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.serpider.service.megastream.R;
-import com.serpider.service.megastream.api.ApiClinent;
-import com.serpider.service.megastream.api.ApiInterFace;
-import com.serpider.service.megastream.api.ApiServer;
-import com.serpider.service.megastream.model.Movie;
 import com.serpider.service.megastream.model.Serial_Play;
-import com.serpider.service.megastream.ui.PlayerActivity;
+import com.serpider.service.megastream.ui.activity.PlayerActivity;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class QualitySerialAdapter extends RecyclerView.Adapter<QualitySerialAdapter.MyViewHolder> {
 

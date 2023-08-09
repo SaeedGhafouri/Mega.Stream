@@ -10,14 +10,10 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.Navigation;
 
 import com.google.android.material.button.MaterialButton;
 import com.serpider.service.megastream.R;
-import com.serpider.service.megastream.ui.NetworkFragment;
 
 public class Connection {
 

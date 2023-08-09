@@ -2,6 +2,9 @@ package com.serpider.service.megastream.adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.view.LayoutInflater;
 import android.view.ScaleGestureDetector;
 import android.view.View;
@@ -16,11 +19,12 @@ import androidx.navigation.Navigation;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
 import com.serpider.service.megastream.R;
-import com.serpider.service.megastream.ui.WebFragment;
+import com.serpider.service.megastream.ui.fragment.WebFragment;
 import com.serpider.service.megastream.model.Ads;
-import com.squareup.picasso.Picasso;
+
 
 import java.util.List;
 
@@ -65,7 +69,8 @@ public class SliderAdapter extends PagerAdapter {
         btnSlider = view.findViewById(R.id.btnSlider);
         mScaleGestureDetector = new ScaleGestureDetector(context, new ScaleListener());
         // imageView.setImageResource();
-        Picasso.get().load(data.get(position).getBanner()).into(imageView);
+        Glide.with(context).load(data.get(position).getBanner()).into(imageView);
+
         titleSlider.setText(data.get(position).getTitle());
         descSlider.setText(data.get(position).getCaption());
 
@@ -99,6 +104,8 @@ public class SliderAdapter extends PagerAdapter {
             view.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_mainFragment_to_webFragment));
             webFragment.titleWeb = "";
             webFragment.urlWeb = url;
+            int color = Color.parseColor("#99cc00");
+            btnSlider.getBackground().mutate().setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.SRC));
         } else if (mode == 3) {
             view.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_mainFragment_to_webFragment));
             webFragment.titleWeb = "";
@@ -107,7 +114,7 @@ public class SliderAdapter extends PagerAdapter {
         }else if (mode == 4) {
             btnSlider.setText("تماشا");
             String item_unique = url;
-     //       Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_detailsFragment);
+            Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_detailsFragment);
             SharedPreferences sharedPreferences = view.getContext().getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("ID_ITEM", item_unique);
@@ -125,7 +132,6 @@ public class SliderAdapter extends PagerAdapter {
 
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
 
-        // when a scale gesture is detected, use it to resize the image
         @Override
         public boolean onScale(ScaleGestureDetector scaleGestureDetector){
             mScaleFactor *= scaleGestureDetector.getScaleFactor();

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.HomeFragment"
+    tools:context=".ui.fragment.HomeFragment"
     android:background="@color/theme_background">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -37,10 +37,12 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/appbar">
-        
+        android:layout_below="@id/appbar"
+        android:layout_marginTop="3dp">
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -65,14 +67,14 @@
                         android:background="@color/theme_background_body" />
 
                 </com.google.android.material.card.MaterialCardView>
-                
+
                 <me.relex.circleindicator.CircleIndicator
                     android:id="@+id/indicatorSlider"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/size_padding_20"
-                    app:ci_width="5dp"
-                    app:ci_height="5dp"/>
+                    app:ci_height="5dp"
+                    app:ci_width="5dp" />
 
                 <LinearLayout
                     android:id="@+id/btnHomeSearch"
@@ -81,42 +83,42 @@
                     android:layout_marginTop="20dp"
                     android:background="@drawable/shape_body"
                     android:gravity="center_vertical"
-                    android:paddingHorizontal="@dimen/size_padding_20"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/size_padding_20">
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/ic_search"/>
+                        android:src="@drawable/ic_search" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/movie_serial"
                         android:layout_weight="1"
                         android:fontFamily="@font/font_regular_fa"
+                        android:text="@string/movie_serial"
                         android:textColor="@color/theme_gray_txt"
-                        android:textSize="@dimen/size_txt_30"/>
+                        android:textSize="@dimen/size_txt_30" />
 
                     <TextView
                         android:id="@+id/numberAllItem"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAlignment="viewEnd"
                         android:layout_marginHorizontal="@dimen/size_padding_10"
-                        android:text="0"
                         android:fontFamily="@font/font_bold_en"
+                        android:text="0"
+                        android:textAlignment="viewEnd"
                         android:textColor="@color/theme_main"
                         android:textSize="@dimen/size_txt_40" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAlignment="viewEnd"
-                        android:text="@string/search_in"
                         android:fontFamily="@font/font_regular_fa"
+                        android:text="@string/search_in"
+                        android:textAlignment="viewEnd"
                         android:textColor="@color/theme_gray_txt"
-                        android:textSize="@dimen/size_txt_30"/>
+                        android:textSize="@dimen/size_txt_30" />
 
                 </LinearLayout>
 
@@ -129,7 +131,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_weight="1"
-                    tools:listitem="@layout/item_genre"/>
+                    tools:listitem="@layout/item_genre" />
 
                 <TextView
                     style="@style/Theme.Original.TextView.Mini"
@@ -140,7 +142,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:layout_weight="1"
-                    tools:listitem="@layout/item_country"/>
+                    tools:listitem="@layout/item_country" />
 
                 <TextView
                     style="@style/Theme.Original.TextView.Mini"
@@ -151,26 +153,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:layout_weight="1"
-                    tools:listitem="@layout/item_country"/>
+                    tools:listitem="@layout/item_country" />
 
                 <LinearLayout
                     android:id="@+id/btnFilter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/size_padding_10"
+                    android:background="@drawable/shape_body"
                     android:clickable="true"
                     android:foreground="?attr/selectableItemBackground"
                     android:gravity="center"
-                    android:layout_marginVertical="@dimen/size_padding_10"
-                    android:background="@drawable/shape_body"
                     android:padding="@dimen/size_padding_20">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/font_regular_fa"
                         android:text="چی دوست داری ببینی؟ لمس کن تا پیداش کنی"
                         android:textColor="@color/theme_white_txt"
-                        android:fontFamily="@font/font_regular_fa"
-                        android:textSize="@dimen/size_txt_20"/>
+                        android:textSize="@dimen/size_txt_20" />
 
                     <ImageView
                         android:layout_width="25dp"
@@ -189,23 +191,24 @@
                     <TextView
                         android:id="@+id/btnAllSuggested"
                         style="@style/Theme.Original.TextView.Mini"
+                        android:layout_weight="1"
                         android:text="@string/all"
                         android:textAlignment="viewStart"
-                        android:textColor="@color/theme_main"
-                        android:layout_weight="1"/>
+                        android:textColor="@color/theme_main" />
 
                     <TextView
                         style="@style/Theme.Original.TextView.Mini"
-                        android:text="@string/suggested"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1"
+                        android:text="@string/suggested" />
 
                 </LinearLayout>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerSuggested"
                     android:layout_width="match_parent"
                     android:layout_height="210dp"
                     android:layout_marginTop="@dimen/size_padding_20"
-                    tools:listitem="@layout/item_film"/>
+                    tools:listitem="@layout/item_film" />
 
                 <!--Serial-->
                 <LinearLayout
@@ -216,31 +219,31 @@
                     <TextView
                         android:id="@+id/btnAllSerial"
                         style="@style/Theme.Original.TextView.Mini"
+                        android:layout_weight="1"
                         android:text="@string/all"
                         android:textAlignment="viewStart"
-                        android:textColor="@color/theme_main"
-                        android:layout_weight="1"/>
+                        android:textColor="@color/theme_main" />
 
                     <TextView
                         style="@style/Theme.Original.TextView.Mini"
-                        android:text="@string/suggested"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1"
+                        android:text="@string/serial" />
 
                 </LinearLayout>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerSerial"
                     android:layout_width="match_parent"
                     android:layout_height="210dp"
                     android:layout_marginTop="@dimen/size_padding_20"
-                    tools:listitem="@layout/item_film"/>
-
+                    tools:listitem="@layout/item_film" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerItem"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/size_padding_20"
-                    tools:listitem="@layout/item_film"/>
+                    tools:listitem="@layout/item_film" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

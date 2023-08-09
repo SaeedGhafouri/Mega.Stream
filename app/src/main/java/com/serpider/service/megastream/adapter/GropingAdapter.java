@@ -2,7 +2,6 @@ package com.serpider.service.megastream.adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,15 +9,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.serpider.service.megastream.R;
 import com.serpider.service.megastream.model.Country;
-import com.serpider.service.megastream.model.Film;
-import com.serpider.service.megastream.ui.ListUniqueFragment;
-import com.squareup.picasso.Picasso;
+
 
 import java.util.List;
 
@@ -42,7 +39,8 @@ public class GropingAdapter extends RecyclerView.Adapter<GropingAdapter.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull GropingAdapter.MyViewHolder holder, int position) {
         holder.txtTitle.setText(data.get(position).getFa_name());
-        Picasso.get().load(data.get(position).getVector()).into(holder.imgPoster);
+        Glide.with(context).load(data.get(position).getVector()).into(holder.imgPoster);
+
 
         SharedPreferences sharedPreferences = context.getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();

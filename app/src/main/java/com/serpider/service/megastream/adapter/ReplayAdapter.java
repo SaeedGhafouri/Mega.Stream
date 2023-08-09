@@ -10,9 +10,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 import com.serpider.service.megastream.R;
 import com.serpider.service.megastream.interfaces.Elements;
-import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class ReplayAdapter extends RecyclerView.Adapter<ReplayAdapter.MyViewHolder> {
@@ -34,12 +36,13 @@ public class ReplayAdapter extends RecyclerView.Adapter<ReplayAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ReplayAdapter.MyViewHolder holder, int position) {
-        holder.txtNick.setText(data.get(position).getUser_nickname());
-        holder.txtUsername.setText("@" + data.get(position).getUser_name());
-        holder.txtMsg.setText(data.get(position).getReplay_msg());
-        holder.txtDate.setText(data.get(position).getReplay_date());
-        Picasso.get().load(data.get(position).getUser_vector()).into(holder.imgVector);
-        holder.imgVector.setOnClickListener(view -> Elements.DialogPreImage(activity, data.get(position).getUser_vector()));
+        holder.txtNick.setText(data.get(position).getNickname());
+        holder.txtUsername.setText("@" + data.get(position).getUsername());
+        holder.txtMsg.setText(data.get(position).getMsg());
+        holder.txtDate.setText(data.get(position).getDate());
+        Glide.with(context).load(data.get(position).getProfile()).into(holder.imgVector);
+
+        holder.imgVector.setOnClickListener(view -> Elements.DialogPreImage(activity, data.get(position).getProfile()));
     }
     @Override
     public int getItemCount() {

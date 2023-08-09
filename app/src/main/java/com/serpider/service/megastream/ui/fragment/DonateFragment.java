@@ -1,4 +1,4 @@
-package com.serpider.service.megastream.ui;
+package com.serpider.service.megastream.ui.fragment;
 
 import android.os.Bundle;
 
@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.serpider.service.megastream.R;
 import com.serpider.service.megastream.api.ApiClinent;
 import com.serpider.service.megastream.api.ApiInterFace;
@@ -20,7 +21,7 @@ import com.serpider.service.megastream.model.Donate;
 import com.serpider.service.megastream.model.Result;
 import com.serpider.service.megastream.model.User;
 import com.serpider.service.megastream.util.SnackBoard;
-import com.squareup.picasso.Picasso;
+
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -64,7 +65,7 @@ public class DonateFragment extends Fragment {
 
                     mBinding.titleDonate.setText(donate.getDonate_title());
                     mBinding.descDonate.setText(donate.getDonate_desc());
-                    Picasso.get().load(donate.getDonate_image()).into(mBinding.bannerDonate);
+                    Glide.with(getActivity()).load(donate.getDonate_image()).into(mBinding.bannerDonate);
 
                     runPeyment();
 

@@ -1,5 +1,7 @@
-package com.serpider.service.megastream.ui;
+package com.serpider.service.megastream.ui.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,18 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.serpider.service.megastream.adapter.CommentAdapter;
-import com.serpider.service.megastream.adapter.ItemAdapter;
 import com.serpider.service.megastream.api.ApiClinent;
 import com.serpider.service.megastream.api.ApiInterFace;
 import com.serpider.service.megastream.api.ApiServer;
 import com.serpider.service.megastream.databinding.FragmentCommentBinding;
 import com.serpider.service.megastream.model.Comment;
-import com.serpider.service.megastream.model.CommentPOJO;
-import com.serpider.service.megastream.model.Film;
-import com.serpider.service.megastream.model.Result;
 import com.serpider.service.megastream.util.DataSave;
 
 import java.util.ArrayList;
@@ -38,7 +35,7 @@ public class CommentFragment extends Fragment {
     List<Comment> listComment = new ArrayList<>();
     RecyclerView recyclerComment;
     FragmentCommentBinding mBinding;
-    public String itemId;
+    public int itemId;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +54,10 @@ public class CommentFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        loadComment();
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
+        String idUnique = sharedPreferences.getString("ID_ITEM", "0");
+
+        loadComment(Integer.parseInt(idUnique));
         DataSave dataSave = new DataSave();
         mBinding.btnSend.setOnClickListener(view1 -> addComment("12", "13"));
 
@@ -68,22 +68,11 @@ public class CommentFragment extends Fragment {
 
         requestComment = ApiClinent.getApiClinent(getActivity(), ApiServer.urlData()).create(ApiInterFace.class);
 
-        requestComment.getAddComment(user_id, item_id, msg).enqueue(new Callback<CommentPOJO>() {
-            @Override
-            public void onResponse(Call<CommentPOJO> call, Response<CommentPOJO> response) {
-                CommentPOJO result = response.body();
-            }
-
-            @Override
-            public void onFailure(Call<CommentPOJO> call, Throwable t) {
-
-            }
-        });
 
 
     }
 
-    private void loadComment() {
+    private void loadComment(int id) {
 
         requestComment = ApiClinent.getApiClinent(getActivity(), ApiServer.urlData()).create(ApiInterFace.class);
         recyclerComment = mBinding.recyclerComment;
@@ -91,7 +80,7 @@ public class CommentFragment extends Fragment {
         GridLayoutManager layoutManager =
                 new GridLayoutManager(getActivity(), 1, GridLayoutManager.VERTICAL, false);
         recyclerComment.setLayoutManager(layoutManager);
-        requestComment.getComment().enqueue(new Callback<List<Comment>>() {
+        requestComment.getComments(id).enqueue(new Callback<List<Comment>>() {
             @Override
             public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
                 listComment = response.body();

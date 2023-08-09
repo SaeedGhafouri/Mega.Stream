@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.SearchFragment"
+    tools:context=".ui.fragment.SearchFragment"
     android:background="@color/theme_background">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -16,6 +16,7 @@
             style="@style/Theme.Original.Toolbar">
 
             <LinearLayout
+                android:id="@+id/bodySearch"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_toolbar_height"
                 android:paddingEnd="@dimen/size_padding_container"
@@ -28,6 +29,7 @@
 
                     <EditText
                         style="@style/Theme.Original.EditText"
+                        android:background="@android:color/transparent"
                         android:id="@+id/edSearch"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -38,21 +40,16 @@
                         android:hint="@string/search_hint"
                         android:textColor="@color/theme_white_txt"/>
 
-                    <ImageButton
+                    <ImageView
                         android:id="@+id/btnSearch"
-                        android:layout_height="27dp"
-                        android:layout_width="27dp"
+                        android:layout_height="23dp"
+                        android:layout_width="23dp"
                         android:background="@android:color/transparent"
                         app:tint="@color/theme_gray_txt"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/ic_search" />
 
                 </LinearLayout>
-
-               <androidx.recyclerview.widget.RecyclerView
-                   android:id="@+id/historyRecyclerView"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"/>
 
             </LinearLayout>
 
@@ -61,11 +58,17 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/historyRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_below="@id/appbar"
+        android:layout_height="wrap_content"/>
+
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerSearch"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="@dimen/size_padding_container"
-        android:layout_below="@id/appbar"/>
+        android:layout_below="@id/historyRecyclerView"/>
 
     <LinearLayout
         android:id="@+id/bodyEmpty"

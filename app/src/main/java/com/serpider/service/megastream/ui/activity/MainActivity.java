@@ -1,4 +1,4 @@
-package com.serpider.service.megastream.ui;
+package com.serpider.service.megastream.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
