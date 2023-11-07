@@ -26,7 +26,7 @@
     <!--Edit Text Main-->
     <style name="Theme.Original.EditText" parent="Widget.AppCompat.EditText">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/size_edittext_height</item>
+        <item name="android:layout_height">@dimen/size_edittext_height_larg</item>
         <item name="android:background">@drawable/shape_edit_text</item>
         <item name="android:paddingHorizontal" tools:ignore="NewApi">@dimen/size_padding_20</item>
         <item name="android:textColorHint">@color/theme_gray_txt</item>
@@ -38,7 +38,7 @@
     <!--Edit Text Icon-->
     <style name="Theme.Original.EditText.Icon" parent="Widget.AppCompat.EditText">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/size_edittext_height</item>
+        <item name="android:layout_height">@dimen/size_edittext_height_larg</item>
         <item name="android:layout_marginBottom">@dimen/size_padding_20</item>
         <item name="android:background">@drawable/shape_edit_text</item>
         <item name="android:paddingHorizontal" tools:ignore="NewApi">@dimen/size_padding_20</item>
@@ -54,7 +54,7 @@
     <!--Button Main-->
     <style name="Theme.Original.Button" parent="ThemeOverlay.Material3.Button">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/size_button_height</item>
+        <item name="android:layout_height">@dimen/size_button_height_larg</item>
         <item name="android:backgroundTint">@color/theme_main</item>
         <item name="android:textColor">@color/theme_white_fit</item>
         <item name="android:textSize">@dimen/size_txt_30</item>
@@ -65,7 +65,7 @@
     <!--Button Main-->
     <style name="Theme.Original.Button.Transparet" parent="ThemeOverlay.Material3.Button">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_height">@dimen/size_button_height</item>
         <item name="android:backgroundTint">@android:color/transparent</item>
         <item name="android:textColor">@color/theme_white_fit</item>
         <item name="android:textSize">@dimen/size_txt_30</item>
@@ -89,7 +89,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/theme_white_txt</item>
         <item name="android:fontFamily">@font/font_medium_fa</item>
-        <item name="android:textSize">@dimen/size_txt_20</item>
+        <item name="android:textSize">@dimen/size_txt_30</item>
         <item name="android:justificationMode" tools:ignore="NewApi">inter_word</item>
         <item name="android:letterSpacing">0.1</item>
     </style>

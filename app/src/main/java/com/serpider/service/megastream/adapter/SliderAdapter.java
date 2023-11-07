@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -89,7 +90,6 @@ public class SliderAdapter extends PagerAdapter {
     }
 
     private void changeMode(int mode, String btnText, String btnColor, String url) {
-
         /*
         1 = Donate
         2 = Ads
@@ -97,28 +97,27 @@ public class SliderAdapter extends PagerAdapter {
         4 = Watch
         */
         if (mode == 1) {
-            btnSlider.setText(btnText);
-            view.setOnClickListener(view1 -> Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_donateFragment));
+            btnSlider.setOnClickListener(view1 -> Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_donateFragment));
         } else if (mode == 2) {
-            btnSlider.setText(btnText);
-            view.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_mainFragment_to_webFragment));
+            btnSlider.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_mainFragment_to_webFragment));
             webFragment.titleWeb = "";
             webFragment.urlWeb = url;
-            int color = Color.parseColor("#99cc00");
-            btnSlider.getBackground().mutate().setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.SRC));
         } else if (mode == 3) {
-            view.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_mainFragment_to_webFragment));
+            btnSlider.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_mainFragment_to_webFragment));
             webFragment.titleWeb = "";
             webFragment.urlWeb = url;
-            btnSlider.setText(btnText);
         }else if (mode == 4) {
-            btnSlider.setText("تماشا");
             String item_unique = url;
-            Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_detailsFragment);
+            btnSlider.setOnClickListener(view1 -> Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_detailsFragment));
             SharedPreferences sharedPreferences = view.getContext().getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("ID_ITEM", item_unique);
             editor.apply();
+        }
+
+        btnSlider.setText(btnText);
+        if (!btnColor.isEmpty()){
+            btnSlider.setBackgroundColor(Color.parseColor(btnColor));
         }
 
     }

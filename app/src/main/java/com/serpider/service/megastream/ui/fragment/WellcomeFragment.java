@@ -1,6 +1,11 @@
 package com.serpider.service.megastream.ui.fragment;
 
+import static com.serpider.service.megastream.util.DataSave.isReady;
+
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,8 +17,10 @@ import androidx.viewpager.widget.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.TranslateAnimation;
 
 import com.serpider.service.megastream.R;
 import com.serpider.service.megastream.databinding.FragmentWellcomeBinding;
@@ -21,7 +28,6 @@ import com.serpider.service.megastream.util.Connection;
 
 public class WellcomeFragment extends Fragment {
     FragmentWellcomeBinding mBinding;
-    private Animation animation;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +45,7 @@ public class WellcomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        isReady(getActivity(), true);
         loadBgAnim();
 
         mBinding.sliderWellcome.setAdapter(new CustomPagerAdapter(getActivity()));
@@ -60,9 +66,22 @@ public class WellcomeFragment extends Fragment {
 
     private void loadBgAnim() {
 
-        animation = AnimationUtils.loadAnimation(getActivity(), R.anim.shadow);
-        mBinding.shadowOne.startAnimation(animation);
-        mBinding.shadowTwo.startAnimation(animation);
+        TranslateAnimation moveAnimation = new TranslateAnimation(0, 100, 0, 0);
+        moveAnimation.setDuration(1000);
+        moveAnimation.setRepeatCount(Animation.INFINITE);
+
+        AlphaAnimation alphaAnimation = new AlphaAnimation(1.0f, 0.0f);
+        alphaAnimation.setDuration(5000);
+        alphaAnimation.setRepeatCount(Animation.INFINITE);
+
+        mBinding.shadowOne.startAnimation(moveAnimation);
+        mBinding.shadowTwo.startAnimation(moveAnimation);
+        mBinding.shadowOne.startAnimation(alphaAnimation);
+        mBinding.shadowTwo.startAnimation(alphaAnimation);
+
+        // انیمیشن‌ها را شروع کنید
+        moveAnimation.start();
+        alphaAnimation.start();
 
     }
 

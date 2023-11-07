@@ -17,33 +17,49 @@
         android:background="@drawable/ic_close"
         android:backgroundTint="@color/theme_gray_txt"
         android:layout_alignParentEnd="true"/>
-    
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:orientation="horizontal"
-        android:layout_centerHorizontal="true"
-        android:gravity="center_vertical|center">
-        
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/mega"
-            android:textSize="@dimen/size_txt_60"
-            android:fontFamily="@font/font_bold_en"
-            android:textColor="@color/theme_main"/>
+        android:layout_marginTop="@dimen/size_padding_30"
+        android:orientation="vertical"
+        android:gravity="center">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <ImageView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:src="@drawable/logo_mega_grad"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="@string/account_en"
-            android:textSize="@dimen/size_txt_60"
-            android:fontFamily="@font/font_regular_en"
-            android:textColor="@color/theme_white_txt"/>
-        
+            android:layout_marginTop="@dimen/size_padding_30"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_vertical|center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mega"
+                android:textSize="@dimen/size_txt_50"
+                android:fontFamily="@font/font_bold_en"
+                android:textColor="@color/theme_white_txt"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="@string/account_en"
+                android:textSize="@dimen/size_txt_50"
+                android:fontFamily="@font/font_regular_en"
+                android:textColor="@color/theme_white_txt"/>
+
+        </LinearLayout>
+
     </LinearLayout>
+    
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -93,9 +109,9 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnLoginToSign"
-                    style="@style/Theme.Original.Button.Transparet"
+                    style="@style/Theme.Original.Button"
                     android:text="@string/login_to_sign"
-                    android:backgroundTint="@android:color/transparent"/>
+                    android:backgroundTint="@color/theme_dark_fit"/>
 
             </LinearLayout>
         </LinearLayout>
@@ -218,28 +234,12 @@
                 android:id="@+id/btnLoginWithGoogle"
                 style="@style/Theme.Original.Button"
                 android:layout_weight="1"
-                android:backgroundTint="@color/theme_white_fit"
+                android:backgroundTint="@color/theme_dark_fit"
                 app:icon="@drawable/ic_google"
                 app:iconGravity="textEnd"
                 app:iconTint="@null"
                 android:text="@string/google_account"
-                android:textColor="@color/theme_black_txt" />
-
-            <Space
-                android:layout_width="@dimen/size_padding_20"
-                android:layout_height="0dp"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnLoginWithTwitter"
-                style="@style/Theme.Original.Button"
-                android:layout_weight="1"
-                android:backgroundTint="@color/theme_twitter"
-                app:icon="@drawable/ic_twitter"
-                app:iconGravity="textEnd"
-                app:iconSize="15dp"
-                app:iconTint="@color/theme_white_fit"
-                android:text="@string/twitter_account"
-                android:textColor="@color/theme_white_fit" />
+                android:textColor="@color/theme_white_txt" />
 
         </LinearLayout>
 

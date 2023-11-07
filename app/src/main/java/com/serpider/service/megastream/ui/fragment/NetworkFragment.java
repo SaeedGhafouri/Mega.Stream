@@ -35,7 +35,7 @@ public class NetworkFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         connection = new Connection();
-        mBinding.btnTry.setOnClickListener(view1 -> {
+        mBinding.btnCheckConnection.setOnClickListener(view1 -> {
             if (connection.isNetwork(getContext())){
                 getActivity().onBackPressed();
             }

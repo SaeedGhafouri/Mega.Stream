@@ -13,8 +13,7 @@
         android:layout_width="95dp"
         android:layout_height="95dp"
         android:layout_centerInParent="true"
-        android:src="@drawable/logo_mega"
-        app:tint="@color/theme_main" />
+        android:src="@drawable/logo_mega_grad" />
 
     <com.romainpiel.shimmer.ShimmerTextView
         android:id="@+id/txtSplash"

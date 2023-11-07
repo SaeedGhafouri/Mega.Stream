@@ -131,6 +131,8 @@ public interface ApiInterFace {
     Call<List<Network>> getNetworks();
     @GET("getAds/")
     Call<List<Ads>> getAds();
+    @GET("getDonates/")
+    Call<Donate> getDonates();
 
     @FormUrlEncoded
     @POST("getUser/")
@@ -193,5 +195,13 @@ public interface ApiInterFace {
     @POST("getSearch/")
     Call<List<Film>> getSearchItem(
             @Field("ITEM_NAME") String item_name
+    );
+
+    @FormUrlEncoded
+    @POST("userComment/")
+    Call<Comment> userComment(
+            @Field("USER_ID") int user_id,
+            @Field("ITEM_ID") int item_id,
+            @Field("MESSAGE") String message
     );
 }

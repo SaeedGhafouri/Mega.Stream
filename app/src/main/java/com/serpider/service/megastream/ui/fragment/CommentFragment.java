@@ -13,12 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.serpider.service.megastream.adapter.CommentAdapter;
 import com.serpider.service.megastream.api.ApiClinent;
 import com.serpider.service.megastream.api.ApiInterFace;
 import com.serpider.service.megastream.api.ApiServer;
 import com.serpider.service.megastream.databinding.FragmentCommentBinding;
+import com.serpider.service.megastream.interfaces.Key;
 import com.serpider.service.megastream.model.Comment;
 import com.serpider.service.megastream.util.DataSave;
 
@@ -30,7 +32,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CommentFragment extends Fragment {
-    ApiInterFace requestComment;
+    ApiInterFace requestComment, requestAddComment;
     CommentAdapter commentAdapter;
     List<Comment> listComment = new ArrayList<>();
     RecyclerView recyclerComment;
@@ -66,9 +68,19 @@ public class CommentFragment extends Fragment {
     private void addComment(String user_id, String item_id) {
         String msg = mBinding.edComment.getText().toString().trim();
 
-        requestComment = ApiClinent.getApiClinent(getActivity(), ApiServer.urlData()).create(ApiInterFace.class);
+        requestAddComment = ApiClinent.getApiClinent(getActivity(), Key.BASE_URL).create(ApiInterFace.class);
+        requestAddComment.userComment(1, 2, msg).enqueue(new Callback<Comment>() {
+            @Override
+            public void onResponse(Call<Comment> call, Response<Comment> response) {
+               /* Comment comment = response.body();
+                Toast.makeText(getActivity(), comment.getMESSAGE(), Toast.LENGTH_SHORT).show();*/
+            }
 
-
+            @Override
+            public void onFailure(Call<Comment> call, Throwable t) {
+                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 

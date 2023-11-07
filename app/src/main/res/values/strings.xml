@@ -38,7 +38,7 @@
     <string name="countrys">کشورها</string>
     <string name="networks">شبکه ها</string>
     <!---->
-    <string name="all">همه</string>
+    <string name="all">بیشتر</string>
     <string name="suggested">پیشنهاد سردبیر</string>
     <string name="serial">سریال</string>
 
@@ -55,9 +55,11 @@
     <string name="watching">تماشای آنلاین</string>
     <string name="introduction">معرفی</string>
     <string name="comments">نظرات</string>
+    <string name="comment_">نظر</string>
     <string name="trailer">تریلر</string>
     <string name="archive">آرشیو</string>
     <string name="quality_play">کیفیت پخش</string>
+    <string name="sections">قسمت ها</string>
     <string name="choice_player">پخش کننده</string>
     <string name="choice_player_desc">انتخاب کنید ، برای نمایش بهتر زیر نویس ها می توانید از پخش کننده مگا استریم کنید</string>
 
@@ -151,6 +153,7 @@
     <string name="support_email">ایمیل</string>
     <string name="support_telegram">تلگرام</string>
     <string name="support_report">تیکت گزارش</string>
+    <string name="report">گزارش</string>
 
     <!--Explore-->
     <string name="explore">کاوش</string>
@@ -160,5 +163,6 @@
     <string name="settings_main">اصلی</string>
     <string name="settings_password">امنیت و رمزعبور</string>
     <string name="settings_notification">اعلان ها و خبرنامه</string>
+    <string name="settings_check_update">بررسی بروز رسانی</string>
 
 </resources>

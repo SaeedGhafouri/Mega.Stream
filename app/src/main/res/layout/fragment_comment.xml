@@ -37,24 +37,6 @@
                     android:textColor="@color/theme_white_txt"
                     android:textAlignment="viewStart"/>
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardVector"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginEnd="@dimen/size_padding_20"
-                    android:layout_gravity="center_vertical"
-                    app:cardElevation="0dp"
-                    app:cardCornerRadius="@dimen/size_radius_10">
-
-                    <ImageView
-                        android:id="@+id/vectorList"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:src="@mipmap/ic_launcher"/>
-
-                </com.google.android.material.card.MaterialCardView>
-
             </LinearLayout>
 
         </com.google.android.material.appbar.MaterialToolbar>

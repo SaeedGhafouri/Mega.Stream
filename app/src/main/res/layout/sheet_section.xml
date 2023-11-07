@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:text="@string/quality_play"
+            android:text="@string/sections"
             android:fontFamily="@font/font_regular_fa"
             android:textSize="@dimen/size_txt_20"
             android:textColor="@color/theme_gray_txt"/>

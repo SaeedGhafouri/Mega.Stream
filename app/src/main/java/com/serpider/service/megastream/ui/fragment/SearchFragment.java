@@ -80,9 +80,16 @@ public class SearchFragment extends Fragment {
         mBinding.edSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                mBinding.loaderSearch.setVisibility(View.VISIBLE);
+                mBinding.btnSearch.setVisibility(View.GONE);
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     getSearch();
+                    mBinding.loaderSearch.setVisibility(View.VISIBLE);
+                    mBinding.btnSearch.setVisibility(View.GONE);
                     return true;
+                }else {
+                    mBinding.loaderSearch.setVisibility(View.GONE);
+                    mBinding.btnSearch.setVisibility(View.VISIBLE);
                 }
                 return false;
             }
@@ -92,6 +99,8 @@ public class SearchFragment extends Fragment {
 
     }
     private void getSearch() {
+        mBinding.loaderSearch.setVisibility(View.VISIBLE);
+        mBinding.btnSearch.setVisibility(View.GONE);
         name = mBinding.edSearch.getText().toString().trim();
         requestSearch = ApiClinent.getApiClinent(getActivity(), Key.BASE_URL).create(ApiInterFace.class);
 
@@ -107,6 +116,9 @@ public class SearchFragment extends Fragment {
                 listSearch = response.body();
                 itemAdapter = new ItemAdapter(getActivity().getApplicationContext(), listSearch, "SEARCH");
                 recyclerSearch.setAdapter(itemAdapter);
+
+                mBinding.loaderSearch.setVisibility(View.GONE);
+                mBinding.btnSearch.setVisibility(View.VISIBLE);
 
                 if (itemAdapter.getItemCount() == 0) {
                     mBinding.bodyEmpty.setVisibility(View.VISIBLE);

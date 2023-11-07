@@ -39,9 +39,7 @@ import com.serpider.service.megastream.model.Network;
 import com.serpider.service.megastream.model.Ads;
 import com.serpider.service.megastream.ui.dialog.FilterFragment;
 import com.serpider.service.megastream.util.DataSave;
-import com.serpider.service.megastream.util.Loader;
 import com.serpider.service.megastream.util.SnackBoard;
-
 import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Call;
@@ -68,8 +66,6 @@ public class HomeFragment extends Fragment {
     List<Film> listSerial = new ArrayList<>();
 
     ApiInterFace requestAllFilm, requestCountry, requestSlider, requestGenre, requestNetwork;
-
-    private Loader loader;
     /*Animation Slider*/
     private Runnable runnable = null;
     public Handler handler = new Handler();
@@ -90,8 +86,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        loader = Loader.getInstance(getActivity());
-        loader.show();
 
         /*loadCountry();
         loadNetwork();
@@ -223,7 +217,6 @@ public class HomeFragment extends Fragment {
                 listGenre = response.body();
                 genreAdapter = new GenreAdapter(getActivity() , listGenre, getActivity());
                 recyclerGenre.setAdapter(genreAdapter);
-                loader.close();
 
             }
 

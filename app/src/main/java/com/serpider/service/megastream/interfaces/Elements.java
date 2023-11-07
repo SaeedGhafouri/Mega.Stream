@@ -6,21 +6,26 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import androidx.fragment.app.FragmentActivity;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.animation.content.Content;
 import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
 import com.serpider.service.megastream.R;
+import com.serpider.service.megastream.util.SnackBoard;
 
 
 public interface Elements {
@@ -36,10 +41,38 @@ public interface Elements {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
 
+        ImageButton btnClose = dialog.findViewById(R.id.btnClose);
+        LottieAnimationView loader = dialog.findViewById(R.id.loader);
         VideoView videoView = dialog.findViewById(R.id.dialogVideoPlayer);
         Uri uri = Uri.parse(urlVideo);
         videoView.setVideoURI(uri);
-        videoView.start();
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mediaPlayer) {
+                videoView.start();
+                loader.setVisibility(View.GONE);
+                loader.pauseAnimation();
+            }
+        });
+
+        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                dialog.dismiss();
+            }
+        });
+
+        videoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+            @Override
+            public boolean onError(MediaPlayer mediaPlayer, int i, int i1) {
+                dialog.dismiss();
+                SnackBoard.show(fragment, "خطا در پخش تریلر", 0);
+                return false;
+            }
+        });
+
+
+        btnClose.setOnClickListener(view -> dialog.dismiss());
 
         return dialog;
     }

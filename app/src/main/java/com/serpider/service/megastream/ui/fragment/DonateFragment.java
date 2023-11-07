@@ -4,15 +4,20 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.serpider.service.megastream.R;
+import com.serpider.service.megastream.adapter.SpinnerAdapter;
 import com.serpider.service.megastream.api.ApiClinent;
 import com.serpider.service.megastream.api.ApiInterFace;
 import com.serpider.service.megastream.api.ApiServer;
@@ -21,6 +26,7 @@ import com.serpider.service.megastream.model.Donate;
 import com.serpider.service.megastream.model.Result;
 import com.serpider.service.megastream.model.User;
 import com.serpider.service.megastream.util.SnackBoard;
+import com.zarinpal.ZarinPalBillingClient;
 
 
 import retrofit2.Call;
@@ -30,7 +36,7 @@ import retrofit2.Response;
 public class DonateFragment extends Fragment {
     ApiInterFace requestDonate;
     private Donate donate;
-    private String Price;
+    private long MainPrice;
     FragmentDonateBinding mBinding;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,22 +56,22 @@ public class DonateFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         loadDonate();
-
+        setupSpinner();
     }
 
     private void loadDonate() {
 
         requestDonate = ApiClinent.getApiClinent(getActivity(), ApiServer.urlData()).create(ApiInterFace.class);
 
-        requestDonate.getDonate().enqueue(new Callback<Donate>() {
+        requestDonate.getDonates().enqueue(new Callback<Donate>() {
             @Override
             public void onResponse(Call<Donate> call, Response<Donate> response) {
                 donate = response.body();
                 if (response.isSuccessful()) {
 
-                    mBinding.titleDonate.setText(donate.getDonate_title());
-                    mBinding.descDonate.setText(donate.getDonate_desc());
-                    Glide.with(getActivity()).load(donate.getDonate_image()).into(mBinding.bannerDonate);
+                    mBinding.titleDonate.setText(donate.getTitle());
+                    mBinding.descDonate.setText(donate.getCaption());
+                    Glide.with(getActivity()).load(donate.getImage()).into(mBinding.bannerDonate);
 
                     runPeyment();
 
@@ -85,21 +91,53 @@ public class DonateFragment extends Fragment {
 
         mBinding.btnPayment.setEnabled(true);
         mBinding.btnPayment.setOnClickListener(view -> {
-            String edPrice = mBinding.edPrice.getText().toString().trim();
-
-            if (!edPrice.isEmpty()) {
-                Price = edPrice;
+            String edText = mBinding.edPrice.getText().toString().trim();
+            if (MainPrice == 0) {
+                if (!edText.isEmpty()){
+                    MainPrice = Long.parseLong(mBinding.edPrice.getText().toString().trim());
+                }else {
+                    SnackBoard.show(getActivity(), "لطفا مبلغ خود را وارد کنید", 2);
+                    mBinding.edPrice.setError("مبلغ را وارد کنید");
+                }
             }else {
-                final int id = (mBinding.radioGrpup).getCheckedRadioButtonId();
+                Toast.makeText(getActivity(), " " + MainPrice, Toast.LENGTH_SHORT).show();
+                zarinPal(MainPrice);
+            }
 
-                switch (id) {
-                    case R.id.price10:
-                        SnackBoard.show(getActivity(),"10.000", 0);
-                        break;
+
+        });
+
+    }
+
+    private void setupSpinner() {
+
+        String[] items = {"ده هزار تومان", "بیست هزار تومان", "پنجاه هزار تومان", "صد هزار تومان", "مبلغ دلخواه"};
+        int[] icons = {R.drawable.img_10, R.drawable.img_20, R.drawable.img_50, R.drawable.img_100, R.drawable.img_custom};
+        long[] prices = {10000, 20000, 50000, 100000, 0};
+        SpinnerAdapter adapter = new SpinnerAdapter(getActivity(), items, icons, prices);
+        mBinding.pricesSpinner.setAdapter(adapter);
+
+        mBinding.pricesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                if (prices[position] == 0){
+                    mBinding.edPrice.setVisibility(View.VISIBLE);
+                    MainPrice = 0;
+                }else {
+                    mBinding.edPrice.setVisibility(View.GONE);
+                    MainPrice = prices[position];
                 }
             }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+
+            }
         });
+
+    }
+
+    private void zarinPal(long price) {
 
     }
 }

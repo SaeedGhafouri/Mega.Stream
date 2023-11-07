@@ -3,13 +3,16 @@ package com.serpider.service.megastream.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -26,12 +29,12 @@ public class QualityAdapter extends RecyclerView.Adapter<QualityAdapter.MyViewHo
 
     Context context;
     List<Movie_Play> data;
-    FragmentActivity fragmentActivity;
+    FragmentActivity activity;
 
-    public QualityAdapter(Context context, List<Movie_Play> data, FragmentActivity fragmentActivity) {
+    public QualityAdapter(Context context, List<Movie_Play> data, FragmentActivity activity) {
         this.context = context;
         this.data = data;
-        this.fragmentActivity = fragmentActivity;
+        this.activity = activity;
     }
 
     @NonNull
@@ -54,6 +57,8 @@ public class QualityAdapter extends RecyclerView.Adapter<QualityAdapter.MyViewHo
             holder.imgQuality.setImageResource(R.drawable.ic_1080);
         } else if (data.get(position).getMovie_quality().equals("720p")) {
             holder.imgQuality.setImageResource(R.drawable.ic_720);
+        } else if (data.get(position).getMovie_quality().equals("720p ×265")) {
+            holder.imgQuality.setImageResource(R.drawable.ic_720);
         }else if (data.get(position).getMovie_quality().equals("480p")) {
             holder.imgQuality.setImageResource(R.drawable.ic_480);
         }else if (data.get(position).getMovie_quality().equals("360p")) {
@@ -61,7 +66,7 @@ public class QualityAdapter extends RecyclerView.Adapter<QualityAdapter.MyViewHo
         }
 
         holder.itemView.setOnClickListener(view -> {
-            playerSheet(fragmentActivity, data.get(position).getMovie_title(), data.get(position).getMovie_play_url());
+            playerSheet(activity, data.get(position).getMovie_title(), data.get(position).getMovie_play_url());
         });
 
     }
@@ -84,37 +89,67 @@ public class QualityAdapter extends RecyclerView.Adapter<QualityAdapter.MyViewHo
     }
 
     @SuppressLint("MissingInflatedId")
-    static void playerSheet(FragmentActivity fragmentActivity, String title, String url) {
-        View view = fragmentActivity.getLayoutInflater().inflate(R.layout.sheet_player, null);
-        BottomSheetDialog PlayerSheet = new BottomSheetDialog(fragmentActivity);
+    static void playerSheet(FragmentActivity activity, String title, String url) {
+        View view = activity.getLayoutInflater().inflate(R.layout.sheet_player, null);
+        BottomSheetDialog PlayerSheet = new BottomSheetDialog(activity);
         PlayerSheet.setContentView(view);
         PlayerSheet.show();
 
-        LinearLayout btnVlc, btnMga;
+        LinearLayout btnVlc, btnMga, btnMx;
+        TextView txtVlc, txtMx, txtKm;
         btnVlc = view.findViewById(R.id.btnVlcPlayer);
         btnMga = view.findViewById(R.id.btnPlayerMga);
+        btnMx = view.findViewById(R.id.btnMxPlayer);
+        txtVlc = view.findViewById(R.id.txtVlcInstall);
+        txtMx = view.findViewById(R.id.txtMxInstall);
+        txtKm = view.findViewById(R.id.txtKmInstall);
 
         /*Mega Player*/
         btnMga.setOnClickListener(view1 -> {
-            Intent intent = new Intent(fragmentActivity, PlayerActivity.class);
+            Intent intent = new Intent(activity, PlayerActivity.class);
             intent.putExtra("URL_PLAY", url);
             intent.putExtra("URL_TITLE", title);
-            fragmentActivity.startActivity(intent);
+            activity.startActivity(intent);
         });
 
         /*VLC Player*/
-        int vlcRequestCode = 42;
+        if (isAppAvailable(activity, "org.videolan.vlc")) {
+            btnVlc.setEnabled(true);
+            txtVlc.setText("Installed");
+        } else {
+            txtVlc.setText("not installed");
+        }
         btnVlc.setOnClickListener(view1 -> {
-            Uri uri = Uri.parse(url);
-            Intent vlcIntent = new Intent(Intent.ACTION_VIEW);
-            vlcIntent.setPackage("org.videolan.vlc");
-            vlcIntent.setDataAndTypeAndNormalize(uri, "video/*");
-            vlcIntent.putExtra("title", title);
-            vlcIntent.putExtra("from_start", true);
-            vlcIntent.putExtra("position", 90000l);
-            fragmentActivity.startActivityForResult(vlcIntent, vlcRequestCode);
+            getIntentPlayer(activity, url, title, "org.videolan.vlc");
         });
 
+        /*Mx Player*/
+        btnMx.setOnClickListener(view1 -> {
+
+        });
+
+    }
+    
+    static void getIntentPlayer(FragmentActivity activity,String url, String title, String packageName) {
+        Uri uri = Uri.parse(url);
+        Intent Intent = new Intent(android.content.Intent.ACTION_VIEW);
+        Intent.setPackage(packageName);
+        Intent.setDataAndTypeAndNormalize(uri, "video/*");
+        Intent.putExtra("title", title);
+        Intent.putExtra("from_start", true);
+        Intent.putExtra("position", 90000l);
+        activity.startActivityForResult(Intent,  42);
+    }
+
+    public static boolean isAppAvailable(Context context, String packageName) {
+        try {
+            context.getPackageManager().getApplicationInfo(packageName, 0);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.d("INSTALL1", e.getMessage());
+            return false;
+
+        }
     }
 
 }

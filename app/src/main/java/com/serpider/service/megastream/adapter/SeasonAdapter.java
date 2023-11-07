@@ -63,7 +63,7 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.MyViewHold
             holder.txtValue.setText(value);
         }
 
-        holder.itemView.setOnClickListener(view -> loadSection(fragmentActivity, data.get(position).getSeason_value() ,data.get(position).getSeason_unique()));
+        holder.itemView.setOnClickListener(view -> loadSection(fragmentActivity, data.get(position).getSeason_title() ,data.get(position).getSeason_unique()));
 
     }
 
@@ -92,6 +92,12 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.MyViewHold
         recyclerSection = sheetSection.findViewById(R.id.recyclerSection);
 
         titleSeason.setText(titleValue);
+
+        listSection.add(new Section("54", "54", "قسمت اول", "1" ));
+        listSection.add(new Section("11" , " 12", "قسمت دوم", "2" ));
+        sectionAdapter = new SectionAdapter(fragmentActivity.getApplicationContext(), listSection, fragmentActivity);
+        recyclerSection.setAdapter(sectionAdapter);
+
 
         requestSection = ApiClinent.getApiClinent(fragmentActivity, ApiServer.urlData()).create(ApiInterFace.class);
 

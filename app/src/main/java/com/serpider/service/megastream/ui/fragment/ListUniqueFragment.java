@@ -79,7 +79,7 @@ public class ListUniqueFragment extends Fragment {
     }
 
     private void loadData(String groupType, String groupName) {
-
+        mBinding.loader.setVisibility(View.VISIBLE);
         requestList = ApiClinent.getApiClinent(getActivity(), Key.BASE_URL).create(ApiInterFace.class);
         recyclerList = mBinding.listRecyclerView;
         recyclerList.setHasFixedSize(true);
@@ -92,6 +92,7 @@ public class ListUniqueFragment extends Fragment {
                 listItem = response.body();
                 itemAdapter = new ItemAdapter(getActivity().getApplicationContext(), listItem, "LIST");
                 recyclerList.setAdapter(itemAdapter);
+                mBinding.loader.setVisibility(View.GONE);
                 if (itemAdapter.getItemCount() == 0) {
                     mBinding.bodyEmpty.setVisibility(View.VISIBLE);
                 }

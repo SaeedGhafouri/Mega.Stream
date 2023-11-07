@@ -182,6 +182,5 @@ public class ProfileFragment extends Fragment {
         spinnerAdapter.setDropDownViewResource(R.layout.dropdown_menu_popup_item);
         binding.spinnerReportType.setAdapter(spinnerAdapter);
 
-
     }
 }

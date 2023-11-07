@@ -2,6 +2,17 @@ package com.serpider.service.megastream.model;
 
 public class Comment {
 
+    /*Result*/
+    private boolean STATUS;
+    private String MESSAGE;
+    public boolean isSTATUS() {
+        return STATUS;
+    }
+    public String getMESSAGE() {
+        return MESSAGE;
+    }
+
+    /*END Result*/
     private int id, user_id, status, cnt;
     private String msg, username, nickname, profile, date;
 

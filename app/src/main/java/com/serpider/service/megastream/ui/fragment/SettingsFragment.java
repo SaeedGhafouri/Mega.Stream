@@ -11,12 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.serpider.service.megastream.R;
 import com.serpider.service.megastream.databinding.FragmentSettingsBinding;
 
 
 public class SettingsFragment extends Fragment {
-
     private FragmentSettingsBinding mBinding;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,6 +35,15 @@ public class SettingsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         mBinding.btnInfo.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_settingsFragment_to_infoUserFragment));
+        mBinding.btnCheckUpdate.setOnClickListener(view1 -> sheetUpdate());
+
+    }
+
+    private void sheetUpdate() {
+        View view = getActivity().getLayoutInflater().inflate(R.layout.sheet_update, null);
+        BottomSheetDialog updateSheet = new BottomSheetDialog(getActivity());
+        updateSheet.setContentView(view);
+        updateSheet.show();
 
     }
 }

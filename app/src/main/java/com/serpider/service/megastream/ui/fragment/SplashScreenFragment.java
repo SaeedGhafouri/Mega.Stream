@@ -1,5 +1,7 @@
 package com.serpider.service.megastream.ui.fragment;
 
+import static com.serpider.service.megastream.util.DataSave.getIsReady;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -57,7 +59,12 @@ public class SplashScreenFragment extends Fragment {
         if (new Connection().isNetwork(getContext())) {
             Handler handler2 = new Handler();
             handler2.postDelayed(() -> {
-                Navigation.findNavController(view).navigate(R.id.action_splashScreenFragment_to_wellcomeFragment);
+                if (getIsReady(getActivity())){
+                    Navigation.findNavController(view).navigate(R.id.action_splashScreenFragment_to_mainFragment);
+                }else {
+                    Navigation.findNavController(view).navigate(R.id.action_splashScreenFragment_to_wellcomeFragment);
+                }
+
             },3000);
         }else {
             new Connection().showView(view, R.id.action_splashScreenFragment_to_networkFragment);

@@ -77,13 +77,11 @@ public class DetailsFragment extends Fragment {
         loader = LoaderFullScreen.getInstance(getContext());
         loader.show();
 
+        btnPlay = mBinding.btnPlay;
+
         loadData();
         /*Test Code*/
-        btnPlay = getActivity().findViewById(R.id.btnPlay);
-        mBinding.btnComment.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_detailsFragment_to_commentFragment));
-        /*Triler*/
-        mBinding.btnTriler.setOnClickListener(view1 -> Elements.DialogVideoPlayer(getActivity(),urlTriler));
-
+        /*Deep link*/
         Uri data = getActivity().getIntent().getData();
         if (data !=null){
             String path = data.getPath();
@@ -108,6 +106,7 @@ public class DetailsFragment extends Fragment {
             @Override
             public void onResponse(Call<Film> call, Response<Film> response) {
                 Film film = response.body();
+                loader.close();
                 if(film != null){
                     mBinding.itemTitle.setText(film.getItem_title_en());
                     mBinding.itemTitleFa.setText(film.getItem_title_fa());
@@ -130,12 +129,27 @@ public class DetailsFragment extends Fragment {
                     }
                     mBinding.itemPoster.setOnClickListener(view1 -> Elements.DialogPreImage(getActivity(), film.getItem_poster()));
 
+                    btnPlay = getActivity().findViewById(R.id.btnPlay);
+                    /*Triler*/
+                    mBinding.btnTriler.setOnClickListener(view1 -> Elements.DialogVideoPlayer(getActivity(),urlTriler));
+                    /*Comment*/
                     mBinding.btnComment.setOnClickListener(view -> {
                         Navigation.findNavController(view).navigate(R.id.action_detailsFragment_to_commentFragment);
                     });
-                    btnPlay.setOnClickListener(view1 -> qualitySheet(film.getItem_id()));
                     /*Archive*/
                     mBinding.btnArchive.setOnClickListener(view1 -> insertFavorites(film.getItem_unique() ,film.getItem_title_en(), film.getItem_country(), film.getItem_year(), film.getItem_poster()));
+                    /*Play*/
+                    btnPlay.setOnClickListener(view1 -> qualitySheet(film.getItem_id()));
+
+                    if (film.getItem_desc().isEmpty()){
+                        mBinding.titleDesc.setVisibility(View.GONE);
+                    }
+
+                    seasonList.add(new Season(1, "54", "فصل اول", "1" ));
+                    seasonList.add(new Season(1, "12", "فصل اول", "2" ));
+
+                    seasonAdapter = new SeasonAdapter(getActivity().getApplicationContext(), seasonList, getActivity());
+                    recyclerSeason.setAdapter(seasonAdapter);
 
                     /*Chip*/
                     loadChip(film.getItem_genre());
@@ -155,7 +169,6 @@ public class DetailsFragment extends Fragment {
 
     @SuppressLint("ResourceAsColor")
     private void loadChip(String gnre) {
-
         String[] genres = gnre.split(", ");
         ChipGroup chipGroup = getActivity().findViewById(R.id.chipGroup);
         for (String genre : genres) {
@@ -234,7 +247,6 @@ public class DetailsFragment extends Fragment {
         });
 
     }
-
     private void insertFavorites(String id ,String title, String country, String year, String poster) {
         class SaveFavorites extends AsyncTask<Void, Void, Void> {
             @Override

@@ -49,6 +49,13 @@
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/ic_search" />
 
+                    <ProgressBar
+                        android:id="@+id/loaderSearch"
+                        android:layout_width="23dp"
+                        android:layout_height="23dp"
+                        android:visibility="gone"
+                        android:layout_gravity="center_vertical"/>
+
                 </LinearLayout>
 
             </LinearLayout>

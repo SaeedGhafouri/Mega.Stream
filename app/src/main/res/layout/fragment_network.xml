@@ -1,48 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.fragment.NetworkFragment"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:background="@color/theme_background">
+    android:background="@color/theme_background"
+    android:padding="@dimen/size_padding_30">
 
-    <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@drawable/ic_harmony_not"/>
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/size_padding_30"
-        android:text="عدم دسترسی به اینترنت"
-        android:textAlignment="center"
-        android:textSize="@dimen/size_txt_30"
-        android:fontFamily="@font/font_bold_fa"
-        android:textColor="@color/theme_white_txt"/>
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/size_padding_10"
-        android:text="از اتصال به شبکه اینترنت مطمئن شوید"
-        android:textAlignment="center"
-        android:textSize="@dimen/size_txt_30"
-        android:fontFamily="@font/font_regular_fa"
-        android:textColor="@color/theme_gray_txt"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/error_connection"
+            android:fontFamily="@font/font_bold_fa"
+            android:textColor="@color/theme_white_txt"
+            android:textSize="@dimen/size_txt_40"/>
+
+        <TextView
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_padding_20"
+            android:layout_gravity="center"
+            android:fontFamily="@font/font_regular_fa"
+            android:text="@string/error_connection_vpn"
+            android:textAlignment="center"
+            android:textColor="@color/theme_gray_txt"
+            android:textSize="@dimen/size_txt_20" />
+
+    </LinearLayout>
+
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnTry"
-        android:layout_marginTop="@dimen/size_padding_40"
-        style="@style/Theme.Original.Button.Transparet"
-        android:layout_width="150dp"
+        android:id="@+id/btnCheckConnection"
+        style="@style/Theme.Original.Button"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="@color/theme_background"
+        android:text="@string/error_connection_btn"
         app:icon="@drawable/ic_refresh"
-        app:iconGravity="textEnd"
-        app:iconSize="20dp"
-        android:text="تلاس مجدد"
-        android:backgroundTint="@android:color/transparent"/>
+        app:iconGravity="textEnd"/>
 
-</LinearLayout>
+</RelativeLayout>

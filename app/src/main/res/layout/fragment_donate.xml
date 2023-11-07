@@ -55,20 +55,6 @@
             android:padding="@dimen/size_padding_container"
             android:gravity="center_horizontal">
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:layout_width="75dp"
-                android:layout_height="75dp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/size_padding_20"
-                android:text="@string/donate_title"
-                android:fontFamily="@font/font_bold_fa"
-                android:textColor="@color/theme_white_txt"
-                android:textAlignment="center"
-                android:textSize="@dimen/size_txt_40"/>
-
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
@@ -107,86 +93,20 @@
                 android:letterSpacing="0.1"
                 android:textSize="@dimen/size_txt_20"/>
 
-            <RadioGroup
-                android:id="@+id/radioGrpup"
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/pricesSpinner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/size_padding_20">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.radiobutton.MaterialRadioButton
-                        android:id="@+id/price20"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/size_button_height"
-                        android:paddingHorizontal="@dimen/size_padding_container"
-                        android:layout_weight="1"
-                        android:text="20,000 تومان"
-                        android:fontFamily="@font/font_regular_fa"
-                        android:textColor="@color/theme_white_txt"
-                        android:background="@drawable/shape_edit_text"/>
-
-                    <Space
-                        android:layout_width="10dp"
-                        android:layout_height="wrap_content"/>
-
-                    <com.google.android.material.radiobutton.MaterialRadioButton
-                        android:id="@+id/price10"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/size_button_height"
-                        android:paddingHorizontal="@dimen/size_padding_container"
-                        android:layout_weight="1"
-                        android:text="10,000 تومان"
-                        android:fontFamily="@font/font_regular_fa"
-                        android:textColor="@color/theme_white_txt"
-                        android:background="@drawable/shape_edit_text"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/size_padding_20"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.radiobutton.MaterialRadioButton
-                        android:id="@+id/price100"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/size_button_height"
-                        android:paddingHorizontal="@dimen/size_padding_container"
-                        android:layout_weight="1"
-                        android:text="100,000 تومان"
-                        android:fontFamily="@font/font_regular_fa"
-                        android:textColor="@color/theme_white_txt"
-                        android:background="@drawable/shape_edit_text"/>
-
-                    <Space
-                        android:layout_width="10dp"
-                        android:layout_height="wrap_content"/>
-
-                    <com.google.android.material.radiobutton.MaterialRadioButton
-                        android:id="@+id/price50"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/size_button_height"
-                        android:paddingHorizontal="@dimen/size_padding_container"
-                        android:layout_weight="1"
-                        android:text="50,000 تومان"
-                        android:fontFamily="@font/font_regular_fa"
-                        android:textColor="@color/theme_white_txt"
-                        android:background="@drawable/shape_edit_text"/>
-
-                </LinearLayout>
-
-            </RadioGroup>
+                android:layout_height="@dimen/size_button_height"
+                android:layout_marginTop="@dimen/size_padding_30"
+                />
 
             <EditText
                 android:id="@+id/edPrice"
                 style="@style/Theme.Original.EditText.Icon"
                 android:layout_marginTop="@dimen/size_padding_20"
                 android:inputType="numberDecimal"
+                android:visibility="gone"
+                android:imeOptions="flagNoFullscreen"
                 android:fontFamily="@font/font_regular_fa"
                 android:hint="@string/price_del" />
 

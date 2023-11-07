@@ -1,5 +1,10 @@
 package com.serpider.service.megastream.api;
 
+import android.content.Context;
+import android.os.Build;
+
+import androidx.core.os.BuildCompat;
+
 public interface ApiServer {
 
     /*Url Source Data*/
@@ -13,6 +18,14 @@ public interface ApiServer {
         return Url;
     }
 
+    static String URL() {
+        String Url = "http://pluslux.xyz/Mega/30101/action=";
+        return Url;
+    }
 
+    /*chr veriosn bridge in api*/
+    /*static String Version(){
+        int vc = ;
+    }*/
 
 }
