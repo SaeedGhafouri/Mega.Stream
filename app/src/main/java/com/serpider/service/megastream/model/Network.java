@@ -30,19 +30,21 @@ import retrofit2.Response;
 
 public class Network {
 
-    private int id;
     private String name, vector;
-
-    public int getId() {
-        return id;
-    }
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getVector() {
         return vector;
     }
 
+    public void setVector(String vector) {
+        this.vector = vector;
+    }
 }

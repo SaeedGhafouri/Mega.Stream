@@ -2,37 +2,37 @@ package com.serpider.service.megastream.model;
 
 public class Ads {
     private int id, type;
-    private String title, caption, banner, button_text, button_bg, link;
+    private String banner ,link;
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getType() {
         return type;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public String getCaption() {
-        return caption;
+    public void setType(int type) {
+        this.type = type;
     }
 
     public String getBanner() {
         return banner;
     }
 
-    public String getButton_text() {
-        return button_text;
-    }
-
-    public String getButton_bg() {
-        return button_bg;
+    public void setBanner(String banner) {
+        this.banner = banner;
     }
 
     public String getLink() {
         return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 }

@@ -111,7 +111,7 @@ public class FilterFragment extends DialogFragment {
                 listGenre = response.body();
                 if (listGenre != null && listGenre.size() > 0) {
                     for (Genre genre : listGenre) {
-                        genreNames.add(genre.getName());
+                        genreNames.add(genre.getName_fa());
                     }
 
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.dropdown_menu_popup_item, genreNames);

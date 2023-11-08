@@ -35,9 +35,7 @@ public class SliderAdapter extends PagerAdapter {
     private View view;
     private ScaleGestureDetector mScaleGestureDetector;
     public ImageView imageView;
-    public TextView titleSlider, descSlider;
     private FragmentActivity fragmentActivity;
-    private MaterialButton btnSlider;
     private WebFragment webFragment;
     List<Ads> data;
 
@@ -65,31 +63,22 @@ public class SliderAdapter extends PagerAdapter {
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = layoutInflater.inflate(R.layout.item_slider, null);
         imageView = (ImageView) view.findViewById(R.id.sliderImg);
-        titleSlider = view.findViewById(R.id.titleSlider);
-        descSlider = view.findViewById(R.id.descSlider);
-        btnSlider = view.findViewById(R.id.btnSlider);
         mScaleGestureDetector = new ScaleGestureDetector(context, new ScaleListener());
         // imageView.setImageResource();
         Glide.with(context).load(data.get(position).getBanner()).into(imageView);
 
-        titleSlider.setText(data.get(position).getTitle());
-        descSlider.setText(data.get(position).getCaption());
-
-        btnSlider.setBackgroundColor( ContextCompat.getColor(fragmentActivity, R.color.purple_200));
-
         /*Check Mode*/
         int MODE = data.get(position).getType();
-        String BTN_TEXT = data.get(position).getButton_text();
-        String BTN_COLOR = data.get(position).getButton_bg();
+
         String LINK = data.get(position).getLink();
-        changeMode(MODE, BTN_TEXT, BTN_COLOR, LINK);
+        changeMode(MODE,LINK);
 
         ViewPager vp = (ViewPager) container;
         vp.addView(view, 0);
         return view;
     }
 
-    private void changeMode(int mode, String btnText, String btnColor, String url) {
+    private void changeMode(int mode, String url) {
         /*
         1 = Donate
         2 = Ads
@@ -97,27 +86,22 @@ public class SliderAdapter extends PagerAdapter {
         4 = Watch
         */
         if (mode == 1) {
-            btnSlider.setOnClickListener(view1 -> Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_donateFragment));
+            imageView.setOnClickListener(view1 -> Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_donateFragment));
         } else if (mode == 2) {
-            btnSlider.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_mainFragment_to_webFragment));
+            imageView.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_mainFragment_to_webFragment));
             webFragment.titleWeb = "";
             webFragment.urlWeb = url;
         } else if (mode == 3) {
-            btnSlider.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_mainFragment_to_webFragment));
+            imageView.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_mainFragment_to_webFragment));
             webFragment.titleWeb = "";
             webFragment.urlWeb = url;
         }else if (mode == 4) {
             String item_unique = url;
-            btnSlider.setOnClickListener(view1 -> Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_detailsFragment));
+            imageView.setOnClickListener(view1 -> Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_detailsFragment));
             SharedPreferences sharedPreferences = view.getContext().getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("ID_ITEM", item_unique);
             editor.apply();
-        }
-
-        btnSlider.setText(btnText);
-        if (!btnColor.isEmpty()){
-            btnSlider.setBackgroundColor(Color.parseColor(btnColor));
         }
 
     }

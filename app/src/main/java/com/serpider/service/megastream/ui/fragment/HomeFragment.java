@@ -3,24 +3,20 @@ package com.serpider.service.megastream.ui.fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
-
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.serpider.service.megastream.R;
 import com.serpider.service.megastream.adapter.GenreAdapter;
 import com.serpider.service.megastream.adapter.GropingAdapter;
@@ -37,6 +33,7 @@ import com.serpider.service.megastream.model.Film;
 import com.serpider.service.megastream.model.Genre;
 import com.serpider.service.megastream.model.Network;
 import com.serpider.service.megastream.model.Ads;
+import com.serpider.service.megastream.model.Result;
 import com.serpider.service.megastream.ui.dialog.FilterFragment;
 import com.serpider.service.megastream.util.DataSave;
 import com.serpider.service.megastream.util.SnackBoard;
@@ -92,12 +89,16 @@ public class HomeFragment extends Fragment {
         loadSlider();
         loadAllItem();
         loadLimitList();*/
+        loadAds();
         loadGenres();
         loadCountrys();
         loadNetworks();
+
+        /*loadCountrys();
+        loadNetworks();
         loadAds();
         loadSuggested("item_genre", "پیشنهاد سردبیر");
-        loadSerial("item_type", "Serial");
+        loadSerial("item_type", "Serial");*/
 
         /*Refresh Infomation*/
         mBinding.refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -129,6 +130,7 @@ public class HomeFragment extends Fragment {
         mBinding.btnFilter.setOnClickListener(view1 -> dialogFilter());
 
     }
+
     /*BUG*/
     public void dialogFilter() {
         FilterFragment dialogFragment = new FilterFragment();
@@ -211,7 +213,7 @@ public class HomeFragment extends Fragment {
         GridLayoutManager layoutManager =
                 new GridLayoutManager(getActivity(), 1, GridLayoutManager.HORIZONTAL, false);
         recyclerGenre.setLayoutManager(layoutManager);
-        requestGenre.getGenres().enqueue(new Callback<List<Genre>>() {
+        requestGenre.getGenre().enqueue(new Callback<List<Genre>>() {
             @Override
             public void onResponse(Call<List<Genre>> call, Response<List<Genre>> response) {
                 listGenre = response.body();
@@ -234,7 +236,7 @@ public class HomeFragment extends Fragment {
         GridLayoutManager layoutManager =
                 new GridLayoutManager(getActivity(), 1, GridLayoutManager.HORIZONTAL, false);
         recyclerCountry.setLayoutManager(layoutManager);
-        requestCountry.getCountrys().enqueue(new Callback<List<Country>>() {
+        requestCountry.getCountry().enqueue(new Callback<List<Country>>() {
             @Override
             public void onResponse(Call<List<Country>> call, Response<List<Country>> response) {
                 listCountry = response.body();
@@ -256,7 +258,7 @@ public class HomeFragment extends Fragment {
         GridLayoutManager layoutManager =
                 new GridLayoutManager(getActivity(), 1, GridLayoutManager.HORIZONTAL, false);
         recyclerNetwork.setLayoutManager(layoutManager);
-        requestNetwork.getNetworks().enqueue(new Callback<List<Network>>() {
+        requestNetwork.getNetwork().enqueue(new Callback<List<Network>>() {
             @Override
             public void onResponse(Call<List<Network>> call, Response<List<Network>> response) {
                 listNetwork = response.body();

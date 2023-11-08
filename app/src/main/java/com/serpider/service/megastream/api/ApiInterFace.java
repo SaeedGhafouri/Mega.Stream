@@ -1,9 +1,12 @@
 package com.serpider.service.megastream.api;
 
+import static com.serpider.service.megastream.interfaces.Key.END_POINT;
+
 import com.serpider.service.megastream.adapter.Replay;
 import com.serpider.service.megastream.model.Comment;
 import com.serpider.service.megastream.model.Donate;
 import com.serpider.service.megastream.model.Movie_Play;
+import com.serpider.service.megastream.model.Result;
 import com.serpider.service.megastream.model.Season;
 import com.serpider.service.megastream.model.Country;
 import com.serpider.service.megastream.model.Film;
@@ -27,14 +30,6 @@ public interface ApiInterFace {
     @GET("Test-List.php")
     Call<List<Film>> getAllFilm();
 
-    @GET("getCountry.php")
-    Call<List<Country>> getCountry();
-
-    @GET("getGenre.php")
-    Call<List<Genre>> getGenre();
-
-    @GET("getNetwork.php")
-    Call<List<Network>> getNetwork();
 
     @GET("getSlider.php")
     Call<List<Ads>> getSlider();
@@ -123,14 +118,31 @@ public interface ApiInterFace {
 
 
     /*New Api Setup*/
+    @GET(END_POINT + "genre")
+    Call<Result> getTest();
+
+    @GET(END_POINT + "genre")
+    Call<List<Genre>> getGenre();
+
+    @GET(END_POINT + "country")
+    Call<List<Country>> getCountry();
+
+    @GET(END_POINT + "network")
+    Call<List<Network>> getNetwork();
+
+    @GET(END_POINT + "ads")
+    Call<List<Ads>> getAds();
+
+    /*@E*/
+
     @GET("getGenres/")
     Call<List<Genre>> getGenres();
+
+
     @GET("getCountries/")
     Call<List<Country>> getCountrys();
     @GET("getNetworks/")
     Call<List<Network>> getNetworks();
-    @GET("getAds/")
-    Call<List<Ads>> getAds();
     @GET("getDonates/")
     Call<Donate> getDonates();
 

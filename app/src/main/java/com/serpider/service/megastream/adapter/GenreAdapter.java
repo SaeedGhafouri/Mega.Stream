@@ -38,7 +38,7 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull GenreAdapter.MyViewHolder holder, int position) {
-        holder.txtTitle.setText(data.get(position).getName());
+        holder.txtTitle.setText(data.get(position).getName_fa());
 
         SharedPreferences sharedPreferences = activity.getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -46,7 +46,7 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.MyViewHolder
             if (new Connection().isNetwork(activity)) {
                 Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_listUniqueFragment);
                 editor.putString("GROUP_TYPE", "item_genre");
-                editor.putString("GROUP_NAME", data.get(position).getName());
+                editor.putString("GROUP_NAME", data.get(position).getName_fa());
                 editor.putString("GROUP_VECTOR", "");
                 editor.apply();
             }else {

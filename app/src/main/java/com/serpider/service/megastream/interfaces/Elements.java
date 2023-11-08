@@ -24,6 +24,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.animation.content.Content;
 import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
+import com.serpider.service.megastream.BuildConfig;
 import com.serpider.service.megastream.R;
 import com.serpider.service.megastream.util.SnackBoard;
 
@@ -92,6 +93,13 @@ public interface Elements {
 
 
         return dialog;
+    }
+
+    /*chr veriosn bridge in api*/
+    static String Version(){
+        String versionName = BuildConfig.VERSION_NAME;
+        int versionCode = BuildConfig.VERSION_CODE;
+        return versionCode+versionName.replace(".", "");
     }
 
 }

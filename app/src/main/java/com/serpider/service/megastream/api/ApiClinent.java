@@ -17,11 +17,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClinent {
-
     public static Retrofit retrofit = null;
-
     public static Retrofit getApiClinent(FragmentActivity activity, String url) {
-
         long cacheSize = (5 * 1024 * 1024);
         Cache myCache = new Cache(activity.getCacheDir(), cacheSize);
         Connection connection = new Connection();

@@ -20,6 +20,7 @@ import com.serpider.service.megastream.api.ApiClinent;
 import com.serpider.service.megastream.api.ApiInterFace;
 import com.serpider.service.megastream.api.ApiServer;
 import com.serpider.service.megastream.databinding.FragmentCategoryBinding;
+import com.serpider.service.megastream.interfaces.Key;
 import com.serpider.service.megastream.model.Genre;
 
 import java.util.ArrayList;
@@ -60,20 +61,18 @@ public class CategoryFragment extends Fragment {
 
     private void loadCategory() {
 
-        requestCategor = ApiClinent.getApiClinent(getActivity(), ApiServer.urlData()).create(ApiInterFace.class);
+        requestCategor = ApiClinent.getApiClinent(getActivity(), Key.BASE_URL).create(ApiInterFace.class);
         recyclerView = mBinding.listRecyclerView;
         recyclerView.setHasFixedSize(true);
         GridLayoutManager layoutManager =
                 new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        requestCategor.getGenres().enqueue(new Callback<List<Genre>>() {
+        requestCategor.getGenre().enqueue(new Callback<List<Genre>>() {
             @Override
             public void onResponse(Call<List<Genre>> call, Response<List<Genre>> response) {
-
                 listCategory = response.body();
                 categoryAdapter = new CategoryAdapter(getActivity().getApplicationContext(), listCategory);
                 recyclerView.setAdapter(categoryAdapter);
-
             }
 
             @Override
