@@ -17,7 +17,6 @@ public interface ApiServer {
         String Url = "https://serpider.com/Mega/Service-App/Api_Source/";
         return Url;
     }*/
-
     /*static String urlData() {
         String Url = "http://moblnodezh.com/Mega-Test/Api-Service/";
         return Url;
