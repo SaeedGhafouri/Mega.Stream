@@ -12,13 +12,13 @@ public class Favorites implements Serializable {
     private int id;
 
     @ColumnInfo(name = "unique_id")
-    private String unique_item;
+    private int unique_item;
 
     @ColumnInfo(name = "item_title")
     private String title_item;
 
     @ColumnInfo(name = "item_year")
-    private String year_item;
+    private int year_item;
 
     @ColumnInfo(name = "item_country")
     private String country_item;
@@ -33,11 +33,11 @@ public class Favorites implements Serializable {
         this.id = id;
     }
 
-    public String getUnique_item() {
+    public int getUnique_item() {
         return unique_item;
     }
 
-    public void setUnique_item(String unique_item) {
+    public void setUnique_item(int unique_item) {
         this.unique_item = unique_item;
     }
 
@@ -49,11 +49,11 @@ public class Favorites implements Serializable {
         this.title_item = title_item;
     }
 
-    public String getYear_item() {
+    public int getYear_item() {
         return year_item;
     }
 
-    public void setYear_item(String year_item) {
+    public void setYear_item(int year_item) {
         this.year_item = year_item;
     }
 

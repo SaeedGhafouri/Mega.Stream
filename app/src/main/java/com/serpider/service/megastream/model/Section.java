@@ -2,44 +2,31 @@ package com.serpider.service.megastream.model;
 
 public class Section {
 
-    private String section_unique, section_id_season, section_title, section_value;
+    private int id, sort;
+    private String title;
 
-    public Section(String section_unique, String section_id_season, String section_title, String section_value) {
-        this.section_unique = section_unique;
-        this.section_id_season = section_id_season;
-        this.section_title = section_title;
-        this.section_value = section_value;
+    public int getId() {
+        return id;
     }
 
-    public String getSection_unique() {
-        return section_unique;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setSection_unique(String section_unique) {
-        this.section_unique = section_unique;
+    public int getSort() {
+        return sort;
     }
 
-    public String getSection_id_season() {
-        return section_id_season;
+    public void setSort(int sort) {
+        this.sort = sort;
     }
 
-    public void setSection_id_season(String section_id_season) {
-        this.section_id_season = section_id_season;
+    public String getTitle() {
+        return title;
     }
 
-    public String getSection_title() {
-        return section_title;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setSection_title(String section_title) {
-        this.section_title = section_title;
-    }
-
-    public String getSection_value() {
-        return section_value;
-    }
-
-    public void setSection_value(String section_value) {
-        this.section_value = section_value;
-    }
 }

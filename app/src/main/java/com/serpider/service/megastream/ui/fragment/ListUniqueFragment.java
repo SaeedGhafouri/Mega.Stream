@@ -78,7 +78,7 @@ public class ListUniqueFragment extends Fragment {
 
     }
 
-    private void loadData(String groupType, String groupName) {
+    private void loadData(String query, String name) {
         mBinding.loader.setVisibility(View.VISIBLE);
         requestList = ApiClinent.getApiClinent(getActivity(), Key.BASE_URL).create(ApiInterFace.class);
         recyclerList = mBinding.listRecyclerView;
@@ -86,7 +86,7 @@ public class ListUniqueFragment extends Fragment {
         GridLayoutManager layoutManager =
                 new GridLayoutManager(getActivity(), 3, GridLayoutManager.VERTICAL, false);
         recyclerList.setLayoutManager(layoutManager);
-        requestList.getItem(groupType, groupName, 0).enqueue(new Callback<List<Film>>() {
+        requestList.getFilmBy(query, name, 10).enqueue(new Callback<List<Film>>() {
             @Override
             public void onResponse(Call<List<Film>> call, Response<List<Film>> response) {
                 listItem = response.body();

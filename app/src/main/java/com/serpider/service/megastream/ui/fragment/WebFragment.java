@@ -36,7 +36,7 @@ public class WebFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        mBinding.btnBack.setOnClickListener(view1 -> getActivity().onBackPressed());
         mBinding.titleWeb.setText(titleWeb);
         WebViewClient client = new WebViewClient();
         mBinding.webView.setWebViewClient(client);

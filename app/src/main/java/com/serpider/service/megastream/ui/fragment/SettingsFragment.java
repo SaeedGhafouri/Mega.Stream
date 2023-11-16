@@ -33,7 +33,7 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        mBinding.btnBack.setOnClickListener(view1 -> getActivity().onBackPressed());
         mBinding.btnInfo.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_settingsFragment_to_infoUserFragment));
         mBinding.btnCheckUpdate.setOnClickListener(view1 -> sheetUpdate());
 

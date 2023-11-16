@@ -18,10 +18,10 @@ public interface ApiServer {
         return Url;
     }*/
 
-    static String urlData() {
+    /*static String urlData() {
         String Url = "http://moblnodezh.com/Mega-Test/Api-Service/";
         return Url;
-    }
+    }*/
 
     static String URL() {
         String Url = "http://pluslux.xyz/Mega/" + Version() + "/api.php?action=";

@@ -37,7 +37,8 @@
 
         <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -65,7 +66,7 @@
                         android:textAlignment="center"
                         android:text="Mega Player"
                         android:fontFamily="@font/font_bold_en"
-                        android:textSize="@dimen/size_txt_30"
+                        android:textSize="@dimen/size_txt_20"
                         android:textColor="@color/theme_white_txt"/>
 
                     <TextView
@@ -100,7 +101,7 @@
                         android:textAlignment="center"
                         android:text="VLC Player"
                         android:fontFamily="@font/font_bold_en"
-                        android:textSize="@dimen/size_txt_30"
+                        android:textSize="@dimen/size_txt_20"
                         android:textColor="@color/theme_white_txt"/>
 
                     <TextView
@@ -136,7 +137,7 @@
                         android:textAlignment="center"
                         android:text="MX Player"
                         android:fontFamily="@font/font_bold_en"
-                        android:textSize="@dimen/size_txt_30"
+                        android:textSize="@dimen/size_txt_20"
                         android:textColor="@color/theme_white_txt"/>
 
                     <TextView
@@ -154,6 +155,7 @@
 
                 <!--Defult PLayer-->
                 <LinearLayout
+                    android:id="@+id/btnKmPlayer"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -171,7 +173,7 @@
                         android:textAlignment="center"
                         android:text="KM Player"
                         android:fontFamily="@font/font_bold_en"
-                        android:textSize="@dimen/size_txt_30"
+                        android:textSize="@dimen/size_txt_20"
                         android:textColor="@color/theme_white_txt"/>
 
                     <TextView
@@ -186,7 +188,6 @@
                         android:textColor="@color/theme_gray_txt"/>
 
                 </LinearLayout>
-
 
             </LinearLayout>
 

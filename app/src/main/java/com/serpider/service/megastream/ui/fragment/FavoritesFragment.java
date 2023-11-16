@@ -41,7 +41,7 @@ public class FavoritesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        mBinding.btnBack.setOnClickListener(view1 -> getActivity().onBackPressed());
         getFavoritesList();
         mBinding.recyclerFavorite.setHasFixedSize(true);
         GridLayoutManager layoutManager =

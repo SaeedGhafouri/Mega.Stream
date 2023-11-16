@@ -56,7 +56,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
             if (new Connection().isNetwork(context)) {
                 SharedPreferences sharedPreferences = view.getContext().getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("ID_ITEM", String.valueOf(item_unique));
+                editor.putInt("ID_ITEM", item_unique);
                 editor.apply();
                 Navigation.findNavController(view).navigate(R.id.action_favoritesFragment_to_detailsFragment);
             }else {

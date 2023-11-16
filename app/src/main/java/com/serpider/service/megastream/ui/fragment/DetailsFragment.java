@@ -2,6 +2,7 @@ package com.serpider.service.megastream.ui.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -15,6 +16,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,16 +31,17 @@ import com.serpider.service.megastream.R;
 import com.serpider.service.megastream.adapter.QualityAdapter;
 import com.serpider.service.megastream.adapter.SeasonAdapter;
 import com.serpider.service.megastream.database.DatabaseClient;
+import com.serpider.service.megastream.interfaces.Key;
 import com.serpider.service.megastream.model.Favorites;
-import com.serpider.service.megastream.model.Movie_Play;
+import com.serpider.service.megastream.model.PlayUrl;
 import com.serpider.service.megastream.model.Season;
 import com.serpider.service.megastream.api.ApiClinent;
 import com.serpider.service.megastream.api.ApiInterFace;
-import com.serpider.service.megastream.api.ApiServer;
 import com.serpider.service.megastream.databinding.FragmentDetailsBinding;
 import com.serpider.service.megastream.interfaces.Elements;
 import com.serpider.service.megastream.model.Film;
 import com.serpider.service.megastream.util.LoaderFullScreen;
+import com.serpider.service.megastream.util.ReportSheet;
 
 
 import java.util.ArrayList;
@@ -50,16 +53,16 @@ import retrofit2.Response;
 
 public class DetailsFragment extends Fragment {
     ApiInterFace requestFilm, requestSeason;
-    String idUnique, urlTriler, typeItem;
+    String urlTriler;
+    private int typeItem, idUnique;
     SeasonAdapter seasonAdapter;
     ApiInterFace requestUrl ;
     QualityAdapter qualityAdapter;
-    List<Movie_Play> listUrl = new ArrayList<>();
+    List<PlayUrl> listUrl = new ArrayList<>();
     List<Season> seasonList = new ArrayList<>();
     RecyclerView recyclerUrl, recyclerSeason;
     MaterialButton btnPlay;
     FragmentDetailsBinding mBinding;
-    private LoaderFullScreen loader;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,8 +77,7 @@ public class DetailsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        loader = LoaderFullScreen.getInstance(getContext());
-        loader.show();
+        mBinding.btnBack.setOnClickListener(view1 -> getActivity().onBackPressed());
 
         btnPlay = mBinding.btnPlay;
 
@@ -94,40 +96,50 @@ public class DetailsFragment extends Fragment {
             }
         }
 
-        mBinding.btnReport.setOnClickListener(view1 -> ProfileFragment.sheetReport(getActivity()));
+        mBinding.btnReport.setOnClickListener(view1 -> {
+            ReportSheet reportSheet = new ReportSheet();
+            reportSheet.show(getChildFragmentManager(), reportSheet.getTag());
+        });
 
     }
     private void loadData() {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
-        idUnique = sharedPreferences.getString("ID_ITEM", "0");
-        requestFilm = ApiClinent.getApiClinent(getActivity(),ApiServer.urlData()).create(ApiInterFace.class);
-
-        requestFilm.getItemByItem(idUnique).enqueue(new Callback<Film>() {
+        idUnique = sharedPreferences.getInt("ID_ITEM", 0);
+        requestFilm = ApiClinent.getApiClinent(getActivity(), Key.BASE_URL).create(ApiInterFace.class);
+        requestFilm.getFilmDetails(idUnique).enqueue(new Callback<Film>() {
             @Override
             public void onResponse(Call<Film> call, Response<Film> response) {
                 Film film = response.body();
-                loader.close();
+                new Handler().postDelayed(() -> {
+                    mBinding.loader.setVisibility(View.GONE);
+                    mBinding.bodyDetails.setVisibility(View.VISIBLE);
+                },1000);
                 if(film != null){
-                    mBinding.itemTitle.setText(film.getItem_title_en());
-                    mBinding.itemTitleFa.setText(film.getItem_title_fa());
-                    mBinding.itemYear.setText(film.getItem_year());
-                    mBinding.itemCountry.setText(film.getItem_country());
-                    mBinding.itemTime.setText(film.getItem_time());
-                    mBinding.itemAge.setText(film.getItem_ages());
-                    mBinding.itemImdb.setText(film.getItem_imdb());
-                    mBinding.itemSynopsis.setText(film.getItem_synopsis());
-                    mBinding.itemDesc.setText(film.getItem_desc());
-                    urlTriler= film.getItem_trailer();
-                    Glide.with(getActivity()).load(film.getItem_poster()).into(mBinding.itemPoster);
-                    Glide.with(getActivity()).load(film.getItem_header()).into(mBinding.itemHeader);
-                    typeItem= film.getItem_type();
-                    if (typeItem.equals("Serial")){
-                        serialModePlay(film.getItem_id());
+                    mBinding.itemTitle.setText(film.getTitle_en());
+                    mBinding.itemTitleFa.setText(film.getTitle_fa());
+                    mBinding.itemYear.setText(String.valueOf(film.getYear()));
+                    mBinding.itemCountry.setText(film.getCountry());
+                    mBinding.itemTime.setText(String.valueOf(film.getPeriod()));
+                    mBinding.itemAge.setText(film.getAges());
+                    mBinding.itemImdb.setText(String.valueOf(film.getImdb()));
+                    mBinding.itemSynopsis.setText(film.getSynopsis());
+                    mBinding.itemDesc.setText(film.getDesc());
+                    urlTriler= film.getTrailer();
+                    Glide.with(getActivity()).load(film.getPoster()).into(mBinding.itemPoster);
+                    Glide.with(getActivity()).load(film.getHeader()).into(mBinding.itemHeader);
+                    typeItem= film.getType();
+                    if (typeItem == 2){
+                        serialModePlay(film.getId());
                         mBinding.bodySerial.setVisibility(View.VISIBLE);
                     }else {
                         mBinding.bodySerial.setVisibility(View.GONE);
                     }
-                    mBinding.itemPoster.setOnClickListener(view1 -> Elements.DialogPreImage(getActivity(), film.getItem_poster()));
+                    if (film.getComment_count() > 0) {
+                        mBinding.txtCommentCount.setText(String.valueOf(film.getComment_count()));
+                    }else {
+                        mBinding.txtCommentCount.setVisibility(View.GONE);
+                    }
+                    mBinding.itemPoster.setOnClickListener(view1 -> Elements.DialogPreImage(getActivity(), film.getPoster()));
 
                     btnPlay = getActivity().findViewById(R.id.btnPlay);
                     /*Triler*/
@@ -137,34 +149,37 @@ public class DetailsFragment extends Fragment {
                         Navigation.findNavController(view).navigate(R.id.action_detailsFragment_to_commentFragment);
                     });
                     /*Archive*/
-                    mBinding.btnArchive.setOnClickListener(view1 -> insertFavorites(film.getItem_unique() ,film.getItem_title_en(), film.getItem_country(), film.getItem_year(), film.getItem_poster()));
+                    mBinding.btnArchive.setOnClickListener(view1 -> insertFavorites(film.getId() ,film.getTitle_en(), film.getCountry(), film.getYear(), film.getPoster()));
+                    /*Share*/
+                    mBinding.btnShare.setOnClickListener(view -> share(film.getId()));
                     /*Play*/
-                    btnPlay.setOnClickListener(view1 -> qualitySheet(film.getItem_id()));
-
-                    if (film.getItem_desc().isEmpty()){
+                    btnPlay.setOnClickListener(view1 -> qualitySheet(film.getId(), film.getTitle_en()));
+                    /*if (film.getDesc().isEmpty()){
                         mBinding.titleDesc.setVisibility(View.GONE);
-                    }
-
-                    seasonList.add(new Season(1, "54", "فصل اول", "1" ));
-                    seasonList.add(new Season(1, "12", "فصل اول", "2" ));
-
-                    seasonAdapter = new SeasonAdapter(getActivity().getApplicationContext(), seasonList, getActivity());
-                    recyclerSeason.setAdapter(seasonAdapter);
+                    }*/
 
                     /*Chip*/
-                    loadChip(film.getItem_genre());
+                    loadChip(film.getGenre());
 
                 }else {
                     Toast.makeText(getActivity(), "پاک شده است", Toast.LENGTH_SHORT).show();
-                    loader.close();
+                    getActivity().onBackPressed();
                 }
             }
             @Override
             public void onFailure(Call<Film> call, Throwable t) {
                 Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                loader.close();
             }
         });
+    }
+
+    private void share(int id) {
+        String urlItem = "https://pluslux.xyz/" + id;
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT,  "سلام لینک: "+ urlItem);
+        sendIntent.setType("text/plain");
+        getActivity().startActivity(sendIntent);
     }
 
     @SuppressLint("ResourceAsColor")
@@ -173,7 +188,7 @@ public class DetailsFragment extends Fragment {
         ChipGroup chipGroup = getActivity().findViewById(R.id.chipGroup);
         for (String genre : genres) {
             Chip chip = new Chip(getActivity());
-            chip.setText(genre.trim());
+            chip.setText(genre);
             chip.setClickable(true);
             chip.setCheckable(false);
             chip.setTextSize(12);
@@ -191,55 +206,51 @@ public class DetailsFragment extends Fragment {
                 editor.apply();
             });
         }
-
-
     }
 
-    private void qualitySheet(String id) {
+    private void qualitySheet(int id, String title) {
         View view = getActivity().getLayoutInflater().inflate(R.layout.sheet_quality, null);
         BottomSheetDialog QualitySheet = new BottomSheetDialog(getActivity());
         QualitySheet.setContentView(view);
         QualitySheet.show();
-        requestUrl = ApiClinent.getApiClinent(getActivity(),ApiServer.urlData()).create(ApiInterFace.class);
+        requestUrl = ApiClinent.getApiClinent(getActivity(),Key.BASE_URL).create(ApiInterFace.class);
         recyclerUrl = view.findViewById(R.id.qualityRecycler);
         recyclerUrl.setHasFixedSize(true);
         GridLayoutManager layoutManager =
                 new GridLayoutManager(getActivity(), 1, GridLayoutManager.VERTICAL, false);
         recyclerUrl.setLayoutManager(layoutManager);
-        requestUrl.getMoviePlay(id).enqueue(new Callback<List<Movie_Play>>() {
+        requestUrl.getMovieUrl(id).enqueue(new Callback<List<PlayUrl>>() {
             @Override
-            public void onResponse(Call<List<Movie_Play>> call, Response<List<Movie_Play>> response) {
+            public void onResponse(Call<List<PlayUrl>> call, Response<List<PlayUrl>> response) {
                 listUrl = response.body();
-                qualityAdapter = new QualityAdapter(getActivity().getApplicationContext(), listUrl, getActivity());
+                qualityAdapter = new QualityAdapter(getActivity().getApplicationContext(), listUrl, getActivity(), title);
                 recyclerUrl.setAdapter(qualityAdapter);
             }
             @Override
-            public void onFailure(Call<List<Movie_Play>> call, Throwable t) {
+            public void onFailure(Call<List<PlayUrl>> call, Throwable t) {
                 Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
     }
 
-    private void serialModePlay(String idSerial) {
+    private void serialModePlay(int idSerial) {
         btnPlay.setVisibility(View.GONE);
         btnPlay.setEnabled(false);
-        requestSeason = ApiClinent.getApiClinent(getActivity(),ApiServer.urlData()).create(ApiInterFace.class);
+        requestSeason = ApiClinent.getApiClinent(getActivity(),Key.BASE_URL).create(ApiInterFace.class);
         recyclerSeason = mBinding.recyclerSeason;
         recyclerSeason.setHasFixedSize(true);
         GridLayoutManager layoutManager =
                 new GridLayoutManager(getActivity(), 1, GridLayoutManager.VERTICAL, false);
         recyclerSeason.setLayoutManager(layoutManager);
 
-        requestSeason.getSeason(idSerial).enqueue(new Callback<List<Season>>() {
+        requestSeason.getSerialSeason(idSerial).enqueue(new Callback<List<Season>>() {
             @Override
             public void onResponse(Call<List<Season>> call, Response<List<Season>> response) {
-                Toast.makeText(getActivity(), "Suucess", Toast.LENGTH_SHORT).show();
                 seasonList = response.body();
                 seasonAdapter = new SeasonAdapter(getActivity().getApplicationContext(), seasonList, getActivity());
                 recyclerSeason.setAdapter(seasonAdapter);
             }
-
             @Override
             public void onFailure(Call<List<Season>> call, Throwable t) {
                 Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
@@ -247,7 +258,7 @@ public class DetailsFragment extends Fragment {
         });
 
     }
-    private void insertFavorites(String id ,String title, String country, String year, String poster) {
+    private void insertFavorites(int id ,String title, String country, int year, String poster) {
         class SaveFavorites extends AsyncTask<Void, Void, Void> {
             @Override
             protected Void doInBackground(Void... voids) {

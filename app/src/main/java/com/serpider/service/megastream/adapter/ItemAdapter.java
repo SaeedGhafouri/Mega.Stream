@@ -41,18 +41,18 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ItemAdapter.MyViewHolder holder, int position) {
 
-        holder.txtTitle.setText(data.get(position).getItem_title_en());
+        holder.txtTitle.setText(data.get(position).getTitle_en());
         holder.txtTitle.setSelected(true);
-        holder.txtYear.setText(data.get(position).getItem_year());
-        holder.txtCountry.setText(data.get(position).getItem_country());
-        Glide.with(context).load(data.get(position).getItem_poster()).into(holder.imgPoster);
+        holder.txtYear.setText(String.valueOf(data.get(position).getYear()));
+        holder.txtCountry.setText(data.get(position).getCountry());
+        Glide.with(context).load(data.get(position).getPoster()).into(holder.imgPoster);
 
         holder.itemView.setOnClickListener(view -> {
 
-            String item_unique = data.get(position).getItem_id();
+            int item_unique = data.get(position).getId();
             SharedPreferences sharedPreferences = view.getContext().getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("ID_ITEM", item_unique);
+            editor.putInt("ID_ITEM", item_unique);
             editor.apply();
 
             if (fromAction.equals("HOME")){

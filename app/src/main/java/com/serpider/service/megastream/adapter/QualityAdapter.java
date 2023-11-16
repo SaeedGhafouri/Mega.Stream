@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -20,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.serpider.service.megastream.R;
-import com.serpider.service.megastream.model.Movie_Play;
+import com.serpider.service.megastream.model.PlayUrl;
 import com.serpider.service.megastream.ui.activity.PlayerActivity;
 
 import java.util.List;
@@ -28,13 +27,15 @@ import java.util.List;
 public class QualityAdapter extends RecyclerView.Adapter<QualityAdapter.MyViewHolder> {
 
     Context context;
-    List<Movie_Play> data;
+    List<PlayUrl> data;
     FragmentActivity activity;
+    private String title;
 
-    public QualityAdapter(Context context, List<Movie_Play> data, FragmentActivity activity) {
+    public QualityAdapter(Context context, List<PlayUrl> data, FragmentActivity activity, String title) {
         this.context = context;
         this.data = data;
         this.activity = activity;
+        this.title = title;
     }
 
     @NonNull
@@ -47,28 +48,26 @@ public class QualityAdapter extends RecyclerView.Adapter<QualityAdapter.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull QualityAdapter.MyViewHolder holder, int position) {
 
-        holder.txtTitle.setText(data.get(position).getMovie_quality());
-        holder.txtSize.setText(data.get(position).getMovie_size());
-        holder.txtLangueg.setText(data.get(position).getMovie_language());
+        holder.txtTitle.setText(String.valueOf(data.get(position).getQuality()));
+        holder.txtLangueg.setText(data.get(position).getLanguage());
+        holder.txtSize.setText(data.get(position).getSize() + " MB");
 
-        if (data.get(position).getMovie_quality().equals("2160p")) {
+        if (data.get(position).getQuality() == 2160) {
             holder.imgQuality.setImageResource(R.drawable.ic_2160);
-        }else if (data.get(position).getMovie_quality().equals("1080p")) {
+        }else if (data.get(position).getQuality() == 1080) {
             holder.imgQuality.setImageResource(R.drawable.ic_1080);
-        } else if (data.get(position).getMovie_quality().equals("720p")) {
+        } else if (data.get(position).getQuality() == 720) {
             holder.imgQuality.setImageResource(R.drawable.ic_720);
-        } else if (data.get(position).getMovie_quality().equals("720p ×265")) {
+        } else if (data.get(position).getQuality() == 722) {
             holder.imgQuality.setImageResource(R.drawable.ic_720);
-        }else if (data.get(position).getMovie_quality().equals("480p")) {
+        }else if (data.get(position).getQuality() == 480) {
             holder.imgQuality.setImageResource(R.drawable.ic_480);
-        }else if (data.get(position).getMovie_quality().equals("360p")) {
+        }else if (data.get(position).getQuality() == 360) {
             holder.imgQuality.setImageResource(R.drawable.ic_360);
         }
-
         holder.itemView.setOnClickListener(view -> {
-            playerSheet(activity, data.get(position).getMovie_title(), data.get(position).getMovie_play_url());
+            playerSheet(activity, title, data.get(position).getPlay());
         });
-
     }
 
     @Override
@@ -89,15 +88,16 @@ public class QualityAdapter extends RecyclerView.Adapter<QualityAdapter.MyViewHo
     }
 
     @SuppressLint("MissingInflatedId")
-    static void playerSheet(FragmentActivity activity, String title, String url) {
+    void playerSheet(FragmentActivity activity, String title, String url) {
         View view = activity.getLayoutInflater().inflate(R.layout.sheet_player, null);
         BottomSheetDialog PlayerSheet = new BottomSheetDialog(activity);
         PlayerSheet.setContentView(view);
         PlayerSheet.show();
 
-        LinearLayout btnVlc, btnMga, btnMx;
+        LinearLayout btnVlc, btnMga, btnMx, btnKm;
         TextView txtVlc, txtMx, txtKm;
         btnVlc = view.findViewById(R.id.btnVlcPlayer);
+        btnKm = view.findViewById(R.id.btnKmPlayer);
         btnMga = view.findViewById(R.id.btnPlayerMga);
         btnMx = view.findViewById(R.id.btnMxPlayer);
         txtVlc = view.findViewById(R.id.txtVlcInstall);
@@ -112,21 +112,43 @@ public class QualityAdapter extends RecyclerView.Adapter<QualityAdapter.MyViewHo
             activity.startActivity(intent);
         });
 
-        /*VLC Player*/
-        if (isAppAvailable(activity, "org.videolan.vlc")) {
-            btnVlc.setEnabled(true);
+
+        /* Vlc Player */
+        if (isAppInstalled(activity, "org.videolan.vlc")) {
             txtVlc.setText("Installed");
         } else {
-            txtVlc.setText("not installed");
+            txtVlc.setText("Not installed");
+            btnVlc.setEnabled(false);
         }
+
         btnVlc.setOnClickListener(view1 -> {
             getIntentPlayer(activity, url, title, "org.videolan.vlc");
         });
 
-        /*Mx Player*/
-        btnMx.setOnClickListener(view1 -> {
+        /* Km Player */
+        if (isAppInstalled(activity, "com.kmplayer")) {
+            txtKm.setText("Installed");
+        } else {
+            txtKm.setText("Not installed");
+            btnKm.setEnabled(false);
+        }
 
+        btnKm.setOnClickListener(view1 -> {
+            getIntentPlayer(activity, url, title, "com.kmplayer");
         });
+
+        /* Mx Player */
+        if (isAppInstalled(activity, "com.mxtech.videoplayer.ad")) {
+            txtMx.setText("Installed");
+        } else {
+            txtMx.setText("Not installed");
+            btnMx.setEnabled(false);
+        }
+
+        btnMx.setOnClickListener(view1 -> {
+            getIntentPlayer(activity, url, title, "com.mxtech.videoplayer.ad");
+        });
+
 
     }
     
@@ -141,14 +163,12 @@ public class QualityAdapter extends RecyclerView.Adapter<QualityAdapter.MyViewHo
         activity.startActivityForResult(Intent,  42);
     }
 
-    public static boolean isAppAvailable(Context context, String packageName) {
+    private boolean isAppInstalled(Context context, String packageName) {
         try {
-            context.getPackageManager().getApplicationInfo(packageName, 0);
+            context.getPackageManager().getPackageInfo(packageName, 0);
             return true;
         } catch (PackageManager.NameNotFoundException e) {
-            Log.d("INSTALL1", e.getMessage());
             return false;
-
         }
     }
 

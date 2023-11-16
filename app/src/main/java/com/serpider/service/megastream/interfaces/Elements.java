@@ -102,4 +102,13 @@ public interface Elements {
         return versionCode+versionName.replace(".", "");
     }
 
+    static String UserIdConvers(int id) {
+        String result = "";
+        if (id == 0) {
+            int c = id + 150;
+        }
+        return result;
+
+    }
+
 }

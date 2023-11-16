@@ -48,6 +48,7 @@ public class InfoUserFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mBinding.btnBack.setOnClickListener(view1 -> getActivity().onBackPressed());
         loadUserInfo();
     }
 
@@ -59,15 +60,14 @@ public class InfoUserFragment extends Fragment {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 User user = response.body();
-                if (user.isSTATUS()){
-                    Toast.makeText(getActivity(), user.getMESSAGE(), Toast.LENGTH_SHORT).show();
+                if (user.isResult()){
+                    Toast.makeText(getActivity(), user.getMessage(), Toast.LENGTH_SHORT).show();
                     mBinding.edInfoUsername.setText(user.getUsername());
                     mBinding.edInfoEmail.setText(user.getEmail());
                     mBinding.edInfoNickName.setText(user.getNickname());
-                    Glide.with(getContext()).load(user.getProfile()).into(mBinding.imgVector);
+                    Glide.with(getContext()).load(user.getVector()).into(mBinding.imgVector);
 
-                    Toast.makeText(getContext(), user.getProfile(), Toast.LENGTH_SHORT).show();
-                    mBinding.imgVector.setOnClickListener(view -> Elements.DialogPreImage(getActivity(), user.getProfile()));
+                    mBinding.imgVector.setOnClickListener(view -> Elements.DialogPreImage(getActivity(), user.getVector()));
 
                 }else {
                 }

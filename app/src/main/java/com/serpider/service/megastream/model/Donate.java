@@ -2,7 +2,7 @@ package com.serpider.service.megastream.model;
 
 public class Donate {
     private int id;
-    private String name, title, caption, image;
+    private String title, desc, banner;
 
     public int getId() {
         return id;
@@ -10,14 +10,6 @@ public class Donate {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getTitle() {
@@ -28,19 +20,19 @@ public class Donate {
         this.title = title;
     }
 
-    public String getCaption() {
-        return caption;
+    public String getDesc() {
+        return desc;
     }
 
-    public void setCaption(String caption) {
-        this.caption = caption;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
-    public String getImage() {
-        return image;
+    public String getBanner() {
+        return banner;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setBanner(String banner) {
+        this.banner = banner;
     }
 }

@@ -116,7 +116,14 @@
                 android:enabled="false"
                 android:layout_marginTop="@dimen/size_padding_40"
                 android:backgroundTint="@color/theme_success"
-                android:text="@string/payment" />
+                android:text="@string/submit" />
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_padding_20"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_zarin_pal"/>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

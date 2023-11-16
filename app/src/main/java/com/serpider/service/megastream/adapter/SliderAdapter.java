@@ -96,11 +96,11 @@ public class SliderAdapter extends PagerAdapter {
             webFragment.titleWeb = "";
             webFragment.urlWeb = url;
         }else if (mode == 4) {
-            String item_unique = url;
+            int id_item = Integer.parseInt(url);
             imageView.setOnClickListener(view1 -> Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_detailsFragment));
             SharedPreferences sharedPreferences = view.getContext().getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("ID_ITEM", item_unique);
+            editor.putInt("ID_ITEM", id_item);
             editor.apply();
         }
 

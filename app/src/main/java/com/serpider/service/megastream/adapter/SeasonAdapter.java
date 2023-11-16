@@ -17,6 +17,7 @@ import com.serpider.service.megastream.R;
 import com.serpider.service.megastream.api.ApiClinent;
 import com.serpider.service.megastream.api.ApiInterFace;
 import com.serpider.service.megastream.api.ApiServer;
+import com.serpider.service.megastream.interfaces.Key;
 import com.serpider.service.megastream.model.Genre;
 import com.serpider.service.megastream.model.Movie;
 import com.serpider.service.megastream.model.Season;
@@ -55,15 +56,15 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(@NonNull SeasonAdapter.MyViewHolder holder, int position) {
-        holder.txtTitle.setText(data.get(position).getSeason_title());
-        String value = data.get(position).getSeason_value();
+        holder.txtTitle.setText(data.get(position).getTitle());
+        String value = String.valueOf(data.get(position).getSort());
         if (value.length() == 1) {
             holder.txtValue.setText("0"+value);
         }else {
             holder.txtValue.setText(value);
         }
 
-        holder.itemView.setOnClickListener(view -> loadSection(fragmentActivity, data.get(position).getSeason_title() ,data.get(position).getSeason_unique()));
+        holder.itemView.setOnClickListener(view -> loadSection(fragmentActivity, data.get(position).getTitle() ,data.get(position).getId()));
 
     }
 
@@ -81,7 +82,7 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.MyViewHold
         }
     }
 
-    private void loadSection(FragmentActivity fragmentActivity, String titleValue, String idSeasion) {
+    private void loadSection(FragmentActivity fragmentActivity, String titleValue, int IdSeason) {
         View view = fragmentActivity.getLayoutInflater().inflate(R.layout.sheet_section, null);
         BottomSheetDialog sheetSection = new BottomSheetDialog(fragmentActivity);
         sheetSection.setContentView(view);
@@ -92,21 +93,14 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.MyViewHold
         recyclerSection = sheetSection.findViewById(R.id.recyclerSection);
 
         titleSeason.setText(titleValue);
-
-        listSection.add(new Section("54", "54", "قسمت اول", "1" ));
-        listSection.add(new Section("11" , " 12", "قسمت دوم", "2" ));
-        sectionAdapter = new SectionAdapter(fragmentActivity.getApplicationContext(), listSection, fragmentActivity);
-        recyclerSection.setAdapter(sectionAdapter);
-
-
-        requestSection = ApiClinent.getApiClinent(fragmentActivity, ApiServer.urlData()).create(ApiInterFace.class);
+        requestSection = ApiClinent.getApiClinent(fragmentActivity, Key.BASE_URL).create(ApiInterFace.class);
 
         recyclerSection.setHasFixedSize(true);
         GridLayoutManager layoutManager =
                 new GridLayoutManager(fragmentActivity, 1, GridLayoutManager.VERTICAL, false);
         recyclerSection.setLayoutManager(layoutManager);
 
-        requestSection.getSerialSection(idSeasion).enqueue(new Callback<List<Section>>() {
+        requestSection.getSerialSection(IdSeason).enqueue(new Callback<List<Section>>() {
             @Override
             public void onResponse(Call<List<Section>> call, Response<List<Section>> response) {
                 listSection = response.body();

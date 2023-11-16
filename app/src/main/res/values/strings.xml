@@ -10,6 +10,7 @@
     <string name="test_username">Serpider</string>
     <string name="test_email">saeedghafoori1@gmai.com</string>
     <string name="test_desc">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</string>
+    <string name="test_desc_short">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طر با نرم افزارها شناخت بیشتری رک</string>
 
     <!--Login-->
     <string name="account_en">Account</string>
@@ -22,12 +23,12 @@
     <string name="or_en">Or</string>
     <string name="google_account">حساب گوگل</string>
     <string name="twitter_account">حساب توییتر</string>
-    <string name="login_to_account">Login</string>
+    <string name="login_to_account">ورود به حساب</string>
     <string name="login_to_sign">ثبت نام</string>
     <string name="sign_to_login">ورود به حساب</string>
 
     <!--Signup-->
-    <string name="signup">Signup</string>
+    <string name="signup">ثبت نام</string>
     <string name="email">ایمیل</string>
 
     <!--Home-->
@@ -62,6 +63,11 @@
     <string name="sections">قسمت ها</string>
     <string name="choice_player">پخش کننده</string>
     <string name="choice_player_desc">انتخاب کنید ، برای نمایش بهتر زیر نویس ها می توانید از پخش کننده مگا استریم کنید</string>
+
+    <!--Comment-->
+    <string name="comment_empty">نظری یافت نشد!</string>
+    <string name="comment_hint">نظر خود را وارد کنید</string>
+    <string name="comment_empty_dec">اولین نفری باشید که نظر میده!</string>
 
     <!--Player-->
     <string name="player">Player</string>
@@ -164,5 +170,11 @@
     <string name="settings_password">امنیت و رمزعبور</string>
     <string name="settings_notification">اعلان ها و خبرنامه</string>
     <string name="settings_check_update">بررسی بروز رسانی</string>
+
+    <!--Payment-->
+    <string name="payment_sheet_details_title">اطلاعات فاکتور</string>
+    <string name="payment_sheet_details_desc">درصورت بروز مشکل با پشتیبانی در میان بگذارید</string>
+    <string name="submit">تایید</string>
+
 
 </resources>

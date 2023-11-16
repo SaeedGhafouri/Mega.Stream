@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/logoSplash"
-        android:layout_width="95dp"
-        android:layout_height="95dp"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
         android:layout_centerInParent="true"
         android:src="@drawable/logo_mega_grad" />
 

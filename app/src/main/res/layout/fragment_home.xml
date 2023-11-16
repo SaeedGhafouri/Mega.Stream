@@ -20,8 +20,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_toolbar_height"
                 android:paddingEnd="@dimen/size_padding_container"
-                android:gravity="center"
+                android:gravity="end|center"
                 android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/size_padding_20"
+                    android:text="@string/explore"
+                    android:fontFamily="@font/font_bold_en"
+                    android:textColor="@color/theme_gray_txt"
+                    android:textSize="@dimen/size_txt_30"/>
 
                 <ImageView
                     android:id="@+id/logoMain"
@@ -222,7 +231,7 @@
                         android:layout_weight="1"
                         android:text="@string/all"
                         android:textAlignment="viewStart"
-                        android:textColor="@color/theme_white_txt " />
+                        android:textColor="@color/theme_white_txt" />
 
                     <TextView
                         style="@style/Theme.Original.TextView.Mini"

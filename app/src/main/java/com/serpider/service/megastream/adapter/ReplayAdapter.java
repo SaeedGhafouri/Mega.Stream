@@ -1,6 +1,5 @@
 package com.serpider.service.megastream.adapter;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.serpider.service.megastream.R;
 import com.serpider.service.megastream.interfaces.Elements;
+import com.serpider.service.megastream.model.Replay;
 
 import java.util.List;
 
@@ -36,13 +36,13 @@ public class ReplayAdapter extends RecyclerView.Adapter<ReplayAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ReplayAdapter.MyViewHolder holder, int position) {
-        holder.txtNick.setText(data.get(position).getNickname());
-        holder.txtUsername.setText("@" + data.get(position).getUsername());
-        holder.txtMsg.setText(data.get(position).getMsg());
+        holder.txtNick.setText(data.get(position).getU_nickname());
+        holder.txtUsername.setText("@" + data.get(position).getU_username());
+        holder.txtMsg.setText(data.get(position).getMessage());
         holder.txtDate.setText(data.get(position).getDate());
-        Glide.with(context).load(data.get(position).getProfile()).into(holder.imgVector);
+        Glide.with(context).load(data.get(position).getU_vector()).into(holder.imgVector);
 
-        holder.imgVector.setOnClickListener(view -> Elements.DialogPreImage(activity, data.get(position).getProfile()));
+        holder.imgVector.setOnClickListener(view -> Elements.DialogPreImage(activity, data.get(position).getU_vector()));
     }
     @Override
     public int getItemCount() {

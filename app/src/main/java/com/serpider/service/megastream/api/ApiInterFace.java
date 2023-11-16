@@ -2,10 +2,10 @@ package com.serpider.service.megastream.api;
 
 import static com.serpider.service.megastream.interfaces.Key.END_POINT;
 
-import com.serpider.service.megastream.adapter.Replay;
+import com.serpider.service.megastream.model.Replay;
 import com.serpider.service.megastream.model.Comment;
 import com.serpider.service.megastream.model.Donate;
-import com.serpider.service.megastream.model.Movie_Play;
+import com.serpider.service.megastream.model.PlayUrl;
 import com.serpider.service.megastream.model.Result;
 import com.serpider.service.megastream.model.Season;
 import com.serpider.service.megastream.model.Country;
@@ -14,8 +14,8 @@ import com.serpider.service.megastream.model.Genre;
 import com.serpider.service.megastream.model.Movie;
 import com.serpider.service.megastream.model.Network;
 import com.serpider.service.megastream.model.Section;
-import com.serpider.service.megastream.model.Serial_Play;
 import com.serpider.service.megastream.model.Ads;
+import com.serpider.service.megastream.model.Settings;
 import com.serpider.service.megastream.model.User;
 
 import java.util.List;
@@ -36,12 +36,6 @@ public interface ApiInterFace {
 
     @GET("getComment.php")
     Call<List<Comment>> getComment();
-
-    @FormUrlEncoded
-    @POST("getReplay.php?")
-    Call<List<Replay>> getReplay(
-            @Field("ID") int id_comment
-    );
 
     @GET("getDonate.php")
     Call<Donate> getDonate();
@@ -75,14 +69,9 @@ public interface ApiInterFace {
     @FormUrlEncoded
     @POST("getSerialSeason.php?")
     Call<List<Season>> getSeason(
-            @Field("ID_SERIAL") String id_serial
+            @Field("ID_SERIAL") int id_serial
     );
 
-    @FormUrlEncoded
-    @POST("getSerialPlay.php?")
-    Call<List<Serial_Play>> getSerialPlay(
-            @Field("ID_SECTION") String id_section
-    );
     @FormUrlEncoded
     @POST("userSignup.php?")
     Call<User> getUserSignUp(
@@ -110,12 +99,6 @@ public interface ApiInterFace {
     Call<List<Film>> getSearch(
             @Field("NAME_ITEM") String name_item
     );
-    @FormUrlEncoded
-    @POST("getSerialSection.php?")
-    Call<List<Section>> getSerialSection(
-            @Field("ID_SECTION") String id_seasion
-    );
-
 
     /*New Api Setup*/
     @GET(END_POINT + "genre")
@@ -132,6 +115,113 @@ public interface ApiInterFace {
 
     @GET(END_POINT + "ads")
     Call<List<Ads>> getAds();
+
+    @GET(END_POINT + "film_all")
+    Call<List<Film>> getFilmAll();
+
+    @FormUrlEncoded
+    @POST(END_POINT + "film_by")
+    Call<List<Film>> getFilmBy(
+            @Field("ITEM_GROUP") String group,
+            @Field("ITEM_NAME") String name,
+            @Field("ITEM_LENGTH") int length
+    );
+
+    @FormUrlEncoded
+    @POST(END_POINT + "film_details")
+    Call<Film> getFilmDetails(
+            @Field("ITEM_ID") int id
+    );
+
+    @FormUrlEncoded
+    @POST(END_POINT + "film_search")
+    Call<List<Film>> getFilmSearch(
+            @Field("ITEM_NAME") String item_name
+    );
+
+    @FormUrlEncoded
+    @POST(END_POINT + "film_comment")
+    Call<List<Comment>> getComment(
+            @Field("ITEM_ID") int id
+    );
+
+    @FormUrlEncoded
+    @POST(END_POINT + "film_comment_replay")
+    Call<List<Replay>> getReplay(
+            @Field("COMMENT_ID") int id_comment
+    );
+
+    @FormUrlEncoded
+    @POST(END_POINT + "film_comment_add")
+    Call<Comment> getCommentAdd(
+            @Field("USER_ID") int user_id,
+            @Field("ITEM_ID") int item_id,
+            @Field("MESSAGE") String message
+    );
+
+    @FormUrlEncoded
+    @POST(END_POINT + "movie_url")
+    Call<List<PlayUrl>> getMovieUrl(
+            @Field("ITEM_ID") int id_movie
+    );
+
+    @FormUrlEncoded
+    @POST(END_POINT + "serial_season")
+    Call<List<Season>> getSerialSeason(
+            @Field("ITEM_ID") int id
+    );
+
+    @FormUrlEncoded
+    @POST(END_POINT + "serial_section")
+    Call<List<Section>> getSerialSection(
+            @Field("ID_SEASON") int id
+    );
+
+    @FormUrlEncoded
+    @POST(END_POINT + "serial_url")
+    Call<List<PlayUrl>> getSerialUrl(
+            @Field("ID_SECTION") int id
+    );
+
+    @FormUrlEncoded
+    @POST(END_POINT + "user_signup")
+    Call<User> getUserSignup(
+            @Field("USER_USERNAME") String username,
+            @Field("USER_NICKNAME") String nickname,
+            @Field("USER_PHONE") String phone,
+            @Field("USER_EMAIL") String email,
+            @Field("USER_PASSWORD") String password,
+            @Field("USER_VECTOR") String vector,
+            @Field("USER_IP") String mac_address
+    );
+
+    @FormUrlEncoded
+    @POST(END_POINT + "user_submit")
+    Call<Result> getUserSubmit(
+            @Field("USER_ID") int id,
+            @Field("USER_STATUS") int status
+    );
+
+    @FormUrlEncoded
+    @POST(END_POINT + "user_detail")
+    Call<User> getUserDetail(
+            @Field("USER_ID") int id
+    );
+
+    @GET(END_POINT + "donate_by")
+    Call<Donate> getDonateBy();
+
+    @FormUrlEncoded
+    @POST(END_POINT + "user_report")
+    Call<Result> getUserReport(
+            @Field("USER_ID") int id,
+            @Field("REPORT_SUBJECT") String subject,
+            @Field("REPORT_TOPIC") String topic,
+            @Field("REPORT_MESSAGE") String message
+    );
+
+    @GET(END_POINT + "app_settings")
+    Call<Settings> getSetting();
 
     /*@E*/
 
@@ -187,8 +277,8 @@ public interface ApiInterFace {
 
     @FormUrlEncoded
     @POST("getUrlMovie/")
-    Call<List<Movie_Play>> getMoviePlay(
-            @Field("ID_MOVIE") String id_movie
+    Call<List<PlayUrl>> getMoviePlay(
+            @Field("ID_MOVIE") int id_movie
     );
 
     @FormUrlEncoded

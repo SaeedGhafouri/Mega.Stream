@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.fragment.CommentFragment"
+    android:windowSoftInputMode="adjustResize"
     android:background="@color/theme_background">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -43,43 +45,124 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerComment"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/appbar"
-        android:layout_above="@id/bodyEdComment"
-        tools:listitem="@layout/item_comment"/>
+        android:layout_above="@id/bodyEdComment">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerComment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            tools:listitem="@layout/item_comment"/>
+
+        <!--Loader-->
+        <ProgressBar
+            android:id="@+id/loader"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:visibility="visible"
+            android:layout_centerInParent="true"/>
+
+        <!--Empty-->
+        <LinearLayout
+            android:id="@+id/bodyEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/ic_comment"
+                app:tint="@color/theme_main"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_padding_30"
+                android:text="@string/comment_empty"
+                android:textColor="@color/theme_white_txt"
+                android:fontFamily="@font/font_bold_fa"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_padding_20"
+                android:text="@string/comment_empty_dec"
+                android:textColor="@color/theme_gray_txt"
+                android:textSize="@dimen/size_txt_20"
+                android:fontFamily="@font/font_regular_fa"/>
+
+        </LinearLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <!--Not User Login-->
+    <LinearLayout
+        android:id="@+id/bodyEmpyUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLogin"
+            style="@style/Theme.Original.Button"
+            app:cornerRadius="0dp"
+            android:text="@string/login_signup" />
+
+    </LinearLayout>
+
+    <!--Edit text-->
     <LinearLayout
         android:id="@+id/bodyEdComment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/size_padding_10"
+        android:visibility="visible"
+        android:padding="@dimen/size_padding_container"
         android:layout_alignParentBottom="true"
-        android:paddingHorizontal="@dimen/size_padding_container"
         android:background="@color/theme_background_body">
 
         <EditText
             android:id="@+id/edComment"
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_edittext_height"
-            android:background="@drawable/shape_edit_text"
+            android:background="@color/theme_background_body"
             android:paddingHorizontal="@dimen/size_padding_container"
             android:layout_weight="1"
-            android:hint="@string/comments"
+            android:hint="@string/comment_hint"
             android:textColorHint="@color/theme_gray_txt"
             android:fontFamily="@font/font_regular_fa"
             android:textSize="@dimen/size_txt_30"
             android:textColor="@color/theme_white_txt"/>
 
+        <TextView
+            android:id="@+id/txtTimerComment"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="00:00"
+            android:visibility="gone"
+            android:fontFamily="@font/font_regular_en"
+            android:textSize="@dimen/size_txt_30"
+            android:textColor="@color/theme_gray_txt" />
+
         <ImageButton
             android:id="@+id/btnSend"
             android:layout_width="45dp"
             android:layout_height="45dp"
+            android:visibility="visible"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_send"
-            android:tint="@color/theme_main"/>
+            app:tint="@color/theme_main"/>
 
     </LinearLayout>
 

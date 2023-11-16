@@ -21,49 +21,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/size_padding_30"
-        android:orientation="vertical"
-        android:gravity="center">
-
-        <ImageView
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:src="@drawable/logo_mega_grad"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_padding_30"
-            android:orientation="horizontal"
-            android:layout_centerHorizontal="true"
-            android:gravity="center_vertical|center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/mega"
-                android:textSize="@dimen/size_txt_50"
-                android:fontFamily="@font/font_bold_en"
-                android:textColor="@color/theme_white_txt"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="@string/account_en"
-                android:textSize="@dimen/size_txt_50"
-                android:fontFamily="@font/font_regular_en"
-                android:textColor="@color/theme_white_txt"/>
-
-        </LinearLayout>
-
-    </LinearLayout>
-    
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="vertical">
 
@@ -72,16 +29,27 @@
             android:id="@+id/formLogin"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible"
+            android:visibility="gone"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/size_padding_30"
-                android:text="@string/login_to_account"
+                android:text="@string/signup"
+                android:textAlignment="center"
                 android:textColor="@color/theme_white_txt"
-                android:fontFamily="@font/font_bold_en"
+                android:fontFamily="@font/font_bold_fa"
                 android:textSize="@dimen/size_txt_50"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/test_desc_short"
+                android:textAlignment="center"
+                android:layout_marginBottom="@dimen/size_padding_20"
+                android:textColor="@color/theme_gray_txt"
+                android:fontFamily="@font/font_regular_fa"
+                android:textSize="@dimen/size_txt_20"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -121,16 +89,26 @@
             android:id="@+id/formSignup"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
+            android:visibility="visible"
             android:orientation="vertical">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/size_padding_30"
                 android:text="@string/signup"
+                android:textAlignment="center"
                 android:textColor="@color/theme_white_txt"
-                android:fontFamily="@font/font_bold_en"
+                android:fontFamily="@font/font_bold_fa"
                 android:textSize="@dimen/size_txt_50"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/test_desc_short"
+                android:textAlignment="center"
+                android:layout_marginBottom="@dimen/size_padding_20"
+                android:textColor="@color/theme_gray_txt"
+                android:fontFamily="@font/font_regular_fa"
+                android:textSize="@dimen/size_txt_20"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -158,7 +136,7 @@
                     android:id="@+id/edEmail"
                     style="@style/Theme.Original.EditText.Icon"
                     android:drawableEnd="@drawable/ic_username"
-                    android:inputType="textEmailAddress"
+                    android:inputType="textEmailSubject"
                     android:maxLength="35"
                     android:hint="@string/email" />
                 <!--Password-->
@@ -171,14 +149,14 @@
                     android:textAlignment="textEnd"
                     android:hint="@string/password" />
                 <!--ConfigPassword-->
-                <EditText
+                <!--<EditText
                     android:id="@+id/edConfigPassword"
                     style="@style/Theme.Original.EditText.Icon"
                     android:drawableEnd="@drawable/ic_password"
                     android:inputType="textPassword"
                     android:maxLength="25"
                     android:textAlignment="textEnd"
-                    android:hint="@string/password_config" />
+                    android:hint="@string/password_config" />-->
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnSignup"

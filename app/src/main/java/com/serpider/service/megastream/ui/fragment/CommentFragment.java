@@ -7,14 +7,20 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.os.CountDownTimer;
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.serpider.service.megastream.R;
 import com.serpider.service.megastream.adapter.CommentAdapter;
 import com.serpider.service.megastream.api.ApiClinent;
 import com.serpider.service.megastream.api.ApiInterFace;
@@ -23,6 +29,7 @@ import com.serpider.service.megastream.databinding.FragmentCommentBinding;
 import com.serpider.service.megastream.interfaces.Key;
 import com.serpider.service.megastream.model.Comment;
 import com.serpider.service.megastream.util.DataSave;
+import com.serpider.service.megastream.util.SnackBoard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +45,11 @@ public class CommentFragment extends Fragment {
     RecyclerView recyclerComment;
     FragmentCommentBinding mBinding;
     public int itemId;
+    private CountDownTimer countDownTimer;
+    private final long startTimeInMillis = 10000;
+    private long timeLeftInMillis = startTimeInMillis;
+    private boolean isSend = true;
+    public Handler handler = new Handler();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,55 +67,126 @@ public class CommentFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        mBinding.btnBack.setOnClickListener(view1 -> getActivity().onBackPressed());
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
-        String idUnique = sharedPreferences.getString("ID_ITEM", "0");
+        int idUnique = sharedPreferences.getInt("ID_ITEM", 0);
 
-        loadComment(Integer.parseInt(idUnique));
+        Log.d("id", idUnique+"");
+        loadComment(idUnique);
         DataSave dataSave = new DataSave();
-        mBinding.btnSend.setOnClickListener(view1 -> addComment("12", "13"));
 
-    }
-
-    private void addComment(String user_id, String item_id) {
-        String msg = mBinding.edComment.getText().toString().trim();
-
-        requestAddComment = ApiClinent.getApiClinent(getActivity(), Key.BASE_URL).create(ApiInterFace.class);
-        requestAddComment.userComment(1, 2, msg).enqueue(new Callback<Comment>() {
-            @Override
-            public void onResponse(Call<Comment> call, Response<Comment> response) {
-               /* Comment comment = response.body();
-                Toast.makeText(getActivity(), comment.getMESSAGE(), Toast.LENGTH_SHORT).show();*/
-            }
-
-            @Override
-            public void onFailure(Call<Comment> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+        mBinding.btnSend.setOnClickListener(view1 -> {
+            if (isSend) {
+                if (mBinding.edComment.getText().toString().trim().length() > 1) {
+                    addComment(DataSave.UserGetId(getContext()), idUnique);
+                }else {
+                    SnackBoard.show(getActivity(), "لطفا نظر خود را وارد کنید", 0);
+                }
             }
         });
 
+        mBinding.refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadComment(idUnique);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mBinding.refresh.setRefreshing(false);
+                    }
+                },2000);
+
+            }
+        });
+
+        mBinding.btnLogin.setOnClickListener(view1 -> Navigation.findNavController(view).navigate(R.id.action_commentFragment_to_loginFragment));
+
+        if (DataSave.UserGetId(getContext()) == 0) {
+            mBinding.bodyEmpyUser.setVisibility(View.VISIBLE);
+            mBinding.bodyEdComment.setVisibility(View.GONE);
+        }else {
+            mBinding.bodyEmpyUser.setVisibility(View.GONE);
+            mBinding.bodyEdComment.setVisibility(View.VISIBLE);
+        }
+
     }
 
-    private void loadComment(int id) {
+    private void timer() {
+        countDownTimer = new CountDownTimer(startTimeInMillis, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timeLeftInMillis = millisUntilFinished;
+                updateTimer();
+            }
 
-        requestComment = ApiClinent.getApiClinent(getActivity(), ApiServer.urlData()).create(ApiInterFace.class);
+            @Override
+            public void onFinish() {
+                mBinding.btnSend.setVisibility(View.VISIBLE);
+                mBinding.txtTimerComment.setVisibility(View.GONE);
+                isSend = true;
+            }
+
+        }.start();
+    }
+
+    private void addComment(int user_id, int item_id) {
+        mBinding.btnSend.setVisibility(View.GONE);
+        mBinding.txtTimerComment.setVisibility(View.VISIBLE);
+        timer();
+        String msg = mBinding.edComment.getText().toString().trim();
+
+        requestAddComment = ApiClinent.getApiClinent(getActivity(), Key.BASE_URL).create(ApiInterFace.class);
+        requestAddComment.getCommentAdd(user_id, item_id, msg).enqueue(new Callback<Comment>() {
+            @Override
+            public void onResponse(Call<Comment> call, Response<Comment> response) {
+                Comment comment = response.body();
+                isSend = false;
+                mBinding.edComment.setText("");
+                if (comment.isStatus()) {
+                    SnackBoard.show(getActivity(), comment.getMessage(), 1);
+                }else {
+                    SnackBoard.show(getActivity(), comment.getMessage(), 0);
+                }
+            }
+            @Override
+            public void onFailure(Call<Comment> call, Throwable t) {
+                isSend = false;
+                SnackBoard.show(getActivity(), "خطای سمت سرور", 0);
+            }
+        });
+    }
+    private void loadComment(int id) {
+        requestComment = ApiClinent.getApiClinent(getActivity(), Key.BASE_URL).create(ApiInterFace.class);
         recyclerComment = mBinding.recyclerComment;
         recyclerComment.setHasFixedSize(true);
         GridLayoutManager layoutManager =
                 new GridLayoutManager(getActivity(), 1, GridLayoutManager.VERTICAL, false);
         recyclerComment.setLayoutManager(layoutManager);
-        requestComment.getComments(id).enqueue(new Callback<List<Comment>>() {
+        requestComment.getComment(id).enqueue(new Callback<List<Comment>>() {
             @Override
             public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
+                mBinding.loader.setVisibility(View.GONE);
                 listComment = response.body();
                 commentAdapter = new CommentAdapter(getActivity().getApplicationContext(), listComment, getActivity());
                 recyclerComment.setAdapter(commentAdapter);
+                if (listComment.size() == 0) {
+                    mBinding.bodyEmpty.setVisibility(View.VISIBLE);
+                }
             }
-
             @Override
             public void onFailure(Call<List<Comment>> call, Throwable t) {
+                mBinding.bodyEmpty.setVisibility(View.VISIBLE);
+                mBinding.loader.setVisibility(View.GONE);
             }
         });
 
+    }
+
+    /*Timer*/
+    private void updateTimer() {
+        int minutes = (int) (timeLeftInMillis / 1000) / 60;
+        int seconds = (int) (timeLeftInMillis / 1000) % 60;
+        String timeLeftFormatted = String.format("%02d:%02d", minutes, seconds);
+        mBinding.txtTimerComment.setText(timeLeftFormatted);
     }
 }

@@ -46,8 +46,6 @@ public class SearchFragment extends Fragment {
     List<Film> listSearch = new ArrayList<>();
     RecyclerView recyclerSearch;
     String name;
-    private ChipAdapter adapter;
-    private List<String> searchItems;
     private SharedPreferences sharedPreferences;
     FragmentSearchBinding mBinding;
 
@@ -67,15 +65,12 @@ public class SearchFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         Animation slideDownAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.down);
         mBinding.bodySearch.startAnimation(slideDownAnimation);
 
         mBinding.edSearch.requestFocus();
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(mBinding.edSearch, InputMethodManager.SHOW_IMPLICIT);
-
-        historyOption();
 
         mBinding.edSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -110,7 +105,7 @@ public class SearchFragment extends Fragment {
                 new GridLayoutManager(getActivity(), 3, GridLayoutManager.VERTICAL, false);
         recyclerSearch.setLayoutManager(layoutManager);
 
-        requestSearch.getSearchItem(name).enqueue(new Callback<List<Film>>() {
+        requestSearch.getFilmSearch(name).enqueue(new Callback<List<Film>>() {
             @Override
             public void onResponse(Call<List<Film>> call, Response<List<Film>> response) {
                 listSearch = response.body();
@@ -125,15 +120,6 @@ public class SearchFragment extends Fragment {
                 }else {
                     mBinding.bodyEmpty.setVisibility(View.GONE);
                 }
-
-                /*History*/
-                searchItems.add(name);
-                if (searchItems.size() > 10) {
-                    searchItems.remove(0);
-                }
-                saveSearchHistory(searchItems);
-                adapter.setItems(searchItems);
-                adapter.notifyDataSetChanged();
             }
             @Override
             public void onFailure(Call<List<Film>> call, Throwable t) {
@@ -149,77 +135,4 @@ public class SearchFragment extends Fragment {
         getSearch();
     }
 
-    private void historyOption() {
-        sharedPreferences = getActivity().getSharedPreferences("SearchHistory", Context.MODE_PRIVATE);
-
-        searchItems = new ArrayList<>();
-        adapter = new ChipAdapter(searchItems);
-        mBinding.historyRecyclerView.setAdapter(adapter);
-
-        List<String> savedSearchItems = getSearchHistory();
-        searchItems.addAll(savedSearchItems);
-        adapter.setItems(searchItems);
-        adapter.notifyDataSetChanged();
-
-    }
-
-    private void saveSearchHistory(List<String> searchItems) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        Set<String> searchSet = new HashSet<>(searchItems);
-        editor.putStringSet("SearchItems", searchSet);
-        editor.apply();
-    }
-
-    private List<String> getSearchHistory() {
-        Set<String> searchSet = sharedPreferences.getStringSet("SearchItems", new HashSet<>());
-        return new ArrayList<>(searchSet);
-    }
-
-    public class ChipAdapter extends RecyclerView.Adapter<ChipAdapter.ChipViewHolder> {
-
-        private List<String> items;
-
-        public class ChipViewHolder extends RecyclerView.ViewHolder {
-            Chip chip;
-
-            public ChipViewHolder(View view) {
-                super(view);
-                chip = view.findViewById(R.id.chip);
-            }
-        }
-
-        public ChipAdapter(List<String> items) {
-            this.items = items;
-        }
-
-        public void setItems(List<String> items) {
-            this.items = items;
-        }
-
-        @Override
-        public ChipViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_search_history, parent, false);
-
-            return new ChipViewHolder(itemView);
-        }
-
-        @Override
-        public void onBindViewHolder(ChipViewHolder holder, int position) {
-            String item = items.get(position);
-            holder.chip.setText(item);
-            holder.chip.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Action to perform when a chip is clicked
-                }
-            });
-        }
-
-        @Override
-        public int getItemCount() {
-            return items.size();
-        }
-
-}
 }
