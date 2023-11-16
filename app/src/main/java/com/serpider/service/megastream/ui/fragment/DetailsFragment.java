@@ -40,6 +40,7 @@ import com.serpider.service.megastream.api.ApiInterFace;
 import com.serpider.service.megastream.databinding.FragmentDetailsBinding;
 import com.serpider.service.megastream.interfaces.Elements;
 import com.serpider.service.megastream.model.Film;
+import com.serpider.service.megastream.ui.activity.PlayerActivity;
 import com.serpider.service.megastream.util.LoaderFullScreen;
 import com.serpider.service.megastream.util.ReportSheet;
 
@@ -143,7 +144,12 @@ public class DetailsFragment extends Fragment {
 
                     btnPlay = getActivity().findViewById(R.id.btnPlay);
                     /*Triler*/
-                    mBinding.btnTriler.setOnClickListener(view1 -> Elements.DialogVideoPlayer(getActivity(),urlTriler));
+                    mBinding.btnTriler.setOnClickListener(view1 -> {
+                        Intent intent = new Intent(getActivity(), PlayerActivity.class);
+                        intent.putExtra("URL_PLAY", film.getTrailer());
+                        intent.putExtra("URL_TITLE", "Preview " + film.getTitle_en());
+                        getActivity().startActivity(intent);
+                    });
                     /*Comment*/
                     mBinding.btnComment.setOnClickListener(view -> {
                         Navigation.findNavController(view).navigate(R.id.action_detailsFragment_to_commentFragment);
