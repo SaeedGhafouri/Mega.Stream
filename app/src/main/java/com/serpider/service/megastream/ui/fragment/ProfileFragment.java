@@ -122,6 +122,8 @@ public class ProfileFragment extends Fragment {
                         mBinding.bodyProClub.setVisibility(View.VISIBLE);
                     }
 
+                    mBinding.btnDownload.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_downloaderFragment));
+
                     mBinding.btnLogouAccount.setOnClickListener(view -> {
                         dataSave.UserIdSave(getContext(), 0);
                         mBinding.bodyPlzLogin.setVisibility(View.VISIBLE);

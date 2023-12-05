@@ -324,7 +324,37 @@
                     android:background="@drawable/shape_body">
 
                     <!--Item One-->
+                    <LinearLayout
+                        android:id="@+id/btnDownload"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/size_button_height"
+                        android:paddingHorizontal="@dimen/size_padding_30"
+                        android:gravity="center_vertical"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:orientation="horizontal">
 
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:src="@drawable/ic_arrow"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/font_medium_fa"
+                            android:textSize="@dimen/size_txt_30"
+                            android:textColor="@color/theme_white_txt"
+                            android:layout_weight="1"
+                            android:text="@string/download_manager"/>
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginStart="@dimen/size_padding_20"
+                            android:src="@drawable/ic_support"/>
+
+                    </LinearLayout>
 
                     <!--Item Two-->
                     <LinearLayout

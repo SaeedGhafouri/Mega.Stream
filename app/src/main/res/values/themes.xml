@@ -131,8 +131,6 @@
 
     <style name="Theme.MegaStream.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="Theme.MegaStream.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
     <!---->
-
 
 </resources>
