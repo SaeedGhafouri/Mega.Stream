@@ -1,6 +1,11 @@
 package com.serpider.service.megastream.ui.fragment;
 
+import android.Manifest;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +16,7 @@ import androidx.transition.Slide;
 import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
 
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -20,6 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.chaos.view.PinView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.serpider.service.megastream.R;
@@ -32,16 +39,29 @@ import com.serpider.service.megastream.model.Result;
 import com.serpider.service.megastream.model.User;
 import com.serpider.service.megastream.util.Connection;
 import com.serpider.service.megastream.util.DataSave;
+import com.serpider.service.megastream.util.Loader;
 import com.serpider.service.megastream.util.SnackBoard;
 
+import java.io.File;
+import java.util.Objects;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import pub.devrel.easypermissions.EasyPermissions;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginFragment extends Fragment {
-    FragmentLoginBinding mBinding;
-    ApiInterFace request;
+    private static final int RC_READ_EXTERNAL_STORAGE = 1;
+    private FragmentLoginBinding mBinding;
+    private ApiInterFace request;
     private User user;
+    private Uri selectedImageUri;
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private MultipartBody.Part imagePart;
+    private Loader loader;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +81,8 @@ public class LoginFragment extends Fragment {
         mBinding.btnLoginToSign.setOnClickListener(view1 -> toggleForm(1, true));
         mBinding.btnSignToLogin.setOnClickListener(view1 -> toggleForm(2, true));
 
+        loader = new Loader(getActivity());
+
         mBinding.btnLogin.setOnClickListener(view1 -> userLogin(view1));
         mBinding.btnSignup.setOnClickListener(view1 -> userSignup());
        /* mBinding.btnLoginClose.setOnClickListener(view1 -> {
@@ -70,6 +92,18 @@ public class LoginFragment extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_mainFragment);
             }
         });*/
+        mBinding.btnUploadPicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String[] perms = {Manifest.permission.READ_EXTERNAL_STORAGE};
+                if (EasyPermissions.hasPermissions(getActivity(), perms)) {
+                    Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST);
+                } else {
+                    EasyPermissions.requestPermissions(getActivity(), "برای دسترسی به حافظه اجازه را بدهید.", RC_READ_EXTERNAL_STORAGE, perms);
+                }
+            }
+        });
 
         mBinding.btnLoginWithGoogle.setOnClickListener(view1 -> {
             SnackBoard.show(getActivity(), "این گزینه درحال حاضر فعال نمی باشد", 0);
@@ -86,12 +120,12 @@ public class LoginFragment extends Fragment {
         }else if (password.isEmpty() || password.length() < 8){
             SnackBoard.show(getActivity(),"رمز عبور باید حداقل 8 کارکتر باشد", 0);
         }else {
-            request.userLogin(username, password).enqueue(new Callback<User>() {
+            request.getUserLogin(username, password,  1).enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
                     user = response.body();
                     if (user.isResult()){
-                        SnackBoard.show(getActivity(),user.getMessage(), 0);
+                        SnackBoard.show(getActivity(),user.getMessage(), 1);
                         DataSave dataSave = new DataSave();
                         dataSave.UserIdSave(getContext(), user.getId());
                         Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_mainFragment);
@@ -117,7 +151,6 @@ public class LoginFragment extends Fragment {
         String userNick = mBinding.edNickname.getText().toString().trim();
         String userEmail = mBinding.edEmail.getText().toString().trim();
         String userPassword = mBinding.edPassword.getText().toString().trim();
-
         String emailPattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}";
         if (userEmail.isEmpty() && userNick.isEmpty() && userEmail.isEmpty() && userPassword.isEmpty()) {
             mBinding.edUsername.setError("این فیلد را پر کنید");
@@ -143,10 +176,25 @@ public class LoginFragment extends Fragment {
                 mBinding.edEmail.setError("ایمیل وارد شده نامعتبر است");
                 SnackBoard.show(getActivity(), "ایمیل وارد شده نامعتبر است", 0);
             }else {
-                request.getUserSignup(userName, userNick, "0", userEmail, userPassword, "0", "127.0.0.1").enqueue(new Callback<User>() {
+                if (selectedImageUri != null){
+                    File file = new File(Objects.requireNonNull(getRealPathFromUri(selectedImageUri)));
+                    RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+                    imagePart = MultipartBody.Part.createFormData("USER_VECTOR", file.getName(), requestFile);
+                }
+                loader.show();
+                request.getUserSignup(
+                        RequestBody.create(MediaType.parse("text/plain"), userName),
+                        RequestBody.create(MediaType.parse("text/plain"), userNick),
+                        RequestBody.create(MediaType.parse("text/plain"), "0"),
+                        RequestBody.create(MediaType.parse("text/plain"), userEmail),
+                        RequestBody.create(MediaType.parse("text/plain"), userPassword),
+                        RequestBody.create(MediaType.parse("text/plain"), "0"),
+                        RequestBody.create(MediaType.parse("text/plain"), "127.0.0.1"),
+                        imagePart).enqueue(new Callback<User>() {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
                         user = response.body();
+                        loader.close();
                         if (user.isResult()) {
                             //sheetOtp(user.getOtp(), user.getId());
                             SnackBoard.show(getActivity(),user.getMessage(), 1);
@@ -160,6 +208,7 @@ public class LoginFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call <User> call, Throwable t) {
+                        loader.close();
                         SnackBoard.show(getActivity(),"خطای سمت سرور، دوباره تلاش کنید", 0);
                     }
                 });
@@ -234,8 +283,25 @@ public class LoginFragment extends Fragment {
 
             }
         });
+    }
 
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
+            selectedImageUri = data.getData();
+        }
+        Glide.with(getActivity()).load(selectedImageUri).into(mBinding.imgProfile);
+    }
 
+    private String getRealPathFromUri(Uri uri) {
+        String[] projection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getActivity().getContentResolver().query(uri, projection, null, null, null);
+        if (cursor == null) return null;
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        String filePath = cursor.getString(column_index);
+        cursor.close();
+        return filePath;
     }
 
 }

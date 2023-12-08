@@ -47,18 +47,14 @@ public class DownloaderFragment extends Fragment {
         GridLayoutManager layoutManager =
                 new GridLayoutManager(getActivity(), 1, GridLayoutManager.VERTICAL, false);
         binding.recyclerDownload.setLayoutManager(layoutManager);
-        downloadList.add(new Download("Joker", "2020", "122", 60));
+        downloadList.add(new Download("Joker", "2020", "122", "https://cdn.downloadefilm.ir/images/d702e2a0-14a2-11ee-a9f4-29d00647f224.jpg", "https://dl.moviezland.ir/movies/collections/Extraction/Extraction.2.2023.mp4", 10));
+        downloadList.add(new Download("Marvel 2022", "2021", "32", "https://cdn.downloadefilm.ir/images/d702e2a0-14a2-11ee-a9f4-29d00647f224.jpg","https://dl.moviezland.ir/movies/collections/Extraction/Extraction.2.2023.mp4",75
+
+        ));
         adapter = new DownloadAdapter(getActivity(), downloadList);
         binding.recyclerDownload.setAdapter(adapter);
 
         binding.recyclerDownload.setAdapter(adapter);
-
-        loadDownloads();
-
-    }
-
-    private void loadDownloads() {
-
 
     }
 }

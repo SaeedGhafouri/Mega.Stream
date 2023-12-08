@@ -27,7 +27,7 @@ import com.serpider.service.megastream.databinding.FragmentWellcomeBinding;
 import com.serpider.service.megastream.util.Connection;
 
 public class WellcomeFragment extends Fragment {
-    FragmentWellcomeBinding mBinding;
+    private FragmentWellcomeBinding mBinding;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +46,6 @@ public class WellcomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         isReady(getActivity(), true);
-        loadBgAnim();
 
         mBinding.sliderWellcome.setAdapter(new CustomPagerAdapter(getActivity()));
 
@@ -61,27 +60,6 @@ public class WellcomeFragment extends Fragment {
                 new Connection().showDialog(getActivity());
             }
         });
-
-    }
-
-    private void loadBgAnim() {
-
-        TranslateAnimation moveAnimation = new TranslateAnimation(0, 100, 0, 0);
-        moveAnimation.setDuration(1000);
-        moveAnimation.setRepeatCount(Animation.INFINITE);
-
-        AlphaAnimation alphaAnimation = new AlphaAnimation(1.0f, 0.0f);
-        alphaAnimation.setDuration(5000);
-        alphaAnimation.setRepeatCount(Animation.INFINITE);
-
-        mBinding.shadowOne.startAnimation(moveAnimation);
-        mBinding.shadowTwo.startAnimation(moveAnimation);
-        mBinding.shadowOne.startAnimation(alphaAnimation);
-        mBinding.shadowTwo.startAnimation(alphaAnimation);
-
-        // انیمیشن‌ها را شروع کنید
-        moveAnimation.start();
-        alphaAnimation.start();
 
     }
 

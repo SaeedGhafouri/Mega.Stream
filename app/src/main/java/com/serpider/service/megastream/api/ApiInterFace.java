@@ -20,11 +20,17 @@ import com.serpider.service.megastream.model.User;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+
 public interface ApiInterFace {
 
     @GET("Test-List.php")
@@ -83,12 +89,6 @@ public interface ApiInterFace {
             @Field("USER_VECTOR") String vector
     );
 
-    @FormUrlEncoded
-    @POST("userLogin.php?")
-    Call<User> getUserLogin(
-            @Field("USER_USERNAME") String username,
-            @Field("USER_PASSWORD") String password
-    );
     @FormUrlEncoded
     @POST("getUser.php?")
     Call<User> getUser(
@@ -183,16 +183,43 @@ public interface ApiInterFace {
             @Field("ID_SECTION") int id
     );
 
-    @FormUrlEncoded
+    @Multipart
+    @Headers({
+            "Accept: application/json"
+    })
     @POST(END_POINT + "user_signup")
     Call<User> getUserSignup(
+            @Part("USER_USERNAME") RequestBody username,
+            @Part("USER_NICKNAME") RequestBody nickname,
+            @Part("USER_PHONE") RequestBody phone,
+            @Part("USER_EMAIL") RequestBody email,
+            @Part("USER_PASSWORD") RequestBody password,
+            @Part("USER_VECTOR") RequestBody vector,
+            @Part("USER_IP") RequestBody mac_address,
+            @Part MultipartBody.Part image
+    );
+
+    @FormUrlEncoded
+    @POST(END_POINT + "user_login")
+    Call<User> getUserLogin(
             @Field("USER_USERNAME") String username,
-            @Field("USER_NICKNAME") String nickname,
-            @Field("USER_PHONE") String phone,
-            @Field("USER_EMAIL") String email,
             @Field("USER_PASSWORD") String password,
-            @Field("USER_VECTOR") String vector,
-            @Field("USER_IP") String mac_address
+            @Field("USER_PLATFORM") int platform
+    );
+
+    @FormUrlEncoded
+    @POST(END_POINT + "user_security")
+    Call<User> getUserSecurity(
+            @Field("USER_NEW_PASSWORD") String password,
+            @Field("USER_ID") int id
+    );
+
+    @FormUrlEncoded
+    @POST(END_POINT + "user_edit_info")
+    Call<User> getUserEditInfo(
+            @Field("USER_ID") int id,
+            @Field("USER_NICKNAME") String nickname,
+            @Field("USER_USERNAME") String username
     );
 
     @FormUrlEncoded
@@ -224,10 +251,8 @@ public interface ApiInterFace {
     Call<Settings> getSetting();
 
     /*@E*/
-
     @GET("getGenres/")
     Call<List<Genre>> getGenres();
-
 
     @GET("getCountries/")
     Call<List<Country>> getCountrys();

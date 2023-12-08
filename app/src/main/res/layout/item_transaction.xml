@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/size_padding_container"
+    android:layout_marginTop="@dimen/size_padding_container"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:backgroundTint="@color/theme_background_body"
+    app:cardCornerRadius="@dimen/size_radius_10">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="@dimen/size_padding_container">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/size_padding_20"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="۱.۲۰۰.۰۰۰ ریال"
+                android:textAlignment="textEnd"
+                android:fontFamily="@font/font_medium_fa"
+                android:textSize="@dimen/size_txt_30"
+                android:textColor="@color/theme_white_txt"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="viewStart"
+                android:text="۱۴۰۱/۱۰/۱۲ - ۲۳:۵۰:۱۲"
+                android:fontFamily="@font/font_regular_fa"
+                android:textSize="@dimen/size_txt_20"
+                android:textColor="@color/theme_gray_txt"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/size_padding_20"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="حمایت مالی"
+                android:fontFamily="@font/font_medium_fa"
+                android:textSize="@dimen/size_txt_30"
+                android:textColor="@color/theme_white_txt"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=" بانک شهر ۵۴۱۵۸۴۶۴۷۸۴۴۱۲"
+                android:fontFamily="@font/font_regular_fa"
+                android:textSize="@dimen/size_txt_20"
+                android:textColor="@color/theme_gray_txt"/>
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ic_done"/>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

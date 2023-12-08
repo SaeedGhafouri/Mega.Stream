@@ -14,26 +14,6 @@
         android:layout_above="@id/welBtn"
         android:layout_alignParentTop="true">
 
-        <ImageView
-            android:id="@+id/shadowOne"
-            android:layout_width="350dp"
-            android:layout_height="350dp"
-            android:visibility="invisible"
-            android:alpha="1"
-            android:src="@drawable/png_shadow"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <ImageView
-            android:id="@+id/shadowTwo"
-            android:layout_width="400dp"
-            android:layout_height="400dp"
-            android:visibility="invisible"
-            android:alpha="1"
-            android:src="@drawable/png_shadow"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/sliderWellcome"
             android:layout_width="match_parent"

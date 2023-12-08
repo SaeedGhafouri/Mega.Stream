@@ -59,18 +59,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingHorizontal="@dimen/size_padding_container"
                 android:background="@drawable/shape_body">
 
                 <TextView
                     style="@style/Theme.Original.TextView.Mini"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="@dimen/size_padding_container"
                     android:text="@string/settings_main"/>
 
-                <!--Item One-->
+                <!--Notification-->
                 <LinearLayout
                     android:id="@+id/btnNotification"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/size_button_height"
+                    android:paddingHorizontal="@dimen/size_padding_container"
                     android:foreground="?attr/selectableItemBackground"
                     android:clickable="true"
                     android:gravity="center_vertical"
@@ -99,11 +101,12 @@
 
                 </LinearLayout>
 
-                <!--Item Two-->
+                <!--Update-->
                 <LinearLayout
                     android:id="@+id/btnCheckUpdate"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/size_button_height"
+                    android:paddingHorizontal="@dimen/size_padding_container"
                     android:foreground="?attr/selectableItemBackground"
                     android:clickable="true"
                     android:gravity="center_vertical"
@@ -134,26 +137,28 @@
 
             </LinearLayout>
 
-            <!--Item one-->
+            <!---->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size_padding_container"
                 android:orientation="vertical"
-                android:paddingHorizontal="@dimen/size_padding_container"
                 android:background="@drawable/shape_body">
 
                 <TextView
                     style="@style/Theme.Original.TextView.Mini"
-                    android:text="@string/settings_main"/>
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="@dimen/size_padding_container"
+                    android:text="@string/settings_account"/>
 
-                <!--Item One-->
+                <!--Secruity and password-->
                 <LinearLayout
                     android:id="@+id/btnPassword"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/size_button_height"
                     android:foreground="?attr/selectableItemBackground"
                     android:clickable="true"
+                    android:paddingHorizontal="@dimen/size_padding_container"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -179,11 +184,12 @@
 
                 </LinearLayout>
 
-                <!--Item Two-->
+                <!--Info account-->
                 <LinearLayout
                     android:id="@+id/btnInfo"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/size_button_height"
+                    android:paddingHorizontal="@dimen/size_padding_container"
                     android:foreground="?attr/selectableItemBackground"
                     android:clickable="true"
                     android:gravity="center_vertical"

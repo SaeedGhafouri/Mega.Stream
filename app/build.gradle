@@ -99,4 +99,7 @@ dependencies {
     //Equalizer
     //implementation 'com.github.bullheadandplato:AndroidEqualizer:2.2'
 
+    //Permision
+    implementation 'pub.devrel:easypermissions:3.0.0'
+
 }

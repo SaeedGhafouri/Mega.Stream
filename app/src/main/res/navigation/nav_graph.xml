@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/downloaderFragment">
+    app:startDestination="@id/splashScreenFragment">
 
     <fragment
         android:id="@+id/splashScreenFragment"
@@ -93,6 +93,12 @@
         <action
             android:id="@+id/action_mainFragment_to_downloaderFragment"
             app:destination="@id/downloaderFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_transactionFragment"
+            app:destination="@id/transactionFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_infoUserFragment2"
+            app:destination="@id/infoUserFragment" />
     </fragment>
     <fragment
         android:id="@+id/listUniqueFragment"
@@ -182,4 +188,9 @@
         android:name="com.serpider.service.megastream.ui.fragment.DownloaderFragment"
         android:label="fragment_downloader"
         tools:layout="@layout/fragment_downloader" />
+    <fragment
+        android:id="@+id/transactionFragment"
+        android:name="com.serpider.service.megastream.ui.fragment.TransactionFragment"
+        android:label="fragment_transaction"
+        tools:layout="@layout/fragment_transaction" />
 </navigation>

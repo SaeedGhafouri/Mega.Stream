@@ -19,7 +19,7 @@ public class Loader {
 
     private static Loader instance;
 
-    private Loader(Context context) {
+    public Loader(Context context) {
         this.context = context;
         dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -32,7 +32,6 @@ public class Loader {
         lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
 
-        dialog.show();
         dialog.getWindow().getAttributes();
     }
 

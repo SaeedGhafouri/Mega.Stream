@@ -59,11 +59,19 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
         holder.txtUsername.setText("@" + data.get(position).getU_username());
         holder.txtMsg.setText(data.get(position).getMessage());
         holder.txtDate.setText(data.get(position).getDate());
-        Glide.with(context).load(data.get(position).getU_vector()).into(holder.imgVector);
+        if (data.get(position).getU_vector().isEmpty()) {
+            Glide.with(activity).load(R.drawable.ic_profile_cicle).into(holder.imgVector);
+        }else {
+            Glide.with(activity).load(data.get(position).getU_vector()).into(holder.imgVector);
+        }
+
+        holder.imgVector.setOnClickListener(view -> {
+            if (!data.get(position).getU_vector().isEmpty()) {
+                Elements.DialogPreImage(activity, data.get(position).getU_vector());
+            }
+        });
 
         holder.btnReply.setOnClickListener(view -> loadReplay(data.get(position).getId() , data.get(position).getU_nickname(), data.get(position).getU_username()));
-        holder.imgVector.setOnClickListener(view -> Elements.DialogPreImage(activity, data.get(position).getU_vector()));
-
         if (data.get(position).getReply_count() == 0){
             holder.btnReply.setText("Replay");
         }else {

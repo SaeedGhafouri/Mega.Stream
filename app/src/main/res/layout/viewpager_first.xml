@@ -7,12 +7,13 @@
     android:background="@android:color/transparent">
 
     <ImageView
-        android:id="@+id/imgViewpager"
-        android:layout_width="210dp"
-        android:layout_height="210dp"
-        android:layout_above="@id/bodyViewpage"
+        android:id="@+id/img01Viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:src="@drawable/ic_viewpager_2" />
+        android:layout_above="@id/bodyViewpage"
+        android:padding="@dimen/size_padding_container"
+        android:src="@drawable/vp_01" />
 
     <LinearLayout
         android:id="@+id/bodyViewpage"
@@ -40,12 +41,10 @@
 
         </LinearLayout>
 
-
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_padding_30"
+            android:layout_marginTop="@dimen/size_padding_20"
             android:text="مجموعه بیش از سی هزار فیلم و سریال در مگا استریم"
             android:textColor="@color/theme_white_txt"
             android:textAlignment="center"

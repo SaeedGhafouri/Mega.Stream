@@ -43,9 +43,10 @@
         <item name="android:background">@drawable/shape_edit_text</item>
         <item name="android:paddingHorizontal" tools:ignore="NewApi">@dimen/size_padding_20</item>
         <item name="android:drawablePadding">@dimen/size_padding_20</item>
+        <item name="android:drawableTint">@color/theme_gray_icon</item>
         <item name="android:textColorHint">@color/theme_gray_txt</item>
         <item name="android:textColor">@color/theme_white_txt</item>
-        <item name="android:textSize">@dimen/size_txt_30</item>
+        <item name="android:textSize">@dimen/size_txt_40</item>
         <item name="android:fontFamily">@font/font_medium_fa</item>
         <item name="android:singleLine">true</item>
         <item name="android:maxLines">1</item>

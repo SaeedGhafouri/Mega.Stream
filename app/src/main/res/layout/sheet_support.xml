@@ -71,7 +71,8 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginStart="@dimen/size_padding_20"
-                    android:src="@drawable/ic_key"/>
+                    app:tint="@color/theme_gray_icon"
+                    android:src="@drawable/ic_phone"/>
 
             </LinearLayout>
 
@@ -104,7 +105,8 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginStart="@dimen/size_padding_20"
-                    android:src="@drawable/ic_support"/>
+                    app:tint="@color/theme_gray_icon"
+                    android:src="@drawable/ic_email"/>
 
             </LinearLayout>
 
@@ -137,8 +139,8 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginStart="@dimen/size_padding_20"
-                    android:src="@drawable/ic_archive"
-                    app:tint="@color/theme_gray_txt"/>
+                    android:src="@drawable/ic_message"
+                    app:tint="@color/theme_gray_icon"/>
 
             </LinearLayout>
 
@@ -171,7 +173,8 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginStart="@dimen/size_padding_20"
-                    android:src="@drawable/ic_roll"/>
+                    app:tint="@color/theme_gray_icon"
+                    android:src="@drawable/ic_report"/>
 
             </LinearLayout>
 

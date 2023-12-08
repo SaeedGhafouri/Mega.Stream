@@ -43,8 +43,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ProfileFragment extends Fragment {
-    FragmentProfileBinding mBinding;
-    ApiInterFace requestUser;
+    private FragmentProfileBinding mBinding;
+    private ApiInterFace requestUser;
     private WebFragment webFragment;
 
     private DataSave dataSave = new DataSave();
@@ -68,10 +68,10 @@ public class ProfileFragment extends Fragment {
         mBinding.btnFavorites.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_mainFragment_to_favoritesFragment));
 
         mBinding.btnProfileLogin.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_mainFragment_to_loginFragment));
-        Toast.makeText(getActivity(), String.valueOf(dataSave.UserGetId(getActivity())), Toast.LENGTH_SHORT).show();
         if (dataSave.UserGetId(getContext()) == 0){
             mBinding.bodyPlzLogin.setVisibility(View.VISIBLE);
             mBinding.bodyProfile.setVisibility(View.GONE);
+            mBinding.loader.setVisibility(View.GONE);
         }else {
             loadUserInfo();
         }
@@ -86,6 +86,12 @@ public class ProfileFragment extends Fragment {
 
         mBinding.btnSettings.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_mainFragment_to_settingsFragment));
 
+        mBinding.btnHeaderProfile.setOnClickListener(view1 -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt("viewBody", 1);
+            Navigation.findNavController(view1).navigate(R.id.action_mainFragment_to_infoUserFragment2, bundle);
+        });
+
     }
 
     private void loadUserInfo() {
@@ -99,7 +105,7 @@ public class ProfileFragment extends Fragment {
                 if (user.isResult()){
                     new Handler().postDelayed(() -> {
                         mBinding.loader.setVisibility(View.GONE);
-                        mBinding.scrollProfile.setVisibility(View.VISIBLE);
+                        mBinding.bodyProfile.setVisibility(View.VISIBLE);
                     },1000);
 
                     //SnackBoard.show(getActivity(),"اطلاعات دریافت شد", 1);
@@ -110,9 +116,18 @@ public class ProfileFragment extends Fragment {
                         mBinding.txtNickName.setText(user.getNickname());
                     }
                     mBinding.txtEmail.setText(user.getEmail());
-                    Glide.with(getContext()).load(user.getVector()).into(mBinding.imgVector);
 
-                    mBinding.imgVector.setOnClickListener(view -> Elements.DialogPreImage(getActivity(), user.getVector()));
+                    if (user.getVector().isEmpty()) {
+                        Glide.with(getContext()).load(R.drawable.ic_profile_cicle).into(mBinding.imgVector);
+                    }else {
+                        Glide.with(getContext()).load(user.getVector()).into(mBinding.imgVector);
+                    }
+
+                    mBinding.imgVector.setOnClickListener(view -> {
+                        if (!user.getVector().isEmpty()) {
+                            Elements.DialogPreImage(getActivity(), user.getVector());
+                        }
+                    });
 
                     if (user.getEmail_verfy() == 0){
                         mBinding.bodyProEmailApproval.setVisibility(View.VISIBLE);
@@ -123,6 +138,7 @@ public class ProfileFragment extends Fragment {
                     }
 
                     mBinding.btnDownload.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_downloaderFragment));
+                    mBinding.btnTransaction.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_transactionFragment));
 
                     mBinding.btnLogouAccount.setOnClickListener(view -> {
                         dataSave.UserIdSave(getContext(), 0);
@@ -131,7 +147,6 @@ public class ProfileFragment extends Fragment {
                     });
 
                 }else {
-                    Toast.makeText(getActivity(), "noch", Toast.LENGTH_SHORT).show();
                     mBinding.loader.setVisibility(View.GONE);
                     mBinding.scrollProfile.setVisibility(View.VISIBLE);
                 }
@@ -157,18 +172,23 @@ public class ProfileFragment extends Fragment {
         btnTelegram = supportSheet.findViewById(R.id.btnTelegram);
         btnTicket = supportSheet.findViewById(R.id.btnTicket);
 
+        String phoneNumber = DataSave.getSharedPreferences(getActivity()).getString(SUP_PHONE, "");
+        String emailAddress = DataSave.getSharedPreferences(getActivity()).getString(SUP_EMAIL, "");
+        String telegramId = DataSave.getSharedPreferences(getActivity()).getString(SUP_TELEGRAM, "");
+
+        if (phoneNumber.isEmpty()) {btnTel.setVisibility(View.GONE);}
+        if (emailAddress.isEmpty()) {btnEmail.setVisibility(View.GONE);}
+        if (telegramId.isEmpty()) {btnTelegram.setVisibility(View.GONE);}
+
         btnTel.setOnClickListener(view1 -> {
-            String phoneNumber = DataSave.getSharedPreferences(getActivity()).getString(SUP_PHONE, "");
             Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
             activity.startActivity(intent);
         });
         btnEmail.setOnClickListener(view1 -> {
-            String emailAddress = DataSave.getSharedPreferences(getActivity()).getString(SUP_EMAIL, "");
             Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:" + emailAddress));
             activity.startActivity(intent);
         });
         btnTelegram.setOnClickListener(view1 -> {
-            String telegramId = DataSave.getSharedPreferences(getActivity()).getString(SUP_TELEGRAM, "");
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://telegram.me/" + telegramId));
             activity.startActivity(intent);
         });

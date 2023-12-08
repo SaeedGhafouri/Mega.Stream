@@ -53,14 +53,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DetailsFragment extends Fragment {
-    ApiInterFace requestFilm, requestSeason;
-    String urlTriler;
+    private ApiInterFace requestFilm, requestSeason;
+    private String urlTriler;
     private int typeItem, idUnique;
-    SeasonAdapter seasonAdapter;
-    ApiInterFace requestUrl ;
-    QualityAdapter qualityAdapter;
-    List<PlayUrl> listUrl = new ArrayList<>();
-    List<Season> seasonList = new ArrayList<>();
+    private SeasonAdapter seasonAdapter;
+    private ApiInterFace requestUrl ;
+    private QualityAdapter qualityAdapter;
+    private List<PlayUrl> listUrl = new ArrayList<>();
+    private List<Season> seasonList = new ArrayList<>();
     RecyclerView recyclerUrl, recyclerSeason;
     MaterialButton btnPlay;
     FragmentDetailsBinding mBinding;

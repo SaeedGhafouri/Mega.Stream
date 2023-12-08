@@ -4,12 +4,16 @@ import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.serpider.service.megastream.R;
 import com.serpider.service.megastream.model.Download;
 import com.serpider.service.megastream.model.Genre;
@@ -38,6 +42,13 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.MyView
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Download download = data.get(position);
         holder.txtTitle.setText(download.getTitle());
+        holder.txtYear.setText(download.getYear());
+        holder.txtTime.setText(download.getTimer());
+        holder.progressBar.setProgress(download.getProgress());
+
+        Glide.with(activity).load(download.getPoster()).into(holder.poster);
+
+        holder.itemView.setOnClickListener(view -> showPopUp(holder.btnMore));
     }
 
     public int getItemCount() {
@@ -45,10 +56,35 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.MyView
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView txtTitle;
+        private TextView txtTitle, txtYear, txtTime;
+        private ImageView poster;
+        private ProgressBar progressBar;
+        private ImageView btnMore;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            txtTitle = itemView.findViewById(R.id.genreTitle);
+            txtTitle = itemView.findViewById(R.id.txtDmTitle);
+            txtYear = itemView.findViewById(R.id.txtDmYear);
+            txtTime = itemView.findViewById(R.id.txtDmTimer);
+            poster = itemView.findViewById(R.id.imgDmPoster);
+            progressBar = itemView.findViewById(R.id.pDmProgress);
+            btnMore = itemView.findViewById(R.id.btnDmMore);
+
         }
+    }
+
+    private void showPopUp(View anchor) {
+        PopupMenu popupMenu = new PopupMenu(activity, anchor);
+        popupMenu.getMenuInflater().inflate(R.menu.download_menu, popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.btnResume:
+                    return true;
+                case R.id.btnStop:
+                    return true;
+                default:
+                    return false;
+            }
+        });
+        popupMenu.show();
     }
 }

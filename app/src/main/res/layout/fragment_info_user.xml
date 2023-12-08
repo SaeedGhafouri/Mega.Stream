@@ -26,7 +26,7 @@
                     android:src="@drawable/ic_back" />
 
                 <TextView
-                    android:id="@+id/titleCommdnt"
+                    android:id="@+id/titleInfoAccount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -43,96 +43,158 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <LinearLayout
+    <ProgressBar
+        android:id="@+id/loader"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:visibility="visible"
+        android:layout_centerInParent="true"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollBodyInfo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/appbar"
-        android:orientation="vertical"
-        android:padding="@dimen/size_padding_container">
+        android:visibility="gone"
+        android:layout_below="@+id/appbar">
 
-        <!--Vector-->
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_padding_40"
-            android:layout_gravity="center_horizontal">
+            android:orientation="vertical">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_gravity="center_vertical"
-                android:elevation="0dp"
-                android:innerRadius="0dp"
-                android:shape="ring"
-                android:thicknessRatio="1.9"
-                app:cardCornerRadius="40dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="MissingConstraints">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/appbar"
+                android:orientation="vertical"
+                android:padding="@dimen/size_padding_container">
 
-                <ImageView
-                    android:id="@+id/imgVector"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@mipmap/ic_launcher"/>
+                <!--Vector-->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/size_padding_30"
+                    android:elevation="0dp"
+                    android:innerRadius="0dp"
+                    android:shape="ring"
+                    android:thicknessRatio="1.9"
+                    app:cardCornerRadius="60dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="MissingConstraints">
 
-            </androidx.cardview.widget.CardView>
+                    <ImageView
+                        android:id="@+id/imgVector"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/ic_launcher"/>
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_refresh"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                </androidx.cardview.widget.CardView>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <!--Username-->
+                <EditText
+                    android:id="@+id/edInfoUsername"
+                    style="@style/Theme.Original.EditText.Icon"
+                    android:drawableEnd="@drawable/ic_username"
+                    android:layout_marginTop="@dimen/size_padding_20"
+                    android:hint="@string/info_username" />
 
-        <!--Username-->
-        <TextView
-            style="@style/Theme.Original.TextView.Mini"
-            android:text="@string/info_username" />
-        <EditText
-            android:id="@+id/edInfoUsername"
-            style="@style/Theme.Original.EditText"
-            android:layout_marginTop="-10dp"
-            android:hint="@string/info_username" />
+                <!--Nick Name-->
+                <EditText
+                    android:id="@+id/edInfoNickName"
+                    style="@style/Theme.Original.EditText.Icon"
+                    android:drawableEnd="@drawable/ic_edit"
+                    android:hint="@string/info_nick" />
 
-        <!--Nick Name-->
-        <TextView
-            style="@style/Theme.Original.TextView.Mini"
-            android:text="@string/info_nick" />
-        <EditText
-            android:id="@+id/edInfoNickName"
-            style="@style/Theme.Original.EditText"
-            android:layout_marginTop="-10dp"
-            android:hint="@string/info_username" />
+                <!--Email-->
+                <EditText
+                    android:id="@+id/edInfoEmail"
+                    style="@style/Theme.Original.EditText.Icon"
+                    android:enabled="false"
+                    android:fontFamily="@font/font_regular_en"
+                    android:textColor="@color/theme_gray_txt"
+                    android:drawableEnd="@drawable/ic_email"
+                    android:hint="@string/info_email" />
 
-        <!--Email-->
-        <TextView
-            style="@style/Theme.Original.TextView.Mini"
-            android:layout_marginTop="@dimen/size_padding_40"
-            android:text="@string/info_email" />
-        <EditText
-            android:id="@+id/edInfoEmail"
-            style="@style/Theme.Original.EditText"
-            android:layout_marginTop="-10dp"
-            android:enabled="false"
-            android:textColor="@color/theme_gray_txt"
-            android:hint="@string/info_email" />
+            </LinearLayout>
 
-    </LinearLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnChangeInfo"
+                style="@style/Theme.Original.Button"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="@dimen/size_padding_container"
+                android:layout_marginTop="@dimen/size_padding_container"
+                android:layout_marginEnd="@dimen/size_padding_container"
+                android:layout_marginBottom="@dimen/size_padding_container"
+                android:text="@string/info_edit" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnPlay"
-        style="@style/Theme.Original.Button"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="@dimen/size_padding_container"
-        android:layout_marginTop="@dimen/size_padding_container"
-        android:layout_marginEnd="@dimen/size_padding_container"
-        android:layout_marginBottom="@dimen/size_padding_container"
-        android:text="@string/info_edit" />
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollBodyPassword"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:layout_below="@+id/appbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/appbar"
+                android:orientation="vertical"
+                android:padding="@dimen/size_padding_container">
+
+                <!--Old Pass-->
+                <EditText
+                    android:id="@+id/edOldPassword"
+                    style="@style/Theme.Original.EditText.Icon"
+                    android:textAlignment="viewEnd"
+                    android:inputType="textPassword"
+                    android:hint="@string/info_old_password" />
+
+                <!--New Password-->
+                <EditText
+                    android:id="@+id/edInfoNewPassword"
+                    style="@style/Theme.Original.EditText.Icon"
+                    android:textAlignment="viewEnd"
+                    android:inputType="textPassword"
+                    android:hint="@string/info_new_password" />
+
+                <!--Try Password-->
+                <EditText
+                    android:id="@+id/edInfoTryPassword"
+                    style="@style/Theme.Original.EditText.Icon"
+                    android:fontFamily="@font/font_regular_fa"
+                    android:textAlignment="viewEnd"
+                    android:inputType="textPassword"
+                    android:textColor="@color/theme_white_txt"
+                    android:hint="@string/info_try_password" />
+
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnChangePassword"
+                style="@style/Theme.Original.Button"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="@dimen/size_padding_container"
+                android:layout_marginTop="@dimen/size_padding_container"
+                android:layout_marginEnd="@dimen/size_padding_container"
+                android:layout_marginBottom="@dimen/size_padding_container"
+                android:text="@string/info_edit" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </RelativeLayout>

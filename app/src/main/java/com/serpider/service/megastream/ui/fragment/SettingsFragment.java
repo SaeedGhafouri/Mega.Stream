@@ -1,5 +1,6 @@
 package com.serpider.service.megastream.ui.fragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -34,7 +35,17 @@ public class SettingsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mBinding.btnBack.setOnClickListener(view1 -> getActivity().onBackPressed());
-        mBinding.btnInfo.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_settingsFragment_to_infoUserFragment));
+
+        mBinding.btnInfo.setOnClickListener(view1 -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt("viewBody", 1);
+            Navigation.findNavController(view1).navigate(R.id.action_settingsFragment_to_infoUserFragment, bundle);
+        });
+        mBinding.btnPassword.setOnClickListener(view1 -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt("viewBody", 2);
+            Navigation.findNavController(view1).navigate(R.id.action_settingsFragment_to_infoUserFragment, bundle);
+        });
         mBinding.btnCheckUpdate.setOnClickListener(view1 -> sheetUpdate());
 
     }
