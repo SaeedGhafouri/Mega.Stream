@@ -95,6 +95,22 @@
         <item name="android:letterSpacing">0.1</item>
     </style>
 
+    <!--Line regualr-->
+    <style name="Theme.Original.Line" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_marginVertical">@dimen/size_padding_20</item>
+        <item name="android:background">@color/theme_black_400</item>
+    </style>
+
+    <!--Line Vertical-->
+    <style name="Theme.Original.Line.Vertical" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginHorizontal">@dimen/size_padding_20</item>
+        <item name="android:background">@color/theme_black_400</item>
+    </style>
+
     <!--Line Sheet-->
     <style name="Theme.Original.Line.Sheet" parent="Widget.AppCompat.TextView">
         <item name="android:layout_width">20dp</item>

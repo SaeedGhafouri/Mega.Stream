@@ -73,7 +73,6 @@ public class CommentFragment extends Fragment {
 
         Log.d("id", idUnique+"");
         loadComment(idUnique);
-        DataSave dataSave = new DataSave();
 
         mBinding.btnSend.setOnClickListener(view1 -> {
             if (isSend) {
@@ -84,7 +83,6 @@ public class CommentFragment extends Fragment {
                 }
             }
         });
-
         mBinding.refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -167,7 +165,7 @@ public class CommentFragment extends Fragment {
             public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
                 mBinding.loader.setVisibility(View.GONE);
                 listComment = response.body();
-                commentAdapter = new CommentAdapter(getActivity().getApplicationContext(), listComment, getActivity());
+                commentAdapter = new CommentAdapter(getActivity(), listComment);
                 recyclerComment.setAdapter(commentAdapter);
                 if (listComment.size() == 0) {
                     mBinding.bodyEmpty.setVisibility(View.VISIBLE);

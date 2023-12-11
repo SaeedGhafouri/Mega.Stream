@@ -15,8 +15,10 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,10 +30,13 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.serpider.service.megastream.R;
+import com.serpider.service.megastream.adapter.CommentAdapter;
 import com.serpider.service.megastream.adapter.QualityAdapter;
 import com.serpider.service.megastream.adapter.SeasonAdapter;
 import com.serpider.service.megastream.database.DatabaseClient;
+import com.serpider.service.megastream.database.FavoritesDao;
 import com.serpider.service.megastream.interfaces.Key;
+import com.serpider.service.megastream.model.Comment;
 import com.serpider.service.megastream.model.Favorites;
 import com.serpider.service.megastream.model.PlayUrl;
 import com.serpider.service.megastream.model.Season;
@@ -43,6 +48,7 @@ import com.serpider.service.megastream.model.Film;
 import com.serpider.service.megastream.ui.activity.PlayerActivity;
 import com.serpider.service.megastream.util.LoaderFullScreen;
 import com.serpider.service.megastream.util.ReportSheet;
+import com.serpider.service.megastream.util.SnackBoard;
 
 
 import java.util.ArrayList;
@@ -63,7 +69,9 @@ public class DetailsFragment extends Fragment {
     private List<Season> seasonList = new ArrayList<>();
     RecyclerView recyclerUrl, recyclerSeason;
     MaterialButton btnPlay;
-    FragmentDetailsBinding mBinding;
+    private FragmentDetailsBinding mBinding;
+    private CommentAdapter commentAdapter;
+    private boolean isFavorite;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,6 +115,13 @@ public class DetailsFragment extends Fragment {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
         idUnique = sharedPreferences.getInt("ID_ITEM", 0);
         requestFilm = ApiClinent.getApiClinent(getActivity(), Key.BASE_URL).create(ApiInterFace.class);
+
+        /*comment*/
+        mBinding.recyclerComment.setVisibility(View.VISIBLE);
+        mBinding.recyclerComment.setHasFixedSize(true);
+        GridLayoutManager layoutManager =
+                new GridLayoutManager(getActivity(), 1, GridLayoutManager.HORIZONTAL, false);
+        mBinding.recyclerComment.setLayoutManager(layoutManager);
         requestFilm.getFilmDetails(idUnique).enqueue(new Callback<Film>() {
             @Override
             public void onResponse(Call<Film> call, Response<Film> response) {
@@ -118,16 +133,84 @@ public class DetailsFragment extends Fragment {
                 if(film != null){
                     mBinding.itemTitle.setText(film.getTitle_en());
                     mBinding.itemTitleFa.setText(film.getTitle_fa());
-                    mBinding.itemYear.setText(String.valueOf(film.getYear()));
-                    mBinding.itemCountry.setText(film.getCountry());
                     mBinding.itemTime.setText(String.valueOf(film.getPeriod()));
-                    mBinding.itemAge.setText(film.getAges());
                     mBinding.itemImdb.setText(String.valueOf(film.getImdb()));
                     mBinding.itemSynopsis.setText(film.getSynopsis());
-                    mBinding.itemDesc.setText(film.getDesc());
+                    mBinding.itemLanguageAlpha.setText(film.getLanguage_alpha());
                     urlTriler= film.getTrailer();
                     Glide.with(getActivity()).load(film.getPoster()).into(mBinding.itemPoster);
-                    Glide.with(getActivity()).load(film.getHeader()).into(mBinding.itemHeader);
+
+                    /*Header @s*/
+                    if (film.getHeader().isEmpty()) {
+                        mBinding.itemHeader.setVisibility(View.GONE);
+                    }else {
+                        Glide.with(getActivity()).load(film.getHeader()).into(mBinding.itemHeader);
+                    }
+                    /*Header @e*/
+
+                    /*Awards @s*/
+                    if (film.getSuggestion() == 0){
+                        mBinding.bodyAward.setVisibility(View.GONE);
+                        mBinding.lineAward.setVisibility(View.GONE);
+                    }else {
+
+                    }
+                    /*Awards @e*/
+
+                    /*Desc @e*/
+                    if (film.getDesc().isEmpty()){
+                        mBinding.bodyDesc.setVisibility(View.GONE);
+                    }else {
+                        mBinding.itemDesc.setText(String.valueOf(film.getDesc()));
+                    }
+                    /*Desc @e*/
+
+                    /*Age @s*/
+                    if (film.getAges().isEmpty()) {
+                        mBinding.bodyAge.setVisibility(View.GONE);
+                        mBinding.lineAge.setVisibility(View.GONE);
+                    }else {
+                        mBinding.itemAge.setText(film.getAges());
+                    }
+                    /*Age @e*/
+
+                    /*Year @s*/
+                    if (film.getYear() == 0) {
+                        mBinding.bodyYear.setVisibility(View.GONE);
+                        mBinding.lineYear.setVisibility(View.GONE);
+                    }else {
+                        mBinding.itemYear.setText(String.valueOf(film.getYear()));
+                    }
+                    /*Year @e*/
+
+                    /*Country @s*/
+                    if (film.getCountry().isEmpty()){
+                        mBinding.bodyCountry.setVisibility(View.GONE);
+                        mBinding.lineCountry.setVisibility(View.GONE);
+                    }else {
+                        mBinding.itemCountry.setText(film.getCountry());
+                    }
+                    /*Country @e*/
+
+                    /*Lan @e*/
+                    if (film.getLanguage_alpha().isEmpty()){
+                        mBinding.bodyLanguage.setVisibility(View.GONE);
+                        mBinding.lineLanguage.setVisibility(View.GONE);
+                    }else {
+                        mBinding.itemLanguage.setText(film.getLanguage());
+                    }
+                    /*Lan @e*/
+
+                    /*Size @e*/
+                    if (film.getSize() == 0){
+                        mBinding.bodySize.setVisibility(View.GONE);
+                        //mBinding.lineSize.setVisibility(View.GONE);
+                    }else {
+                        mBinding.itemSize.setText(String.valueOf(film.getSize()));
+                    }
+                    /*Size @e*/
+
+                    Glide.with(getActivity()).load(film.getCountry_flag()).into(mBinding.itemCountryFlag);
                     typeItem= film.getType();
                     if (typeItem == 2){
                         serialModePlay(film.getId());
@@ -142,20 +225,47 @@ public class DetailsFragment extends Fragment {
                     }
                     mBinding.itemPoster.setOnClickListener(view1 -> Elements.DialogPreImage(getActivity(), film.getPoster()));
 
+                    /*limit comment@s*/
+                    if (film.getListComment().size() > 0) {
+                        commentAdapter = new CommentAdapter(getActivity(), film.getListComment());
+                        mBinding.recyclerComment.setAdapter(commentAdapter);
+                    }
+                    /*limit comment@e*/
+
                     btnPlay = getActivity().findViewById(R.id.btnPlay);
-                    /*Triler*/
                     mBinding.btnTriler.setOnClickListener(view1 -> {
                         Intent intent = new Intent(getActivity(), PlayerActivity.class);
                         intent.putExtra("URL_PLAY", film.getTrailer());
                         intent.putExtra("URL_TITLE", "Preview " + film.getTitle_en());
                         getActivity().startActivity(intent);
                     });
+                    /*Triler @e*/
+                    if (film.getTrailer().isEmpty()){
+                        mBinding.bodyTriler.setVisibility(View.GONE);
+                        mBinding.lineTriler.setVisibility(View.GONE);
+                    }else {
+                        mBinding.itemSize.setText(String.valueOf(film.getSize()));
+                    }
+                    /*Triler @e*/
+
                     /*Comment*/
                     mBinding.btnComment.setOnClickListener(view -> {
                         Navigation.findNavController(view).navigate(R.id.action_detailsFragment_to_commentFragment);
                     });
+                    isItemInFavorites(film.getId());
                     /*Archive*/
-                    mBinding.btnArchive.setOnClickListener(view1 -> insertFavorites(film.getId() ,film.getTitle_en(), film.getCountry(), film.getYear(), film.getPoster()));
+                    mBinding.btnArchive.setOnClickListener(view1 -> {
+                        if (isFavorite) {
+                            mBinding.btnArchive.setImageResource(R.drawable.ic_star);
+                            deleteItem(film.getId());
+                            isFavorite=false;
+                        } else {
+                            mBinding.btnArchive.setImageResource(R.drawable.ic_star_bold);
+                            insertFavorites(film.getId(), film.getTitle_en(), film.getCountry(), film.getYear(), film.getPoster());
+                            isFavorite=true;
+                        }
+                    });
+
                     /*Share*/
                     mBinding.btnShare.setOnClickListener(view -> share(film.getId()));
                     /*Play*/
@@ -168,7 +278,7 @@ public class DetailsFragment extends Fragment {
                     loadChip(film.getGenre());
 
                 }else {
-                    Toast.makeText(getActivity(), "پاک شده است", Toast.LENGTH_SHORT).show();
+                    SnackBoard.show(getActivity(), "آیتم مورد نظر حذف شده است", 1);
                     getActivity().onBackPressed();
                 }
             }
@@ -237,9 +347,7 @@ public class DetailsFragment extends Fragment {
                 Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
     }
-
     private void serialModePlay(int idSerial) {
         btnPlay.setVisibility(View.GONE);
         btnPlay.setEnabled(false);
@@ -262,7 +370,6 @@ public class DetailsFragment extends Fragment {
                 Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
     }
     private void insertFavorites(int id ,String title, String country, int year, String poster) {
         class SaveFavorites extends AsyncTask<Void, Void, Void> {
@@ -283,6 +390,51 @@ public class DetailsFragment extends Fragment {
         }
         SaveFavorites saveFavorites = new SaveFavorites();
         saveFavorites.execute();
+    }
+
+    private boolean isItemInFavorites(int id) {
+        class CheckFavorites extends AsyncTask<Void, Void, Boolean> {
+            @Override
+            protected Boolean doInBackground(Void... voids) {
+                // انجام کوئری برای چک کردن وجود آیتم با ایدی مشخص
+                FavoritesDao favoritesDao = DatabaseClient.getInstance(getActivity()).getAppDatabase().favoritesDao();
+                Favorites existingItem = favoritesDao.getFavoritesById(id);
+                return existingItem != null;
+            }
+
+            @Override
+            protected void onPostExecute(Boolean result) {
+                if (result) {
+                    isFavorite = true;
+                    mBinding.btnArchive.setImageResource(R.drawable.ic_star_bold);
+                } else {
+                    isFavorite = false;
+                    mBinding.btnArchive.setImageResource(R.drawable.ic_star);
+                }
+            }
+        }
+
+        CheckFavorites checkFavorites = new CheckFavorites();
+        checkFavorites.execute();
+        return false;
+    }
+
+    private void deleteItem(int unique) {
+        class DeleteFavorites extends AsyncTask<Void, Void, Void> {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                Favorites favorites = new Favorites();
+                DatabaseClient
+                        .getInstance(getActivity()).getAppDatabase()
+                        .favoritesDao()
+                        .deleteById(unique);
+
+                return null;
+            }
+        }
+        DeleteFavorites deleteFavorites = new DeleteFavorites();
+        deleteFavorites.execute();
 
     }
+
 }

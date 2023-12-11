@@ -146,16 +146,24 @@ public interface ApiInterFace {
     );
 
     @FormUrlEncoded
+    @POST(END_POINT + "film_comment_add")
+    Call<Comment> getCommentAdd(
+            @Field("USER_ID") int user_id,
+            @Field("ITEM_ID") int item_id,
+            @Field("MESSAGE") String message
+    );
+
+    @FormUrlEncoded
     @POST(END_POINT + "film_comment_replay")
     Call<List<Replay>> getReplay(
             @Field("COMMENT_ID") int id_comment
     );
 
     @FormUrlEncoded
-    @POST(END_POINT + "film_comment_add")
-    Call<Comment> getCommentAdd(
+    @POST(END_POINT + "film_comment_replay_add")
+    Call<Replay> getReplayAdd(
+            @Field("COMMENT_ID") int id_comment,
             @Field("USER_ID") int user_id,
-            @Field("ITEM_ID") int item_id,
             @Field("MESSAGE") String message
     );
 

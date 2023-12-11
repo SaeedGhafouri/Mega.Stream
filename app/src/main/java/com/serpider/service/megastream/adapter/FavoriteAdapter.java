@@ -48,11 +48,11 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         Favorites favorites = favoritesList.get(position);
         holder.titleItem.setText(favorites.getTitle_item());
         holder.countryItem.setText(favorites.getCountry_item());
-        holder.yearItem.setText(favorites.getYear_item());
+        holder.yearItem.setText(String.valueOf(favorites.getYear_item()));
         Glide.with(context).load(favorites.getPoster_item()).into(holder.imgPoster);
 
         holder.itemView.setOnClickListener(view -> {
-            int item_unique = favorites.getId();
+            int item_unique = favorites.getUnique_item();
             if (new Connection().isNetwork(context)) {
                 SharedPreferences sharedPreferences = view.getContext().getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -65,7 +65,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         });
 
         /*Delete*/
-        holder.btnDelete.setOnClickListener(view -> deleteItem(String.valueOf(favorites.getId())));
+        holder.btnDelete.setOnClickListener(view -> deleteItem(favorites.getUnique_item()));
 
     }
 
@@ -88,7 +88,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         }
 
     }
-    private void deleteItem(String unique) {
+    private void deleteItem(int unique) {
         class DeleteFavorites extends AsyncTask<Void, Void, Void> {
             @Override
             protected Void doInBackground(Void... voids) {

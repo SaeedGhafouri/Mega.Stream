@@ -1,25 +1,32 @@
 package com.serpider.service.megastream.model;
 
+import java.util.List;
+
 public class Film {
 
-    private int id ,type , period, year, subtitle, dooble, like, dislike, comment_count;
+    /*private int id ,type , period, year, subtitle, dooble, like, dislike, comment_count;
     private float imdb;
     private String title_en, title_fa, genre, group, country, language, ages, synopsis, desc, network, volume, stars, poster, header, trailer, date;
+*/
+    private int id ,type , period, year, subtitle, dooble, like, dislike, comment_count, size, suggestion;
+    private float imdb;
+    private String title_en, title_fa, genre, group, country, country_flag, language, language_alpha, ages, synopsis, desc, network, volume, stars, poster, header, trailer, date;
 
-    public int getComment_count() {
-        return comment_count;
-    }
-
-    public void setComment_count(int comment_count) {
-        this.comment_count = comment_count;
-    }
-
+    private List<Comment> comments;
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public List<Comment> getListComment() {
+        return comments;
+    }
+
+    public void setListComment(List<Comment> comments) {
+        this.comments = comments;
     }
 
     public int getType() {
@@ -78,6 +85,22 @@ public class Film {
         this.dislike = dislike;
     }
 
+    public int getComment_count() {
+        return comment_count;
+    }
+
+    public void setComment_count(int comment_count) {
+        this.comment_count = comment_count;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
     public float getImdb() {
         return imdb;
     }
@@ -126,12 +149,28 @@ public class Film {
         this.country = country;
     }
 
+    public String getCountry_flag() {
+        return country_flag;
+    }
+
+    public void setCountry_flag(String country_flag) {
+        this.country_flag = country_flag;
+    }
+
     public String getLanguage() {
         return language;
     }
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    public String getLanguage_alpha() {
+        return language_alpha;
+    }
+
+    public void setLanguage_alpha(String language_alpha) {
+        this.language_alpha = language_alpha;
     }
 
     public String getAges() {
@@ -212,5 +251,21 @@ public class Film {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public int getSuggestion() {
+        return suggestion;
+    }
+
+    public void setSuggestion(int suggestion) {
+        this.suggestion = suggestion;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }

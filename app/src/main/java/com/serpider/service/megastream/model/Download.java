@@ -1,13 +1,8 @@
 package com.serpider.service.megastream.model;
 
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.serpider.service.megastream.adapter.CommentAdapter;
-
 public class Download {
-
     private String title, year, timer, poster, link;
-    private int progress;
+    private int progress, id;
 
     public Download(String title, String year, String timer, String poster, String link, int progress) {
         this.title = title;
@@ -16,6 +11,14 @@ public class Download {
         this.poster = poster;
         this.link = link;
         this.progress = progress;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {

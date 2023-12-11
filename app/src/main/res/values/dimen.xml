@@ -6,6 +6,7 @@
     <dimen name="size_txt_20">12sp</dimen>
     <dimen name="size_txt_30">14sp</dimen>
     <dimen name="size_txt_40">16sp</dimen>
+    <dimen name="size_txt_45">18sp</dimen>
     <dimen name="size_txt_50">20sp</dimen>
     <dimen name="size_txt_60">24sp</dimen>
     <dimen name="size_txt_70">34sp</dimen>

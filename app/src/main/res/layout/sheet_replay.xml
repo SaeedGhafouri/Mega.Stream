@@ -63,20 +63,23 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/size_padding_container"
-            android:background="@color/theme_background_edittext">
+            android:paddingBottom="@dimen/size_padding_container"
+            android:paddingHorizontal="@dimen/size_padding_container">
 
             <EditText
+                android:id="@+id/edReplay"
                 android:layout_width="match_parent"
                 style="@style/Theme.Original.EditText"
+                android:background="@color/theme_background_body"
                 android:layout_height="@dimen/size_edittext_height"
                 android:paddingHorizontal="@dimen/size_padding_container"
                 android:layout_weight="1"
-                android:hint="@string/comments"
+                android:hint="@string/comment_hint"
                 android:fontFamily="@font/font_regular_fa"
                 android:textColorHint="@color/theme_gray_txt"/>
 
             <ImageButton
+                android:id="@+id/btnSendReplay"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:background="@android:color/transparent"

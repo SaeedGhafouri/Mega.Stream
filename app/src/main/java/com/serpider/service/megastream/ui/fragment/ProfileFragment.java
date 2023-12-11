@@ -46,7 +46,6 @@ public class ProfileFragment extends Fragment {
     private FragmentProfileBinding mBinding;
     private ApiInterFace requestUser;
     private WebFragment webFragment;
-
     private DataSave dataSave = new DataSave();
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -137,7 +136,10 @@ public class ProfileFragment extends Fragment {
                         mBinding.bodyProClub.setVisibility(View.VISIBLE);
                     }
 
-                    mBinding.btnDownload.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_downloaderFragment));
+                    mBinding.btnDownload.setOnClickListener(view -> {
+                        //Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_downloaderFragment)
+                        SnackBoard.show(getActivity(), "درحال بروز رسانی،از شکیبایی شما مچکریم", 3);
+                    });
                     mBinding.btnTransaction.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_transactionFragment));
 
                     mBinding.btnLogouAccount.setOnClickListener(view -> {
@@ -148,7 +150,7 @@ public class ProfileFragment extends Fragment {
 
                 }else {
                     mBinding.loader.setVisibility(View.GONE);
-                    mBinding.scrollProfile.setVisibility(View.VISIBLE);
+                    mBinding.bodyPlzLogin.setVisibility(View.VISIBLE);
                 }
             }
 

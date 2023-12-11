@@ -5,6 +5,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -21,6 +23,7 @@ import com.serpider.service.megastream.interfaces.Elements;
 import com.serpider.service.megastream.interfaces.Key;
 import com.serpider.service.megastream.model.Comment;
 import com.serpider.service.megastream.model.Replay;
+import com.serpider.service.megastream.util.DataSave;
 import com.serpider.service.megastream.util.SnackBoard;
 
 
@@ -32,16 +35,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHolder> {
-
-    Context context;
     List<Comment> data;
     FragmentActivity activity;
     ApiInterFace requestReplay;
     ReplayAdapter replayAdapter;
     List<Replay> listReplay = new ArrayList<>();
 
-    public CommentAdapter(Context context, List<Comment> data, FragmentActivity activity) {
-        this.context = context;
+    public CommentAdapter(FragmentActivity activity, List<Comment> data) {
         this.data = data;
         this.activity = activity;
     }
@@ -49,7 +49,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
     @NonNull
     @Override
     public CommentAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_comment, parent, false);
+        View view = LayoutInflater.from(activity).inflate(R.layout.item_comment, parent, false);
         return new CommentAdapter.MyViewHolder(view);
     }
 
@@ -71,7 +71,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
             }
         });
 
-        holder.btnReply.setOnClickListener(view -> loadReplay(data.get(position).getId() , data.get(position).getU_nickname(), data.get(position).getU_username()));
+        holder.btnReply.setOnClickListener(view -> loadReplay(data.get(position).getId() , data.get(position).getU_id(),data.get(position).getU_nickname(), data.get(position).getU_username()));
         if (data.get(position).getReply_count() == 0){
             holder.btnReply.setText("Replay");
         }else {
@@ -100,14 +100,18 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
     }
 
     @SuppressLint("MissingInflatedId")
-    private void loadReplay(int id ,String nickName, String userName) {
+    private void loadReplay(int id ,int user_id,String nickName, String userName) {
         View view = activity.getLayoutInflater().inflate(R.layout.sheet_replay, null);
         BottomSheetDialog replaySheet = new BottomSheetDialog(activity);
         replaySheet.setContentView(view);
         replaySheet.show();
         TextView titleReplay, userReplay;
         RecyclerView recyclerViewReplay;
+        ImageButton btnSendReplay;
+        EditText edReplay;
 
+        edReplay = view.findViewById(R.id.edReplay);
+        btnSendReplay = view.findViewById(R.id.btnSendReplay);
         titleReplay = view.findViewById(R.id.repNickname);
         userReplay = view.findViewById(R.id.repUsername);
         recyclerViewReplay = view.findViewById(R.id.recyclerViewReplay);
@@ -132,6 +136,41 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
             public void onFailure(Call<List<Replay>> call, Throwable t) {
                 SnackBoard.show(activity,"خطای سمت سرور", 0);
             }
+        });
+
+        if (DataSave.UserGetId(activity) == 0) {
+            edReplay.setVisibility(View.GONE);
+            btnSendReplay.setVisibility(View.GONE);
+        }else {
+            edReplay.setVisibility(View.VISIBLE);
+            btnSendReplay.setVisibility(View.VISIBLE);
+        }
+
+        /*send Replay*/
+        btnSendReplay.setOnClickListener(view1 -> {
+            String replayMessage = edReplay.getText().toString().trim();
+
+            if (replayMessage.isEmpty()) {
+                edReplay.setError("این فیلد را پر کنید");
+            }else {
+                requestReplay.getReplayAdd(id, user_id, replayMessage).enqueue(new Callback<Replay>() {
+                    @Override
+                    public void onResponse(Call<Replay> call, Response<Replay> response) {
+                        Replay replay = response.body();
+                        if (replay.isStatus()) {
+                            replaySheet.dismiss();
+                            SnackBoard.show(activity, "بازپخش شما با موفقیت ثبت گردید", 1);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Replay> call, Throwable t) {
+                        replaySheet.dismiss();
+                        SnackBoard.show(activity, "خطای سمت سرور", 0);
+                    }
+                });
+            }
+
         });
 
     }

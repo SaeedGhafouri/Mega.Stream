@@ -60,12 +60,34 @@
     <string name="introduction">معرفی</string>
     <string name="comments">نظرات</string>
     <string name="comment_">نظر</string>
-    <string name="trailer">تریلر</string>
+    <string name="trailer">پخش تریلر</string>
     <string name="archive">آرشیو</string>
     <string name="quality_play">کیفیت پخش</string>
     <string name="sections">قسمت ها</string>
     <string name="choice_player">پخش کننده</string>
     <string name="choice_player_desc">انتخاب کنید ، برای نمایش بهتر زیر نویس ها می توانید از پخش کننده مگا استریم کنید</string>
+    <string name="ages_en">AGE</string>
+    <string name="_ages_en">Year Old</string>
+    <string name="year_en">YEAR</string>
+    <string name="_year_en">Yo</string>
+    <string name="country_en">COUNTRY</string>
+    <string name="_country_en">Turkiye</string>
+    <string name="language_en">LANGUAGE</string>
+    <string name="_language_en">English</string>
+    <string name="size_en">SIZE</string>
+    <string name="_size_en">MB</string>
+    <string name="description_en">Description</string>
+    <string name="awards_en">AWARDS</string>
+    <string name="summary_en">Summary</string>
+    <string name="summary_lorem">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. </string>
+    <string name="ratings_reviews_en">Ratings &amp; Reviews</string>
+    <string name="_ratings_reviews_en">out of 10</string>
+    <string name="view_all_comment">مشاهده همه</string>
+    <string name="add_commnet">ثبت نظر</string>
+    <string name="trailer_en">Trailer</string>
+    <string name="_trailer_en">Play demo</string>
+    <string name="copyright">Copyright</string>
+    <string name="copyright_caption">We are residents of Iran and we cannot buy your products</string>
 
     <!--Comment-->
     <string name="comment_empty">نظری یافت نشد!</string>
@@ -86,7 +108,7 @@
     <string name="category">دسته بندی</string>
     <string name="secrutiy_safe">اطلاعات حساب</string>
     <string name="support">پشتیبانی</string>
-    <string name="download_manager">دانلود ها</string>
+    <string name="download_manager">مدیریت دانلودها</string>
     <string name="transaction">تراکنش ها</string>
     <string name="roll">قوانین و مقررات</string>
     <string name="Identification">کد معرف</string>
@@ -169,6 +191,7 @@
 
     <!--Explore-->
     <string name="explore">کاوش</string>
+    <string name="explore_en">Explore</string>
 
     <!--Settins-->
     <string name="settings">تنظیمات</string>

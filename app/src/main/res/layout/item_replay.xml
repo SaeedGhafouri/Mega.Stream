@@ -103,6 +103,10 @@
 
         </LinearLayout>
 
+        <View
+            style="@style/Theme.Original.Line"
+            android:background="@color/theme_background_edittext" />
+
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

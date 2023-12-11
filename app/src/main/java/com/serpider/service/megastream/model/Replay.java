@@ -2,18 +2,18 @@ package com.serpider.service.megastream.model;
 
 public class Replay {
 
-    private boolean result;
+    private boolean status;
 
     /*END Result*/
     private int id, u_id;
     private String message, date, u_username, u_nickname, u_vector;
 
-    public boolean isResult() {
-        return result;
+    public boolean isStatus() {
+        return status;
     }
 
-    public void setResult(boolean result) {
-        this.result = result;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public int getId() {
