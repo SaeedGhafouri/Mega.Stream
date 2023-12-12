@@ -69,12 +69,11 @@ public class HomeFragment extends Fragment {
     /*Animation Slider*/
     private Runnable runnable = null;
     public Handler handler = new Handler();
-    FragmentHomeBinding mBinding;
+    private FragmentHomeBinding mBinding;
     private static boolean deepLinkHandled = false;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,12 +82,10 @@ public class HomeFragment extends Fragment {
         mBinding = FragmentHomeBinding.inflate(inflater, container, false);
         return mBinding.getRoot();
     }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         deeplink();
-
 
         /*loadCountry();
         loadNetwork();
@@ -118,10 +115,8 @@ public class HomeFragment extends Fragment {
                         mBinding.refresh.setRefreshing(false);
                     }
                 },2000);
-
             }
         });
-
        // mBinding.logoMain.setOnClickListener(view1 -> dialogFilter());
         mBinding.logoMain.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_mainFragment_to_detailsFragment));
 
@@ -130,9 +125,7 @@ public class HomeFragment extends Fragment {
         mBinding.btnFilter.setOnClickListener(view1 -> dialogFilter());
 
         mBinding.numberAllItem.setText(String.valueOf(DataSave.getSharedPreferences(getActivity()).getInt(COUNT_ITEM, 0)));
-
     }
-
     private void deeplink() {
         if (!deepLinkHandled) {
             SharedPreferences sharedPreferences = getContext().getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
@@ -149,17 +142,13 @@ public class HomeFragment extends Fragment {
             }
         }
     }
-
     /*BUG*/
     public void dialogFilter() {
         FilterFragment dialogFragment = new FilterFragment();
         dialogFragment.show(getActivity().getSupportFragmentManager(), "dialog_fragment_tag");
-
     }
-
     /*New Api Data*/
     private void loadSuggested(String query, String name) {
-
         requestSuggested = ApiClinent.getApiClinent(getActivity(),Key.BASE_URL).create(ApiInterFace.class);
         recyclerSuggested = mBinding.recyclerSuggested;
         recyclerSuggested.setHasFixedSize(true);
@@ -173,13 +162,11 @@ public class HomeFragment extends Fragment {
                 itemAdapter = new ItemAdapter(getActivity(), listSuggested, "HOME");
                 recyclerSuggested.setAdapter(itemAdapter);
             }
-
             @Override
             public void onFailure(Call<List<Film>> call, Throwable t) {
                 Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         mBinding.btnAllSuggested.setOnClickListener(view -> {
@@ -189,7 +176,6 @@ public class HomeFragment extends Fragment {
             editor.putString("GROUP_VECTOR", "");
             editor.apply();
         });
-
     }
     private void loadSerial(String name, String query) {
         requestSerial = ApiClinent.getApiClinent(getActivity(),Key.BASE_URL).create(ApiInterFace.class);
@@ -209,17 +195,15 @@ public class HomeFragment extends Fragment {
             public void onFailure(Call<List<Film>> call, Throwable t) {
             }
         });
-
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        mBinding.btnAllSuggested.setOnClickListener(view -> {
+        mBinding.btnAllSerial.setOnClickListener(view -> {
             Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_listUniqueFragment);
             editor.putString("GROUP_TYPE", "item_genre");
-            editor.putString("GROUP_NAME", name);
+            editor.putString("GROUP_NAME", "سریال ها");
             editor.putString("GROUP_VECTOR", "");
             editor.apply();
         });
-
     }
     private void loadGenres(){
         requestGenre = ApiClinent.getApiClinent(getActivity(), Key.BASE_URL).create(ApiInterFace.class);
@@ -234,15 +218,12 @@ public class HomeFragment extends Fragment {
                 listGenre = response.body();
                 genreAdapter = new GenreAdapter(getActivity() , listGenre, getActivity());
                 recyclerGenre.setAdapter(genreAdapter);
-
             }
-
             @Override
             public void onFailure(Call<List<Genre>> call, Throwable t) {
                 SnackBoard.show(getActivity(),"خطای سمت سرور", 0);
             }
         });
-
     }
     private void loadCountrys() {
         requestCountry = ApiClinent.getApiClinent(getActivity(), Key.BASE_URL).create(ApiInterFace.class);
@@ -264,7 +245,6 @@ public class HomeFragment extends Fragment {
             public void onFailure(Call<List<Country>> call, Throwable t) {
             }
         });
-
     }
     private void loadNetworks() {
         requestNetwork = ApiClinent.getApiClinent(getActivity(),Key.BASE_URL).create(ApiInterFace.class);
@@ -302,5 +282,4 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-
 }
