@@ -1,8 +1,11 @@
 package com.serpider.service.megastream.adapter;
 
 import android.annotation.SuppressLint;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.util.Log;
@@ -12,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -28,7 +32,7 @@ public class QualityAdapter extends RecyclerView.Adapter<QualityAdapter.MyViewHo
 
     Context context;
     List<PlayUrl> data;
-    FragmentActivity activity;
+    private FragmentActivity activity;
     private String title;
 
     public QualityAdapter(Context context, List<PlayUrl> data, FragmentActivity activity, String title) {
@@ -66,7 +70,7 @@ public class QualityAdapter extends RecyclerView.Adapter<QualityAdapter.MyViewHo
             holder.imgQuality.setImageResource(R.drawable.ic_360);
         }
         holder.itemView.setOnClickListener(view -> {
-            playerSheet(activity, title, data.get(position).getPlay());
+            playerSheet(title, data.get(position).getPlay());
         });
     }
 
@@ -88,11 +92,12 @@ public class QualityAdapter extends RecyclerView.Adapter<QualityAdapter.MyViewHo
     }
 
     @SuppressLint("MissingInflatedId")
-    void playerSheet(FragmentActivity activity, String title, String url) {
+    void playerSheet(String title, String url) {
         View view = activity.getLayoutInflater().inflate(R.layout.sheet_player, null);
         BottomSheetDialog PlayerSheet = new BottomSheetDialog(activity);
         PlayerSheet.setContentView(view);
         PlayerSheet.show();
+        PackageManager packageManager = activity.getPackageManager();
 
         LinearLayout btnVlc, btnMga, btnMx, btnKm;
         TextView txtVlc, txtMx, txtKm;
@@ -114,7 +119,7 @@ public class QualityAdapter extends RecyclerView.Adapter<QualityAdapter.MyViewHo
 
 
         /* Vlc Player */
-        if (isAppInstalled(activity, "org.videolan.vlc")) {
+        if (isPackageInstalled("org.videolan.vlc", packageManager)) {
             txtVlc.setText("Installed");
         } else {
             txtVlc.setText("Not installed");
@@ -122,11 +127,12 @@ public class QualityAdapter extends RecyclerView.Adapter<QualityAdapter.MyViewHo
         }
 
         btnVlc.setOnClickListener(view1 -> {
-            getIntentPlayer(activity, url, title, "org.videolan.vlc");
+            //getIntentPlayer(activity, url, title, "com.serpider.service.megastream");
+            intentVlcPlayer(url, title);
         });
 
         /* Km Player */
-        if (isAppInstalled(activity, "com.kmplayer")) {
+        if (isPackageInstalled("com.kmplayer", packageManager)) {
             txtKm.setText("Installed");
         } else {
             txtKm.setText("Not installed");
@@ -138,7 +144,7 @@ public class QualityAdapter extends RecyclerView.Adapter<QualityAdapter.MyViewHo
         });
 
         /* Mx Player */
-        if (isAppInstalled(activity, "com.mxtech.videoplayer.ad")) {
+        if (isPackageInstalled("com.mxtech.videoplayer.ad", packageManager)) {
             txtMx.setText("Installed");
         } else {
             txtMx.setText("Not installed");
@@ -146,26 +152,77 @@ public class QualityAdapter extends RecyclerView.Adapter<QualityAdapter.MyViewHo
         }
 
         btnMx.setOnClickListener(view1 -> {
-            getIntentPlayer(activity, url, title, "com.mxtech.videoplayer.ad");
+            intentMxPlayer(url, title);
         });
 
 
     }
-    
-    static void getIntentPlayer(FragmentActivity activity,String url, String title, String packageName) {
+
+    static void getIntentPlayer(FragmentActivity activity, String url, String title, String packageName) {
         Uri uri = Uri.parse(url);
-        Intent Intent = new Intent(android.content.Intent.ACTION_VIEW);
-        Intent.setPackage(packageName);
-        Intent.setDataAndTypeAndNormalize(uri, "video/*");
-        Intent.putExtra("title", title);
-        Intent.putExtra("from_start", true);
-        Intent.putExtra("position", 90000l);
-        activity.startActivityForResult(Intent,  42);
+        Intent playerIntent = new Intent(android.content.Intent.ACTION_VIEW);
+        playerIntent.setDataAndTypeAndNormalize(uri, "video/*");
+        playerIntent.putExtra("title", title);
+        playerIntent.putExtra("from_start", true);
+        playerIntent.putExtra("position", 90000L);
+
+        if ("com.kmplayer".equals(packageName) && isPackageInstalled(packageName, activity.getPackageManager())) {
+            playerIntent.setPackage(packageName);
+        } else if ("com.mxtech.videoplayer.ad".equals(packageName) && isPackageInstalled(packageName, activity.getPackageManager())) {
+            playerIntent.setPackage(packageName);
+        } else if ("com.serpider.service.megastream".equals(packageName) && isPackageInstalled(packageName, activity.getPackageManager())) {
+            playerIntent.setPackage(packageName);
+        } else {
+            Toast.makeText(activity, "برنامه مرتبط باز نشد. لطفاً نصب کنید.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // با استفاده از startActivityForResult می‌توانید اطلاعات بازگشتی را دریافت کنید
+        activity.startActivityForResult(playerIntent, 42);
     }
 
-    private boolean isAppInstalled(Context context, String packageName) {
+    private void intentVlcPlayer(String url,String title) {
+        int vlcRequestCode = 42;
+        Uri uri = Uri.parse(url);
+        Intent vlcIntent = new Intent(Intent.ACTION_VIEW);
+        vlcIntent.setPackage("org.videolan.vlc");
+        vlcIntent.setDataAndTypeAndNormalize(uri, "video/*");
+        vlcIntent.putExtra("title", title);
+        vlcIntent.putExtra("from_start", false);
+        vlcIntent.putExtra("position", 90000l);
+      //  vlcIntent.putExtra("subtitles_location", "/sdcard/Movies/Fifty-Fifty.srt");
+        activity.startActivityForResult(vlcIntent, vlcRequestCode);
+    }
+    private void intentMxPlayer(String url,String title) {
+        Intent intent;
         try {
-            context.getPackageManager().getPackageInfo(packageName, 0);
+            intent= new Intent(Intent.ACTION_VIEW);
+            intent.setClassName(context,"com.mxtech.videoplayer.pro");
+            if (null != intent)
+                intent.setDataAndType(Uri.parse(url), "video/*");
+            activity.startActivity(intent);
+        }
+        catch (ActivityNotFoundException e) {
+            try{
+                intent= new Intent(Intent.ACTION_VIEW);
+                intent.setClassName(context,"com.mxtech.videoplayer.ad");
+                if (null != intent)
+                    intent.setDataAndType(Uri.parse(url), "video/*");
+                activity.startActivity(intent);
+            }
+            catch (ActivityNotFoundException er) {
+
+            }
+        }
+    }
+
+    private void intentKmPlayer() {
+
+    }
+
+    private static boolean isPackageInstalled(String packageName, PackageManager packageManager) {
+        try {
+            packageManager.getPackageInfo(packageName, 0);
             return true;
         } catch (PackageManager.NameNotFoundException e) {
             return false;

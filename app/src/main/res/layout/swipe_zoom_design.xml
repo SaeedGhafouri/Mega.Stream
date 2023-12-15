@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -29,7 +31,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/vol_icon"
-            android:src="@drawable/ic_volume"/>
+            app:tint="@color/theme_white_fit"
+            android:src="@drawable/ic_volume" />
 
     </LinearLayout>
 
@@ -47,6 +50,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/font_regular_en"
             android:text="Volume: "
             android:textSize="16sp"
             android:textColor="@android:color/white"/>
@@ -55,6 +59,7 @@
             android:id="@+id/vol_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/font_bold_en"
             android:text="13"
             android:textSize="16sp"
             android:textColor="@android:color/white"/>
@@ -89,6 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/brt_icon"
+            app:tint="@color/theme_white_fit"
             android:src="@drawable/ic_brightness"/>
 
     </LinearLayout>
@@ -107,6 +113,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/font_regular_en"
             android:text="Brightness: "
             android:textSize="16sp"
             android:textColor="@android:color/white"/>
@@ -115,7 +122,30 @@
             android:id="@+id/brt_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/font_regular_en"
             android:text="13"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/size_text_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/progress_bar_bg"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/size_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_regular_en"
+            android:text=""
             android:textSize="16sp"
             android:textColor="@android:color/white"/>
 
@@ -134,6 +164,7 @@
             android:id="@+id/zoom_percentage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/font_regular_en"
             android:layout_centerHorizontal="true"
             android:text="50%"
             android:textColor="@android:color/white"
@@ -157,11 +188,13 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:tint="@color/theme_white_fit"
                 android:src="@drawable/ic_pause"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Paused"
+                android:fontFamily="@font/font_regular_en"
                 android:layout_marginRight="4dp"
                 android:textColor="@android:color/white"/>
         </LinearLayout>

@@ -33,7 +33,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FilterFragment extends DialogFragment {
-
     private List<Genre> listGenre = new ArrayList<>();
     private List<Country> listCountry = new ArrayList<>();
     private List<Network> listNetwork = new ArrayList<>();
@@ -44,7 +43,6 @@ public class FilterFragment extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
-
     }
 
     @Override

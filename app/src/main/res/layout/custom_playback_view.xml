@@ -33,6 +33,7 @@
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:maxLines="2"
+                android:fontFamily="@font/font_regular_en"
                 android:text="this is title of video"
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
@@ -82,6 +83,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
+                    android:fontFamily="@font/font_regular_en"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:text="5555"
@@ -92,6 +94,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:fontFamily="@font/font_regular_en"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
                     android:text="4444"
@@ -125,6 +128,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_weight="1"
+                    app:tint="@color/theme_white_fit"
                     android:src="@drawable/ic_unlock" />
 
                 <ImageView
@@ -132,6 +136,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_weight="1"
+                    app:tint="@color/theme_white_fit"
                     android:src="@drawable/ic_rewind" />
 
                 <ImageView
@@ -139,6 +144,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_weight="1"
+                    app:tint="@color/theme_white_fit"
                     android:src="@drawable/ic_previous" />
 
                 <ImageView
@@ -146,6 +152,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
+                    app:tint="@color/theme_white_fit"
                     android:src="@drawable/ic_play" />
 
                 <ImageView
@@ -153,6 +160,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
+                    app:tint="@color/theme_white_fit"
                     android:src="@drawable/ic_pause" />
 
                 <ImageView
@@ -160,6 +168,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_weight="1"
+                    app:tint="@color/theme_white_fit"
                     android:src="@drawable/ic_next" />
 
                 <ImageView
@@ -167,6 +176,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_weight="1"
+                    app:tint="@color/theme_white_fit"
                     android:src="@drawable/ic_forward" />
 
                 <ImageView
@@ -174,7 +184,8 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_weight="1"
-                    android:src="@drawable/fit" />
+                    app:tint="@color/theme_white_fit"
+                    android:src="@drawable/ic_fit" />
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
@@ -186,6 +197,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="10dp"
+        app:tint="@color/theme_white_fit"
         android:background="@drawable/ripple_circle"
         android:scaleType="centerInside"
         android:src="@drawable/ic_lock"

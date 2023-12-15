@@ -20,7 +20,6 @@ import com.serpider.service.megastream.model.Film;
 import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> {
-
     Context context;
     List<Film> data;
     private String fromAction;
@@ -65,6 +64,17 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> 
 
         });
 
+    }
+
+    public void addItems(List<Film> newItems) {
+        int startPosition = data.size();
+        data.addAll(newItems);
+        notifyItemRangeInserted(startPosition, newItems.size());
+    }
+    public void setList(List<Film> newList) {
+        data.clear();
+        data.addAll(newList);
+        notifyDataSetChanged();
     }
 
     @Override

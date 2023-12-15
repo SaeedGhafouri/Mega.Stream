@@ -37,11 +37,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ListUniqueFragment extends Fragment {
-    ApiInterFace requestList;
-    ItemAdapter itemAdapter;
-    List<Film> listItem = new ArrayList<>();
-    RecyclerView recyclerList;
-    FragmentListUniqueBinding mBinding;
+    private ApiInterFace requestList;
+    private ItemAdapter itemAdapter;
+    private List<Film> listItem = new ArrayList<>();
+    private RecyclerView recyclerList;
+    private FragmentListUniqueBinding mBinding;
+    private int currentPage = 1;
+    private int itemsPerPage = 24;
+    private boolean isLoading = false;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +54,6 @@ public class ListUniqueFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         mBinding = FragmentListUniqueBinding.inflate(inflater, container, false);
         return mBinding.getRoot();
     }
@@ -83,27 +85,58 @@ public class ListUniqueFragment extends Fragment {
         requestList = ApiClinent.getApiClinent(getActivity(), Key.BASE_URL).create(ApiInterFace.class);
         recyclerList = mBinding.listRecyclerView;
         recyclerList.setHasFixedSize(true);
-        GridLayoutManager layoutManager =
-                new GridLayoutManager(getActivity(), 3, GridLayoutManager.VERTICAL, false);
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 3, GridLayoutManager.VERTICAL, false);
         recyclerList.setLayoutManager(layoutManager);
-        requestList.getFilmBy(query, name, 10).enqueue(new Callback<List<Film>>() {
+
+        itemAdapter = new ItemAdapter(getActivity().getApplicationContext(), new ArrayList<>(), "LIST");
+        recyclerList.setAdapter(itemAdapter);
+
+        recyclerList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                if (dy > 0) { // اگر اسکرول به پایین انجام شده باشد
+                    int visibleItemCount = layoutManager.getChildCount();
+                    int totalItemCount = layoutManager.getItemCount();
+                    int pastVisibleItems = layoutManager.findFirstVisibleItemPosition();
+
+                    if (!isLoading && (visibleItemCount + pastVisibleItems) >= totalItemCount) {
+                        // اگر در حال لود نیستید و به انتهای لیست رسیده‌اید، لود موارد بیشتر
+                        currentPage++;
+                        loadPaginatedData(query, name, currentPage, itemsPerPage);
+                    }
+                }
+            }
+        });
+
+        // اولین بار بارگذاری داده‌ها
+        loadPaginatedData(query, name, currentPage, itemsPerPage);
+    }
+
+    private void loadPaginatedData(String query, String name, int page, int perPage) {
+        isLoading = true;
+        requestList.getPaginatedFilm(query, name, page, perPage).enqueue(new Callback<List<Film>>() {
             @Override
             public void onResponse(Call<List<Film>> call, Response<List<Film>> response) {
-                listItem = response.body();
-                itemAdapter = new ItemAdapter(getActivity().getApplicationContext(), listItem, "LIST");
-                recyclerList.setAdapter(itemAdapter);
-                mBinding.loader.setVisibility(View.GONE);
-                if (itemAdapter.getItemCount() == 0) {
-                    mBinding.bodyEmpty.setVisibility(View.VISIBLE);
+                isLoading = false;
+                if (response.isSuccessful() && response.body() != null) {
+                    if (page == 1) {
+                        itemAdapter.setList(response.body());
+                    } else {
+                        itemAdapter.addItems(response.body());
+                    }
+                    mBinding.loader.setVisibility(View.GONE);
+                    mBinding.listRecyclerView.setVisibility(View.VISIBLE);
+                    mBinding.bodyEmpty.setVisibility(itemAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
                 }
             }
 
             @Override
             public void onFailure(Call<List<Film>> call, Throwable t) {
-
+                isLoading = false;
+                // پیاده‌سازی مدیریت خطا (بر اساس نیاز)
             }
         });
-
-
     }
 }

@@ -30,6 +30,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Query;
 
 public interface ApiInterFace {
 
@@ -137,6 +138,14 @@ public interface ApiInterFace {
     @POST(END_POINT + "film_search")
     Call<List<Film>> getFilmSearch(
             @Field("ITEM_NAME") String item_name
+    );
+
+    @GET(END_POINT +"film_list_pagination")
+    Call<List<Film>> getPaginatedFilm(
+            @Query("query") String query,
+            @Query("name") String name,
+            @Query("page") int page,
+            @Query("perPage") int perPage
     );
 
     @FormUrlEncoded

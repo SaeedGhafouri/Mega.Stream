@@ -4,7 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.motion.widget.OnSwipe;
+import androidx.core.view.WindowCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,12 +19,12 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -70,12 +70,12 @@ import com.serpider.service.megastream.util.VolumeDialog;
 import java.io.File;
 import java.util.ArrayList;
 public class PlayerActivity extends AppCompatActivity implements View.OnClickListener {
-    ArrayList<MediaFiles> mVideoFiles = new ArrayList<>();
-    PlayerView playerView;
-    SimpleExoPlayer player;
+    private ArrayList<MediaFiles> mVideoFiles = new ArrayList<>();
+    private PlayerView playerView;
+    private SimpleExoPlayer player;
     int position;
-    String videoTitle, videoUrl;
-    TextView title;
+    private String videoTitle, videoUrl;
+    private TextView title, size_text;
     private ControlsMode controlsMode;
 
     @Override
@@ -120,7 +120,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
     boolean success = false;
     TextView vol_text, brt_text, total_duration;
     ProgressBar vol_progress, brt_progress;
-    LinearLayout vol_progress_container, vol_text_container, brt_progress_container, brt_text_container;
+    LinearLayout vol_progress_container, vol_text_container, brt_progress_container, brt_text_container, size_text_container;
     ImageView vol_icon, brt_icon;
     AudioManager audioManager;
     private ContentResolver contentResolver;
@@ -138,6 +138,10 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        }
 
         setFullScreen();
         setContentView(R.layout.activity_player);
@@ -251,7 +255,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
                                         }
                                         success = true;
                                     } else {
-                                        Toast.makeText(getApplicationContext(), "Allow write settings for swipe controls", Toast.LENGTH_SHORT).show();
+                                        sizeScale("Allow write settings for swipe controls");
                                         Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS);
                                         intent.setData(Uri.parse("package:" + getPackageName()));
                                         startActivityForResult(intent, 111);
@@ -312,6 +316,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
         iconModelArrayList.add(new IconModel(R.drawable.ic_night_mode, "Night"));
         iconModelArrayList.add(new IconModel(R.drawable.ic_pip_mode, "Popup"));
         iconModelArrayList.add(new IconModel(R.drawable.ic_rotate, "Rotate"));
+        iconModelArrayList.add(new IconModel(R.drawable.ic_subtitle, "Subtitle"));
 
         playbackIconsAdapter = new PlaybackIconsAdapter(iconModelArrayList, this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this,
@@ -324,21 +329,25 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onItemClick(int position) {
                 if (position == 0) {
+                    Log.d("error posion: ", position+"");
+                    Log.d("error expand: ", expand+"");
                     if (expand) {
                         iconModelArrayList.clear();
                         iconModelArrayList.add(new IconModel(R.drawable.ic_right, ""));
                         iconModelArrayList.add(new IconModel(R.drawable.ic_night_mode, "Night"));
                         iconModelArrayList.add(new IconModel(R.drawable.ic_pip_mode, "Popup"));
                         iconModelArrayList.add(new IconModel(R.drawable.ic_rotate, "Rotate"));
+                        iconModelArrayList.add(new IconModel(R.drawable.ic_subtitle, "Subtitle"));
                         playbackIconsAdapter.notifyDataSetChanged();
                         expand = false;
                     } else {
+                        Log.d("error size: ", iconModelArrayList.size()+"");
                         if (iconModelArrayList.size() == 5) {
                             iconModelArrayList.add(new IconModel(R.drawable.ic_volume_off, "Mute"));
                             iconModelArrayList.add(new IconModel(R.drawable.ic_volume, "Volume"));
                             iconModelArrayList.add(new IconModel(R.drawable.ic_brightness, "Brightness"));
                             iconModelArrayList.add(new IconModel(R.drawable.ic_speed, "Speed"));
-                            iconModelArrayList.add(new IconModel(R.drawable.ic_subtitle, "Subtitle"));
+                            playbackIconsAdapter.notifyDataSetChanged();
                         }
                         iconModelArrayList.set(position, new IconModel(R.drawable.ic_left, ""));
                         playbackIconsAdapter.notifyDataSetChanged();
@@ -391,6 +400,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
                 }
                 if (position == 4) {
                     //rotate
+                    Log.d("rotate", "yes");
                     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                         playbackIconsAdapter.notifyDataSetChanged();
@@ -398,11 +408,10 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
                         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                         playbackIconsAdapter.notifyDataSetChanged();
                     }
-
-
                 }
                 if (position == 5) {
                     //mute
+                    Log.d("mute", "yes");
                     if (mute) {
                         player.setVolume(100);
                         iconModelArrayList.set(position, new IconModel(R.drawable.ic_volume_off, "Mute"));
@@ -523,6 +532,8 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
         brt_progress_container = findViewById(R.id.brt_progress_container);
         vol_text_container = findViewById(R.id.vol_text_container);
         brt_text_container = findViewById(R.id.brt_text_container);
+        size_text_container = findViewById(R.id.size_text_container);
+        size_text = findViewById(R.id.size_text);
         vol_icon = findViewById(R.id.vol_icon);
         brt_icon = findViewById(R.id.brt_icon);
         zoomLayout = findViewById(R.id.zoom_layout);
@@ -621,13 +632,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
     private void playError() {
-       /* player.addListener(new Player.EventListener() {
-            @Override
-            public void onPlayerError(ExoPlaybackException error) {
-                Toast.makeText(PlayerActivity.this, "Video Playing Error", Toast.LENGTH_SHORT).show();
-            }
-        });
-        player.setPlayWhenReady(true);*/
+
     }
     @Override
     public void onBackPressed() {
@@ -704,13 +709,13 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
                 controlsMode = ControlsMode.FULLSCREEN;
                 root.setVisibility(View.VISIBLE);
                 lock.setVisibility(View.INVISIBLE);
-                Toast.makeText(this, "unLocked", Toast.LENGTH_SHORT).show();
+                sizeScale("Unlock");
                 break;
             case R.id.unlock:
                 controlsMode = ControlsMode.LOCK;
                 root.setVisibility(View.INVISIBLE);
                 lock.setVisibility(View.VISIBLE);
-                Toast.makeText(this, "Locked", Toast.LENGTH_SHORT).show();
+                sizeScale("Locked");
                 break;
             case R.id.exo_next:
                 try {
@@ -719,7 +724,6 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
                     playVideo(videoUrl);
                     title.setText(mVideoFiles.get(position).getDisplayName());
                 } catch (Exception e) {
-                    Toast.makeText(this, "no Next Video", Toast.LENGTH_SHORT).show();
                     finish();
                 }
                 break;
@@ -730,7 +734,6 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
                     playVideo(videoUrl);
                     title.setText(mVideoFiles.get(position).getDisplayName());
                 } catch (Exception e) {
-                    Toast.makeText(this, "no Previous Video", Toast.LENGTH_SHORT).show();
                     finish();
                 }
                 break;
@@ -804,9 +807,9 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
                                             getContentResolver().delete(contentUri, null, null);
                                             mVideoFiles.remove(position);
                                             nextButton.performClick();
-                                            Toast.makeText(PlayerActivity.this, "Video Deleted", Toast.LENGTH_SHORT).show();
+                                            sizeScale("Video Deleted");
                                         } else {
-                                            Toast.makeText(PlayerActivity.this, "can't deleted", Toast.LENGTH_SHORT).show();
+                                            sizeScale("can't deleted");
                                         }
                                     }
                                 });
@@ -848,9 +851,9 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
         public void onClick(View v) {
             playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
             player.setVideoScalingMode(C.VIDEO_SCALING_MODE_DEFAULT);
-            scaling.setImageResource(R.drawable.fullscreen);
+            scaling.setImageResource(R.drawable.ic_fullscreen);
 
-            Toast.makeText(PlayerActivity.this, "Full Screen", Toast.LENGTH_SHORT).show();
+            sizeScale("Full Screen");
             scaling.setOnClickListener(secondListener);
         }
     };
@@ -859,9 +862,8 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
         public void onClick(View v) {
             playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_ZOOM);
             player.setVideoScalingMode(C.VIDEO_SCALING_MODE_DEFAULT);
-            scaling.setImageResource(R.drawable.zoom);
-
-            Toast.makeText(PlayerActivity.this, "Zoom", Toast.LENGTH_SHORT).show();
+            scaling.setImageResource(R.drawable.ic_zoom);
+            sizeScale("Zoom");
             scaling.setOnClickListener(thirdListener);
         }
     };
@@ -870,12 +872,20 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
         public void onClick(View v) {
             playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIT);
             player.setVideoScalingMode(C.VIDEO_SCALING_MODE_DEFAULT);
-            scaling.setImageResource(R.drawable.fit);
-
-            Toast.makeText(PlayerActivity.this, "Fit", Toast.LENGTH_SHORT).show();
+            scaling.setImageResource(R.drawable.ic_fit);
+            sizeScale("Fit");
             scaling.setOnClickListener(firstListener);
         }
     };
+    public void sizeScale(String name) {
+        size_text_container.setVisibility(View.VISIBLE);
+        size_text.setText(name);
+        new Handler().postDelayed(() -> {
+            size_text_container.setVisibility(View.GONE);
+        },1300);
+    }
+
+
     @Override
     public void onPictureInPictureModeChanged(boolean isInPictureInPictureMode, Configuration newConfig) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -907,7 +917,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
                 if (value) {
                     success = true;
                 } else {
-                    Toast.makeText(getApplicationContext(), "Not Granted", Toast.LENGTH_SHORT).show();
+                    sizeScale("Not Granted");
                 }
             }
         }

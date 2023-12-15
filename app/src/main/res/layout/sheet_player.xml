@@ -76,7 +76,7 @@
                         android:textAlignment="center"
                         android:text="Defult"
                         android:fontFamily="@font/font_regular_en"
-                        android:textSize="@dimen/size_txt_20"
+                        android:textSize="@dimen/size_txt_10"
                         android:textColor="@color/theme_gray_txt"/>
 
                 </LinearLayout>
@@ -112,7 +112,7 @@
                         android:textAlignment="center"
                         android:text=""
                         android:fontFamily="@font/font_regular_en"
-                        android:textSize="@dimen/size_txt_20"
+                        android:textSize="@dimen/size_txt_10"
                         android:textColor="@color/theme_gray_txt"/>
 
                 </LinearLayout>
@@ -137,7 +137,7 @@
                         android:textAlignment="center"
                         android:text="MX Player"
                         android:fontFamily="@font/font_bold_en"
-                        android:textSize="@dimen/size_txt_20"
+                        android:textSize="@dimen/size_txt_10"
                         android:textColor="@color/theme_white_txt"/>
 
                     <TextView
@@ -148,7 +148,7 @@
                         android:textAlignment="center"
                         android:text=""
                         android:fontFamily="@font/font_regular_en"
-                        android:textSize="@dimen/size_txt_20"
+                        android:textSize="@dimen/size_txt_10"
                         android:textColor="@color/theme_gray_txt"/>
 
                 </LinearLayout>
@@ -184,7 +184,7 @@
                         android:textAlignment="center"
                         android:text=""
                         android:fontFamily="@font/font_regular_en"
-                        android:textSize="@dimen/size_txt_20"
+                        android:textSize="@dimen/size_txt_10"
                         android:textColor="@color/theme_gray_txt"/>
 
                 </LinearLayout>

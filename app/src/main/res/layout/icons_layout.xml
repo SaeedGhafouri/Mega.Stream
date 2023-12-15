@@ -2,12 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <ImageView
         android:id="@+id/playback_icon"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        app:tint="@color/theme_white_fit"
         android:scaleType="centerInside"
         android:layout_centerHorizontal="true"
         android:background="@drawable/ripple_circle"

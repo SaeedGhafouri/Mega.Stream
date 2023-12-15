@@ -13,7 +13,8 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:id="@+id/zoom_layout"
@@ -41,11 +42,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-        <ProgressBar android:id="@id/exo_buffering"
+        <!--<ProgressBar android:id="@id/exo_buffering"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:indeterminate="true"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"/>-->
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@id/exo_buffering"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_gravity="center"
+            app:lottie_rawRes="@raw/loader"
+            app:lottie_autoPlay="true"
+            app:lottie_repeatMode="restart"
+            app:lottie_loop="true"
+            app:lottie_speed="1"/>
 
         <TextView android:id="@id/exo_error_message"
             android:layout_width="match_parent"
