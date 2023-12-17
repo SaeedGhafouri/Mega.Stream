@@ -206,5 +206,23 @@
     <string name="payment_sheet_details_desc">درصورت بروز مشکل با پشتیبانی در میان بگذارید</string>
     <string name="submit">تایید</string>
 
+    <!--Subscription-->
+    <string name="subscription">اشتراک ویژه</string>
+    <string name="subscription_title_en">Become a special member of Mega Stream</string>
+    <string name="subscription_title">عضو ویژه مگا استریم شوید</string>
+    <string name="subscription_caption">فعال سازی اشتراک ویژه مگا استریم</string>
+    <string name="subscription_caption02">50 درصد درآمد مگااستریم جهت امور خیریه و کمک رسانی به افراد نیازمند می باشد.</string>
+    <string name="subscription_possibilities">امکانات اشتراک ویژه</string>
+    <string name="subscription_submit">فعال سازی</string>
+    <string name="subscription_toman">تومان</string>
+    <string name="subscription_option_title">امکانات اشتراک ویژه:</string>
+    <string name="subscription_list_title">تعرفه های اشتراک:</string>
+    <string name="subscription_option_01">دسترسی به محتوای ویژه</string>
+    <string name="subscription_option_02">امکان دانلود محتوای مگا استریم به صورت نامحدود</string>
+    <string name="subscription_option_03">اینترنت نیم بها</string>
+    <string name="subscription_option_04">انتشار فیلم و سریال درخواستی</string>
+    <string name="subscription_option_05">پشتیبانی 24 ساعته</string>
+    <string name="subscription_option_06">فعال سازی پلتفرم ویندوز و اندروید TV (بزودی)</string>
+    <string name="subscription_option_07">ارسال نوتیفیکشن در هنگام انتشار قسمت جدید سریال ها (بزودی)</string>
 
 </resources>

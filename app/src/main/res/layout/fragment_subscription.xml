@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/theme_background"
+    tools:context=".ui.fragment.SubscriptionFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg_subscription"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/size_padding_40"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"
+                        app:lottie_rawRes="@raw/subscription"
+                        app:lottie_repeatMode="restart"
+                        app:lottie_speed="1" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/size_padding_20"
+                        android:fontFamily="@font/font_bold_fa"
+                        android:text="@string/subscription_title"
+                        android:textAlignment="center"
+                        android:textColor="@color/theme_white_fit"
+                        android:textSize="@dimen/size_txt_40" />
+
+                    <!--<TextView
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/size_padding_10"
+                        android:textAlignment="center"
+                        android:text="@string/subscription_title_en"
+                        android:textColor="@color/theme_white_fit"
+                        android:textSize="@dimen/size_txt_40"
+                        android:fontFamily="@font/font_bold_en" />-->
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/size_padding_20"
+                        android:fontFamily="@font/font_regular_fa"
+                        android:text="@string/subscription_caption"
+                        android:textAlignment="center"
+                        android:textColor="@color/theme_white_fit"
+                        android:textSize="@dimen/size_txt_20" />
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/size_padding_container">
+
+                <!--Title-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/size_padding_20"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/font_bold_fa"
+                    android:text="@string/subscription_option_title"
+                    android:textAlignment="viewEnd"
+                    android:textColor="@color/theme_white_fit"
+                    android:textSize="@dimen/size_txt_20" />
+
+                <!---->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/font_regular_fa"
+                        android:text="@string/subscription_option_01"
+                        android:textAlignment="viewEnd"
+                        android:textColor="@color/theme_white_fit"
+                        android:textSize="@dimen/size_txt_20" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_check_mark"
+                        android:layout_marginStart="@dimen/size_padding_20" />
+
+                </LinearLayout>
+
+                <!---->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size_padding_20"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/font_regular_fa"
+                        android:text="@string/subscription_option_02"
+                        android:textAlignment="viewEnd"
+                        android:textColor="@color/theme_white_fit"
+                        android:textSize="@dimen/size_txt_20" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_check_mark"
+                        android:layout_marginStart="@dimen/size_padding_20" />
+
+                </LinearLayout>
+
+                <!---->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size_padding_20"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/font_regular_fa"
+                        android:text="@string/subscription_option_03"
+                        android:textAlignment="viewEnd"
+                        android:textColor="@color/theme_white_fit"
+                        android:textSize="@dimen/size_txt_20" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_check_mark"
+                        android:layout_marginStart="@dimen/size_padding_20" />
+
+                </LinearLayout>
+
+                <!---->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size_padding_20"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/font_regular_fa"
+                        android:text="@string/subscription_option_04"
+                        android:textAlignment="viewEnd"
+                        android:textColor="@color/theme_white_fit"
+                        android:textSize="@dimen/size_txt_20" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_check_mark"
+                        android:layout_marginStart="@dimen/size_padding_20" />
+
+                </LinearLayout>
+
+                <!---->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size_padding_20"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/font_regular_fa"
+                        android:text="@string/subscription_option_05"
+                        android:textAlignment="viewEnd"
+                        android:textColor="@color/theme_white_fit"
+                        android:textSize="@dimen/size_txt_20" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_check_mark"
+                        android:layout_marginStart="@dimen/size_padding_20" />
+
+                </LinearLayout>
+
+                <!---->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size_padding_20"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/font_regular_fa"
+                        android:text="@string/subscription_option_06"
+                        android:textAlignment="viewEnd"
+                        android:textColor="@color/theme_white_fit"
+                        android:textSize="@dimen/size_txt_20" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_check_mark"
+                        android:layout_marginStart="@dimen/size_padding_20" />
+
+                </LinearLayout>
+
+                <!---->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size_padding_20"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/font_regular_fa"
+                        android:text="@string/subscription_option_07"
+                        android:textAlignment="viewEnd"
+                        android:textColor="@color/theme_white_fit"
+                        android:textSize="@dimen/size_txt_20" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_check_mark"
+                        android:layout_marginStart="@dimen/size_padding_20" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!--Title-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/size_padding_container"
+                android:layout_marginTop="@dimen/size_padding_40"
+                android:layout_weight="1"
+                android:fontFamily="@font/font_bold_fa"
+                android:text="@string/subscription_list_title"
+                android:textAlignment="viewEnd"
+                android:textColor="@color/theme_white_fit"
+                android:textSize="@dimen/size_txt_20" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerSubscription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_padding_20"
+                android:visibility="gone"
+                tools:listitem="@layout/item_subscription"/>
+
+            <ProgressBar
+                android:id="@+id/loader"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:visibility="visible" />
+
+            <TextView
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/size_padding_20"
+                android:fontFamily="@font/font_regular_fa"
+                android:text="@string/subscription_caption02"
+                android:textAlignment="center"
+                android:textColor="@color/theme_gray_txt"
+                android:textSize="@dimen/size_txt_20" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

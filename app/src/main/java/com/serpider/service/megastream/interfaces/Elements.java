@@ -2,8 +2,6 @@ package com.serpider.service.megastream.interfaces;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
@@ -19,10 +17,13 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import androidx.fragment.app.FragmentActivity;
+import androidx.navigation.Navigation;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.animation.content.Content;
 import com.bumptech.glide.Glide;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.serpider.service.megastream.BuildConfig;
 import com.serpider.service.megastream.R;
@@ -93,6 +94,19 @@ public interface Elements {
 
 
         return dialog;
+    }
+
+    /*Subscription*/
+    static void sheetSubscription(FragmentActivity activity, int action) {
+        View view = activity.getLayoutInflater().inflate(R.layout.sheet_subscription, null);
+        BottomSheetDialog sheet = new BottomSheetDialog(activity);
+        sheet.setContentView(view);
+        sheet.show();
+        MaterialButton btnActive = view.findViewById(R.id.btnActive);
+        btnActive.setOnClickListener(view1 -> {
+            Navigation.findNavController(view1).navigate(action);
+            sheet.dismiss();
+        });
     }
 
     /*chr veriosn bridge in api*/

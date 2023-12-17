@@ -30,6 +30,7 @@ import com.serpider.service.megastream.api.ApiClinent;
 import com.serpider.service.megastream.api.ApiInterFace;
 import com.serpider.service.megastream.api.ApiServer;
 import com.serpider.service.megastream.databinding.FragmentHomeBinding;
+import com.serpider.service.megastream.interfaces.Elements;
 import com.serpider.service.megastream.interfaces.Key;
 import com.serpider.service.megastream.model.Country;
 import com.serpider.service.megastream.model.Film;
@@ -47,25 +48,25 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
-    RecyclerView recyclerFilm, recyclerCountry, recyclerGenre, recyclerNetwork;
-    List<Film> listAllFilm = new ArrayList<>();
-    List<Country> listCountry = new ArrayList<>();
-    List<Genre> listGenre = new ArrayList<>();
-    List<Network> listNetwork = new ArrayList<>();
+    private RecyclerView recyclerFilm, recyclerCountry, recyclerGenre, recyclerNetwork;
+    private List<Film> listAllFilm = new ArrayList<>();
+    private List<Country> listCountry = new ArrayList<>();
+    private List<Genre> listGenre = new ArrayList<>();
+    private List<Network> listNetwork = new ArrayList<>();
     public ViewPager viewPager;
-    List<Ads> adsList = new ArrayList<>();
-    ItemAdapter itemAdapter;
-    NetworkAdapter networkAdapter;
-    SliderAdapter sliderAdapter;
-    GropingAdapter gropingAdapter;
-    GenreAdapter genreAdapter;
+    private List<Ads> adsList = new ArrayList<>();
+    private ItemAdapter itemAdapter;
+    private NetworkAdapter networkAdapter;
+    private SliderAdapter sliderAdapter;
+    private GropingAdapter gropingAdapter;
+    private GenreAdapter genreAdapter;
     /*Limit*/
-    ApiInterFace requestSuggested, requestSerial;
-    RecyclerView recyclerSuggested, recyclerSerial;
-    List<Film> listSuggested = new ArrayList<>();
-    List<Film> listSerial = new ArrayList<>();
+    private ApiInterFace requestSuggested, requestSerial;
+    private RecyclerView recyclerSuggested, recyclerSerial;
+    private List<Film> listSuggested = new ArrayList<>();
+    private List<Film> listSerial = new ArrayList<>();
 
-    ApiInterFace requestAllFilm, requestCountry, requestSlider, requestGenre, requestNetwork;
+    private ApiInterFace requestAllFilm, requestCountry, requestSlider, requestGenre, requestNetwork;
     /*Animation Slider*/
     private Runnable runnable = null;
     public Handler handler = new Handler();
@@ -118,7 +119,7 @@ public class HomeFragment extends Fragment {
             }
         });
        // mBinding.logoMain.setOnClickListener(view1 -> dialogFilter());
-        mBinding.logoMain.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_mainFragment_to_detailsFragment));
+        mBinding.logoMain.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_mainFragment_to_subscriptionFragment));
 
         mBinding.btnHomeSearch.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_mainFragment_to_searchFragment));
 

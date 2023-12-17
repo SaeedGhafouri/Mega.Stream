@@ -99,6 +99,9 @@
         <action
             android:id="@+id/action_mainFragment_to_infoUserFragment2"
             app:destination="@id/infoUserFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_subscriptionFragment"
+            app:destination="@id/subscriptionFragment" />
     </fragment>
     <fragment
         android:id="@+id/listUniqueFragment"
@@ -193,4 +196,9 @@
         android:name="com.serpider.service.megastream.ui.fragment.TransactionFragment"
         android:label="fragment_transaction"
         tools:layout="@layout/fragment_transaction" />
+    <fragment
+        android:id="@+id/subscriptionFragment"
+        android:name="com.serpider.service.megastream.ui.fragment.SubscriptionFragment"
+        android:label="fragment_subscription"
+        tools:layout="@layout/fragment_subscription" />
 </navigation>

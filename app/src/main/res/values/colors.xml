@@ -32,4 +32,10 @@
     <color name="theme_danger_hormony">#33EF5350</color>
     <color name="theme_success_hormony">#3366BB6A</color>
 
+    <color name="theme_sub_tan">#B76948</color>
+    <color name="theme_sub_silver">#A3A3A3</color>
+    <color name="theme_sub_gold">#FFD008</color>
+    <color name="theme_sub_diamond">#82A6BC</color>
+    <color name="theme_sub_super">#01C38E</color>
+
 </resources>

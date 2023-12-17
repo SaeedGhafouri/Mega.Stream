@@ -16,6 +16,7 @@ import com.serpider.service.megastream.model.Network;
 import com.serpider.service.megastream.model.Section;
 import com.serpider.service.megastream.model.Ads;
 import com.serpider.service.megastream.model.Settings;
+import com.serpider.service.megastream.model.Subscription;
 import com.serpider.service.megastream.model.User;
 
 import java.util.List;
@@ -252,9 +253,6 @@ public interface ApiInterFace {
             @Field("USER_ID") int id
     );
 
-    @GET(END_POINT + "donate_by")
-    Call<Donate> getDonateBy();
-
     @FormUrlEncoded
     @POST(END_POINT + "user_report")
     Call<Result> getUserReport(
@@ -266,6 +264,12 @@ public interface ApiInterFace {
 
     @GET(END_POINT + "app_settings")
     Call<Settings> getSetting();
+
+    @GET(END_POINT + "donate_by")
+    Call<Donate> getDonateBy();
+
+    @GET(END_POINT + "sub_all")
+    Call<List<Subscription>> getSubAll();
 
     /*@E*/
     @GET("getGenres/")

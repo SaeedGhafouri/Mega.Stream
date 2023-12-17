@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/size_padding_container"
+    android:layout_marginBottom="@dimen/size_padding_20"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="@dimen/size_radius_10"
+    android:backgroundTint="@color/theme_background_body">
+    
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:background="@color/theme_background_body"
+        android:padding="@dimen/size_padding_container"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/size_padding_container"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <!--left-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_vertical|start">
+
+                <TextView
+                    android:id="@+id/txtDiscount"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="39,000"
+                    android:textColor="@color/theme_gray_txt"
+                    android:fontFamily="@font/font_regular_en"
+                    android:textSize="@dimen/size_txt_20"/>
+
+                <TextView
+                    android:id="@+id/txtPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/size_padding_10"
+                    android:text="29,000"
+                    android:textColor="@color/theme_white_txt"
+                    android:fontFamily="@font/font_regular_en"
+                    android:textSize="@dimen/size_txt_40"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/subscription_toman"
+                    android:textColor="@color/theme_white_txt"
+                    android:fontFamily="@font/font_regular_fa"
+                    android:textSize="@dimen/size_txt_20"/>
+
+            </LinearLayout>
+
+            <!--left-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_vertical|end">
+
+                <TextView
+                    android:id="@+id/txtTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="اشتراک سوپرمکس"
+                    android:textColor="@color/theme_white_txt"
+                    android:fontFamily="@font/font_bold_fa"
+                    android:textSize="@dimen/size_txt_40"/>
+
+                <TextView
+                    android:id="@+id/txtPriod"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/size_padding_10"
+                    android:text="سه ماهه"
+                    android:textColor="@color/theme_white_txt"
+                    android:fontFamily="@font/font_regular_fa"
+                    android:textSize="@dimen/size_txt_30"/>
+
+                <TextView
+                    android:id="@+id/txtDiscountPercent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/size_padding_10"
+                    android:gravity="center"
+                    android:background="@drawable/shape_cicle_text"
+                    android:backgroundTint="@color/theme_main_hormony"
+                    android:text="50% تخفیف"
+                    android:textColor="@color/theme_main"
+                    android:fontFamily="@font/font_regular_fa"
+                    android:textSize="@dimen/size_txt_20"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="3dp"
+            android:layout_height="50dp"
+            android:background="@drawable/shape_body"
+            android:backgroundTint="@color/theme_success"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</com.google.android.material.card.MaterialCardView>
