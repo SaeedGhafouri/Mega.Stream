@@ -177,7 +177,7 @@ public class DonateFragment extends Fragment {
 
         // Set up the purchase
         Purchase purchase = Purchase.newBuilder()
-                .asPaymentRequest("95cf8788-7866-428b-a301-a66b4a4a5099", price, "http://pluslux.xyz", "1000IRR Purchase")
+                .asPaymentRequest("95cf8788-7866-428b-a301-a66b4a4a5099", price, "http://pluslux.xyz", price + " IRR Purchase")
                 .build();
 
         client.launchBillingFlow(purchase, new FutureCompletionListener<Receipt>() {

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -90,7 +91,12 @@ public class DetailsFragment extends Fragment {
 
         btnPlay = mBinding.btnPlay;
 
-        loadData();
+        try {
+            loadData();
+        }catch (Exception e){
+            getActivity().onBackPressed();
+        }
+
         /*Test Code*/
         /*Deep link*/
         Uri data = getActivity().getIntent().getData();
@@ -104,11 +110,6 @@ public class DetailsFragment extends Fragment {
                 }
             }
         }
-
-        mBinding.btnReport.setOnClickListener(view1 -> {
-            ReportSheet reportSheet = new ReportSheet();
-            reportSheet.show(getChildFragmentManager(), reportSheet.getTag());
-        });
 
     }
     private void loadData() {
@@ -133,7 +134,6 @@ public class DetailsFragment extends Fragment {
                 if(film != null){
                     mBinding.itemTitle.setText(film.getTitle_en());
                     mBinding.itemTitleFa.setText(film.getTitle_fa());
-                    mBinding.itemTime.setText(String.valueOf(film.getPeriod()));
                     mBinding.itemImdb.setText(String.valueOf(film.getImdb()));
                     mBinding.itemSynopsis.setText(film.getSynopsis());
                     mBinding.itemLanguageAlpha.setText(film.getLanguage_alpha());
@@ -204,11 +204,20 @@ public class DetailsFragment extends Fragment {
                     /*Size @e*/
                     if (film.getSize() == 0){
                         mBinding.bodySize.setVisibility(View.GONE);
-                        //mBinding.lineSize.setVisibility(View.GONE);
+                        mBinding.lineSize.setVisibility(View.GONE);
                     }else {
                         mBinding.itemSize.setText(String.valueOf(film.getSize()));
                     }
                     /*Size @e*/
+
+                    /*Network @s*/
+                    if (film.getNetwork() == null){
+                        mBinding.bodyNetwork.setVisibility(View.GONE);
+                    }else {
+                        mBinding.itemNetwork.setText(film.getNetwork());
+                        Glide.with(getActivity()).load(film.getNetwork_vector()).into(mBinding.itemNetworkVector);
+                    }
+                    /*Network @e*/
 
                     Glide.with(getActivity()).load(film.getCountry_flag()).into(mBinding.itemCountryFlag);
                     typeItem= film.getType();
@@ -277,6 +286,33 @@ public class DetailsFragment extends Fragment {
                     /*Chip*/
                     loadChip(film.getGenre());
 
+                    /*Click item*/
+                    //award
+                    mBinding.bodyAward.setOnClickListener(view -> {
+                        clickItem(R.id.action_detailsFragment_to_listUniqueFragment, "item_suggestion", String.valueOf(film.getSuggestion()), "پیشنهاد سردبیر", "");
+                    });
+                    //Ages
+                    mBinding.bodyAge.setOnClickListener(view -> {
+                        clickItem(R.id.action_detailsFragment_to_listUniqueFragment, "item_ages", film.getAges(), "محدوده سنی " + film.getAges(), "");
+                    });
+                    //Year
+                    mBinding.bodyYear.setOnClickListener(view -> {
+                        clickItem(R.id.action_detailsFragment_to_listUniqueFragment, "item_yaer", String.valueOf(film.getYear()), String.valueOf(film.getYear()), "");
+                    });
+                    //Conutry
+                    mBinding.bodyCountry.setOnClickListener(view -> {
+                        clickItem(R.id.action_detailsFragment_to_listUniqueFragment, "item_country", film.getCountry(), film.getCountry(), film.getCountry_flag());
+                    });
+                    //Network
+                    mBinding.bodyNetwork.setOnClickListener(view -> {
+                        clickItem(R.id.action_detailsFragment_to_listUniqueFragment, "item_network", film.getNetwork(), film.getNetwork(), film.getNetwork_vector());
+                    });
+
+                    mBinding.btnReport.setOnClickListener(view1 -> {
+                        ReportSheet reportSheet = new ReportSheet();
+                        reportSheet.show(getChildFragmentManager(), reportSheet.getTag());
+                    });
+
                 }else {
                     SnackBoard.show(getActivity(), "آیتم مورد نظر حذف شده است", 1);
                     getActivity().onBackPressed();
@@ -287,6 +323,17 @@ public class DetailsFragment extends Fragment {
                 Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void clickItem(int action, String query, String name, String title, String vector) {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Navigation.findNavController(getView()).navigate(action);
+        editor.putString("GROUP_QUERY", query);
+        editor.putString("GROUP_NAME", name);
+        editor.putString("GROUP_TITLE", title);
+        editor.putString("GROUP_VECTOR", vector);
+        editor.apply();
     }
 
     private void share(int id) {
@@ -316,7 +363,7 @@ public class DetailsFragment extends Fragment {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             chip.setOnClickListener(view -> {
                 Navigation.findNavController(view).navigate(R.id.action_detailsFragment_to_listUniqueFragment);
-                editor.putString("GROUP_TYPE", "item_genre");
+                editor.putString("GROUP_QUERY", "item_genre");
                 editor.putString("GROUP_NAME", genre);
                 editor.putString("GROUP_VECTOR", "");
                 editor.apply();

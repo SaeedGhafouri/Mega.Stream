@@ -1,5 +1,8 @@
 package com.serpider.service.megastream.util;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public abstract class Utility {
 
     public static String timeConversion(Long millie){
@@ -15,6 +18,25 @@ public abstract class Utility {
             }
         } else {
             return null;
+        }
+    }
+
+    public static String formatPrice(long price) {
+        NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.getDefault());
+        return numberFormat.format(price);
+    }
+
+    public static String applyDiscount(long price, long discount) {
+        if (discount < 100) {
+            long discountedPrice = price - (price * discount / 100);
+            NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.getDefault());
+            String formattedDiscountedPrice = numberFormat.format(discountedPrice);
+            return formattedDiscountedPrice;
+        }else {
+            long disprice = price - discount;
+            NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.getDefault());
+            String formattedDiscountedPrice = numberFormat.format(disprice);
+            return formattedDiscountedPrice;
         }
     }
 

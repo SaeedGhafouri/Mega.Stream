@@ -3,17 +3,20 @@ package com.serpider.service.megastream.adapter;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Paint;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.serpider.service.megastream.R;
 import com.serpider.service.megastream.model.Genre;
 import com.serpider.service.megastream.model.Subscription;
+import com.serpider.service.megastream.util.DataSave;
 
 import java.util.List;
 
@@ -59,6 +62,22 @@ public class SubscriptionAdapter extends RecyclerView.Adapter<SubscriptionAdapte
         }
 
         holder.line.setBackgroundTintList(ColorStateList.valueOf(color));
+
+        holder.itemView.setOnClickListener(view -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt("TYPE", 1);
+            bundle.putInt("USER_ID", DataSave.UserGetId(context));
+            bundle.putInt("SUB_ID", subscription.getId());
+            bundle.putLong("DISCOUNT", subscription.getDiscount());
+            bundle.putLong("DISCOUNT_PERCENT", subscription.getDiscount_percent());
+            bundle.putLong("PRICE_PURE", subscription.getPrice());
+            bundle.putLong("PRICE_TAX", 0);
+            bundle.putString("PAY_TOPIC", subscription.getName());
+            bundle.putString("PAY_DESC", "فعال سازی حساب کاربری به حساب ویژه");
+
+            Navigation.findNavController(view).navigate(R.id.action_subscriptionFragment_to_paymentFragment, bundle);
+        });
+
     }
 
     @Override

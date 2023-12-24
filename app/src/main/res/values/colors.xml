@@ -11,6 +11,7 @@
     <!--Theme-->
     <color name="theme_black_500">#000000</color>
     <color name="theme_black_400">#111111</color>
+    <color name="theme_black_300">#1C1C1C</color>
     <color name="theme_background">#000000</color>
     <color name="theme_background_edittext">#1C1C1C</color>
     <color name="theme_background_body">#111111</color>

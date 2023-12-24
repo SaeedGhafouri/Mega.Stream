@@ -46,8 +46,9 @@ public class GropingAdapter extends RecyclerView.Adapter<GropingAdapter.MyViewHo
         SharedPreferences.Editor editor = sharedPreferences.edit();
         holder.itemView.setOnClickListener(view ->{
             Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_listUniqueFragment);
-            editor.putString("GROUP_TYPE", "item_country");
-            editor.putString("GROUP_NAME", data.get(position).getFa_name());
+            editor.putString("GROUP_TITLE", data.get(position).getFa_name());
+            editor.putString("GROUP_QUERY", "item_country");
+            editor.putString("GROUP_NAME", String.valueOf(data.get(position).getId()));
             editor.putString("GROUP_VECTOR", data.get(position).getVector());
             editor.apply();
         });

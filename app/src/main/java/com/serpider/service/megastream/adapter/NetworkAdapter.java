@@ -47,8 +47,9 @@ public class NetworkAdapter extends RecyclerView.Adapter<NetworkAdapter.MyViewHo
         SharedPreferences.Editor editor = sharedPreferences.edit();
         holder.itemView.setOnClickListener(view ->{
             Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_listUniqueFragment);
-            editor.putString("GROUP_TYPE", "item_network");
-            editor.putString("GROUP_NAME", data.get(position).getName());
+            editor.putString("GROUP_TITLE", data.get(position).getName());
+            editor.putString("GROUP_QUERY", "item_network");
+            editor.putString("GROUP_NAME", String.valueOf(data.get(position).getId()));
             editor.putString("GROUP_VECTOR", data.get(position).getVector());
             editor.apply();
         });

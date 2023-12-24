@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:text="@string/replay_to"
-                android:fontFamily="@font/font_regular_fa"
+                android:fontFamily="@font/font_regular_en"
                 android:textSize="@dimen/size_txt_20"
                 android:textColor="@color/theme_gray_txt"/>
 
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/size_padding_10"
                 android:textAlignment="center"
-                android:fontFamily="@font/font_regular_fa"
+                android:fontFamily="@font/font_regular_en"
                 android:textSize="@dimen/size_txt_20"
                 android:textColor="@color/theme_white_txt"/>
 

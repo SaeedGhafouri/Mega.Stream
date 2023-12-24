@@ -22,7 +22,6 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.MyViewHolder
     Context context;
     List<Genre> data;
     FragmentActivity activity;
-
     public GenreAdapter(Context context, List<Genre> data, FragmentActivity activity) {
         this.context = context;
         this.data = data;
@@ -45,9 +44,10 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.MyViewHolder
         holder.itemView.setOnClickListener(view ->{
             if (new Connection().isNetwork(activity)) {
                 Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_listUniqueFragment);
-                editor.putString("GROUP_TYPE", "item_genre");
+                editor.putString("GROUP_QUERY", "item_genre");
                 editor.putString("GROUP_NAME", data.get(position).getName_fa());
                 editor.putString("GROUP_VECTOR", "");
+                editor.putString("GROUP_TITLE", data.get(position).getName_fa());
                 editor.apply();
             }else {
                 new Connection().showDialog(activity);

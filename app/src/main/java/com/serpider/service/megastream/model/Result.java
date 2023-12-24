@@ -5,11 +5,13 @@ public class Result {
     /*Result Server*/
     private boolean status;
     private String message, otp;
+    private long cpn_value;
 
-    public Result(boolean status, String message, String otp) {
+    public Result(boolean status, String message, String otp, long cpn_value) {
         this.status = status;
         this.message = message;
         this.otp = otp;
+        this.cpn_value = cpn_value;
     }
 
     public boolean isStatus() {
@@ -22,6 +24,10 @@ public class Result {
 
     public String getMessage() {
         return message;
+    }
+
+    public long getCpn_value() {
+        return cpn_value;
     }
 
     public void setMessage(String message) {

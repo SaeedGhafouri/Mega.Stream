@@ -20,10 +20,12 @@ import com.serpider.service.megastream.model.Subscription;
 import com.serpider.service.megastream.model.User;
 
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -63,7 +65,7 @@ public interface ApiInterFace {
     @FormUrlEncoded
     @POST("getFilmByGroup.php?")
     Call<List<Film>> getItemGroup(
-            @Field("GROUP_TYPE") String groupType,
+            @Field("GROUP_QUERY") String groupType,
             @Field("GROUP_NAME") String groupName
     );
 
@@ -141,13 +143,21 @@ public interface ApiInterFace {
             @Field("ITEM_NAME") String item_name
     );
 
-    @GET(END_POINT +"film_list_pagination")
-    Call<List<Film>> getPaginatedFilm(
-            @Query("query") String query,
-            @Query("name") String name,
+    /*@POST(END_POINT +"film_list_by")
+    Call<List<Film>> getFilmListBy(
+            @Field("ITEM_TYPE") String item_type,
+            @Field("ITEM_QUERY") String item_query,
+            @Field("ITEM_NAME") String item_name,
             @Query("page") int page,
             @Query("perPage") int perPage
+    );*/
+    @POST(END_POINT + "film_list_by")
+    Call<List<Film>> getFilmListBy(
+            @Query("page") int page,
+            @Query("perPage") int perPage,
+            @Body Map<String, Object> requestBody
     );
+
 
     @FormUrlEncoded
     @POST(END_POINT + "film_comment")
@@ -270,6 +280,14 @@ public interface ApiInterFace {
 
     @GET(END_POINT + "sub_all")
     Call<List<Subscription>> getSubAll();
+
+    @FormUrlEncoded
+    @POST(END_POINT + "apply_coupon")
+    Call<Result> getApplyCoupon(
+            @Field("USER_ID") int user_id,
+            @Field("SUB_ID") int sub_id,
+            @Field("COUPON_KEY") String key
+    );
 
     /*@E*/
     @GET("getGenres/")

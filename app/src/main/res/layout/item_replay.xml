@@ -14,7 +14,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/size_padding_container">
+        android:paddingHorizontal="@dimen/size_padding_container">
+
+        <View
+            style="@style/Theme.Original.Line"
+            android:background="@color/theme_background_edittext" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -61,7 +65,7 @@
                         android:text="alixmahs"
                         android:textColor="@color/theme_white_txt"
                         android:fontFamily="@font/font_bold_en"
-                        android:textSize="@dimen/size_txt_30"/>
+                        android:textSize="@dimen/size_txt_20"/>
 
                     <TextView
                         android:id="@+id/txtReplayUsername"
@@ -102,10 +106,6 @@
             </LinearLayout>
 
         </LinearLayout>
-
-        <View
-            style="@style/Theme.Original.Line"
-            android:background="@color/theme_background_edittext" />
 
     </LinearLayout>
 

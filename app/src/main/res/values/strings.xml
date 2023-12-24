@@ -66,16 +66,18 @@
     <string name="sections">قسمت ها</string>
     <string name="choice_player">پخش کننده</string>
     <string name="choice_player_desc">انتخاب کنید ، برای نمایش بهتر زیر نویس ها می توانید از پخش کننده مگا استریم کنید</string>
-    <string name="ages_en">AGE</string>
+    <string name="ages_en">AGES</string>
     <string name="_ages_en">Year Old</string>
     <string name="year_en">YEAR</string>
     <string name="_year_en">Yo</string>
     <string name="country_en">COUNTRY</string>
-    <string name="_country_en">Turkiye</string>
+    <string name="_country_en"></string>
     <string name="language_en">LANGUAGE</string>
     <string name="_language_en">English</string>
     <string name="size_en">SIZE</string>
     <string name="_size_en">MB</string>
+    <string name="network_en">Network</string>
+    <string name="_network_en">Company</string>
     <string name="description_en">Description</string>
     <string name="awards_en">AWARDS</string>
     <string name="summary_en">Summary</string>
@@ -204,7 +206,23 @@
     <!--Payment-->
     <string name="payment_sheet_details_title">اطلاعات فاکتور</string>
     <string name="payment_sheet_details_desc">درصورت بروز مشکل با پشتیبانی در میان بگذارید</string>
+    <string name="payment_title">پرداخت سفارش</string>
+    <string name="payment_how_pay">پرداخت سفارش</string>
+    <string name="payment_payment_getway">درگاه پرداخت</string>
+    <string name="payment_card_by_card">کارت به کارت</string>
+    <string name="payment_discount_code">کد تخفیف</string>
+    <string name="payment_discount_code_submit">اعمال</string>
+    <string name="payment_discount_code_delect">حذف</string>
+    <string name="payment_discount_code_hint">کد را وارد کنید</string>
     <string name="submit">تایید</string>
+    <string name="payment_topic">عنوان</string>
+    <string name="payment_topic_payment">عنوان پرداخت</string>
+    <string name="payment_desc">توصیحات</string>
+    <string name="payment_net_price">قیمت خالص</string>
+    <string name="payment_discount">تخفیف</string>
+    <string name="payment_tax">مالیات</string>
+    <string name="payment_payable">قابل پرداخت</string>
+
 
     <!--Subscription-->
     <string name="subscription">اشتراک ویژه</string>

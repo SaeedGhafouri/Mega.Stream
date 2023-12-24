@@ -61,12 +61,11 @@ public class HomeFragment extends Fragment {
     private GropingAdapter gropingAdapter;
     private GenreAdapter genreAdapter;
     /*Limit*/
-    private ApiInterFace requestSuggested, requestSerial;
+    private ApiInterFace request;
     private RecyclerView recyclerSuggested, recyclerSerial;
     private List<Film> listSuggested = new ArrayList<>();
     private List<Film> listSerial = new ArrayList<>();
 
-    private ApiInterFace requestAllFilm, requestCountry, requestSlider, requestGenre, requestNetwork;
     /*Animation Slider*/
     private Runnable runnable = null;
     public Handler handler = new Handler();
@@ -87,6 +86,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         deeplink();
+        request = ApiClinent.getApiClinent(getActivity(),Key.BASE_URL).create(ApiInterFace.class);
 
         /*loadCountry();
         loadNetwork();
@@ -97,7 +97,7 @@ public class HomeFragment extends Fragment {
         loadGenres();
         loadCountrys();
         loadNetworks();
-        loadSuggested("item_genre", "پیشنهاد سردبیر");
+        loadSuggested("item_suggestion", "1");
         loadSerial("2", "item_type");
 
         /*Refresh Infomation*/
@@ -150,13 +150,12 @@ public class HomeFragment extends Fragment {
     }
     /*New Api Data*/
     private void loadSuggested(String query, String name) {
-        requestSuggested = ApiClinent.getApiClinent(getActivity(),Key.BASE_URL).create(ApiInterFace.class);
         recyclerSuggested = mBinding.recyclerSuggested;
         recyclerSuggested.setHasFixedSize(true);
         GridLayoutManager layoutManager =
                 new GridLayoutManager(getActivity(), 1, GridLayoutManager.HORIZONTAL, false);
         recyclerSuggested.setLayoutManager(layoutManager);
-        requestSuggested.getFilmBy(query, name, 10).enqueue(new Callback<List<Film>>() {
+        request.getFilmBy(query, name, 10).enqueue(new Callback<List<Film>>() {
             @Override
             public void onResponse(Call<List<Film>> call, Response<List<Film>> response) {
                 listSuggested = response.body();
@@ -172,20 +171,20 @@ public class HomeFragment extends Fragment {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         mBinding.btnAllSuggested.setOnClickListener(view -> {
             Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_listUniqueFragment);
-            editor.putString("GROUP_TYPE", "item_genre");
+            editor.putString("GROUP_QUERY", query);
             editor.putString("GROUP_NAME", name);
+            editor.putString("GROUP_TITLE", "پیشنهاد سردبیر");
             editor.putString("GROUP_VECTOR", "");
             editor.apply();
         });
     }
-    private void loadSerial(String name, String query) {
-        requestSerial = ApiClinent.getApiClinent(getActivity(),Key.BASE_URL).create(ApiInterFace.class);
+    private void loadSerial(String query, String name) {
         recyclerSerial = mBinding.recyclerSerial;
         recyclerSerial.setHasFixedSize(true);
         GridLayoutManager layoutManager =
                 new GridLayoutManager(getActivity(), 1, GridLayoutManager.HORIZONTAL, false);
         recyclerSerial.setLayoutManager(layoutManager);
-        requestSerial.getFilmBy(query, name, 10).enqueue(new Callback<List<Film>>() {
+        request.getFilmBy(query, name, 10).enqueue(new Callback<List<Film>>() {
             @Override
             public void onResponse(Call<List<Film>> call, Response<List<Film>> response) {
                 listSerial = response.body();
@@ -200,20 +199,20 @@ public class HomeFragment extends Fragment {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         mBinding.btnAllSerial.setOnClickListener(view -> {
             Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_listUniqueFragment);
-            editor.putString("GROUP_TYPE", "item_genre");
-            editor.putString("GROUP_NAME", "سریال ها");
+            editor.putString("GROUP_QUERY", query);
+            editor.putString("GROUP_NAME", "1");
+            editor.putString("GROUP_TITLE", "سریال ها");
             editor.putString("GROUP_VECTOR", "");
             editor.apply();
         });
     }
     private void loadGenres(){
-        requestGenre = ApiClinent.getApiClinent(getActivity(), Key.BASE_URL).create(ApiInterFace.class);
         recyclerGenre = mBinding.recyclerGenre;
         recyclerGenre.setHasFixedSize(true);
         GridLayoutManager layoutManager =
                 new GridLayoutManager(getActivity(), 1, GridLayoutManager.HORIZONTAL, false);
         recyclerGenre.setLayoutManager(layoutManager);
-        requestGenre.getGenre().enqueue(new Callback<List<Genre>>() {
+        request.getGenre().enqueue(new Callback<List<Genre>>() {
             @Override
             public void onResponse(Call<List<Genre>> call, Response<List<Genre>> response) {
                 listGenre = response.body();
@@ -227,13 +226,12 @@ public class HomeFragment extends Fragment {
         });
     }
     private void loadCountrys() {
-        requestCountry = ApiClinent.getApiClinent(getActivity(), Key.BASE_URL).create(ApiInterFace.class);
         recyclerCountry = mBinding.recyclerCountry;
         recyclerCountry.setHasFixedSize(true);
         GridLayoutManager layoutManager =
                 new GridLayoutManager(getActivity(), 1, GridLayoutManager.HORIZONTAL, false);
         recyclerCountry.setLayoutManager(layoutManager);
-        requestCountry.getCountry().enqueue(new Callback<List<Country>>() {
+        request.getCountry().enqueue(new Callback<List<Country>>() {
             @Override
             public void onResponse(Call<List<Country>> call, Response<List<Country>> response) {
                 listCountry = response.body();
@@ -248,13 +246,12 @@ public class HomeFragment extends Fragment {
         });
     }
     private void loadNetworks() {
-        requestNetwork = ApiClinent.getApiClinent(getActivity(),Key.BASE_URL).create(ApiInterFace.class);
         recyclerNetwork = mBinding.recyclerNetwork;
         recyclerNetwork.setHasFixedSize(true);
         GridLayoutManager layoutManager =
                 new GridLayoutManager(getActivity(), 1, GridLayoutManager.HORIZONTAL, false);
         recyclerNetwork.setLayoutManager(layoutManager);
-        requestNetwork.getNetwork().enqueue(new Callback<List<Network>>() {
+        request.getNetwork().enqueue(new Callback<List<Network>>() {
             @Override
             public void onResponse(Call<List<Network>> call, Response<List<Network>> response) {
                 listNetwork = response.body();
@@ -267,9 +264,8 @@ public class HomeFragment extends Fragment {
         });
     }
     private void loadAds() {
-        requestSlider = ApiClinent.getApiClinent(getActivity(),Key.BASE_URL).create(ApiInterFace.class);
         viewPager = mBinding.sliderMain;
-        requestSlider.getAds().enqueue(new Callback<List<Ads>>() {
+        request.getAds().enqueue(new Callback<List<Ads>>() {
             @Override
             public void onResponse(Call<List<Ads>> call, Response<List<Ads>> response) {
                 adsList = response.body();

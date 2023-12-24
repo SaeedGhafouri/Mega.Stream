@@ -30,7 +30,9 @@ import com.serpider.service.megastream.model.Movie;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -48,38 +50,30 @@ public class ListUniqueFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mBinding = FragmentListUniqueBinding.inflate(inflater, container, false);
         return mBinding.getRoot();
     }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mBinding.btnBack.setOnClickListener(view1 -> getActivity().onBackPressed());
-
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
-        String groupType = sharedPreferences.getString("GROUP_TYPE", "");
+        String groupQuery = sharedPreferences.getString("GROUP_QUERY", "");
         String groupName = sharedPreferences.getString("GROUP_NAME", "");
+        String groupTitle = sharedPreferences.getString("GROUP_TITLE", "");
         String groupVector = sharedPreferences.getString("GROUP_VECTOR", "");
-
-        mBinding.titleList.setText(groupName);
+        mBinding.titleList.setText(groupTitle);
         if (!groupVector.trim().isEmpty()) {
             Glide.with(getActivity()).load(groupVector).into(mBinding.vectorList);
-
         }else {
             mBinding.cardVector.setVisibility(View.GONE);
         }
-
-        loadData(groupType, groupName);
-
+        loadData(groupQuery, groupName);
     }
-
     private void loadData(String query, String name) {
         mBinding.loader.setVisibility(View.VISIBLE);
         requestList = ApiClinent.getApiClinent(getActivity(), Key.BASE_URL).create(ApiInterFace.class);
@@ -102,7 +96,6 @@ public class ListUniqueFragment extends Fragment {
                     int pastVisibleItems = layoutManager.findFirstVisibleItemPosition();
 
                     if (!isLoading && (visibleItemCount + pastVisibleItems) >= totalItemCount) {
-                        // اگر در حال لود نیستید و به انتهای لیست رسیده‌اید، لود موارد بیشتر
                         currentPage++;
                         loadPaginatedData(query, name, currentPage, itemsPerPage);
                     }
@@ -110,13 +103,14 @@ public class ListUniqueFragment extends Fragment {
             }
         });
 
-        // اولین بار بارگذاری داده‌ها
         loadPaginatedData(query, name, currentPage, itemsPerPage);
     }
-
     private void loadPaginatedData(String query, String name, int page, int perPage) {
         isLoading = true;
-        requestList.getPaginatedFilm(query, name, page, perPage).enqueue(new Callback<List<Film>>() {
+        Map<String, Object> requestBody = new HashMap<>();
+        requestBody.put("ITEM_QUERY", query);
+        requestBody.put("ITEM_NAME", name);
+        requestList.getFilmListBy(page, perPage, requestBody).enqueue(new Callback<List<Film>>() {
             @Override
             public void onResponse(Call<List<Film>> call, Response<List<Film>> response) {
                 isLoading = false;

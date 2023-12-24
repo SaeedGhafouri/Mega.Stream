@@ -45,7 +45,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
         SharedPreferences.Editor editor = sharedPreferences.edit();
         holder.itemView.setOnClickListener(view ->{
             Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_listUniqueFragment);
-            editor.putString("GROUP_TYPE", "item_genre");
+            editor.putString("GROUP_QUERY", "item_genre");
             editor.putString("GROUP_NAME", data.get(position).getName_fa());
             editor.putString("GROUP_VECTOR", "");
             editor.apply();

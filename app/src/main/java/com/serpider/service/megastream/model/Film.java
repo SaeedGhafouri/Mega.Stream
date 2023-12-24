@@ -10,7 +10,7 @@ public class Film {
 */
     private int id ,type , period, year, subtitle, dooble, like, dislike, comment_count, size, suggestion;
     private float imdb;
-    private String title_en, title_fa, genre, group, country, country_flag, language, language_alpha, ages, synopsis, desc, network, volume, stars, poster, header, trailer, date;
+    private String title_en, title_fa, genre, group, country, country_flag, language, language_alpha, network, network_vector, ages, synopsis, desc, volume, stars, poster, header, trailer, date;
 
     private List<Comment> comments;
     public int getId() {
@@ -105,24 +105,13 @@ public class Film {
         return imdb;
     }
 
-    public void setImdb(float imdb) {
-        this.imdb = imdb;
-    }
-
     public String getTitle_en() {
         return title_en;
     }
 
-    public void setTitle_en(String title_en) {
-        this.title_en = title_en;
-    }
 
     public String getTitle_fa() {
         return title_fa;
-    }
-
-    public void setTitle_fa(String title_fa) {
-        this.title_fa = title_fa;
     }
 
     public String getGenre() {
@@ -137,56 +126,37 @@ public class Film {
         return group;
     }
 
-    public void setGroup(String group) {
-        this.group = group;
-    }
-
     public String getCountry() {
         return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
     }
 
     public String getCountry_flag() {
         return country_flag;
     }
 
-    public void setCountry_flag(String country_flag) {
-        this.country_flag = country_flag;
-    }
 
     public String getLanguage() {
         return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
     }
 
     public String getLanguage_alpha() {
         return language_alpha;
     }
 
-    public void setLanguage_alpha(String language_alpha) {
-        this.language_alpha = language_alpha;
+    public String getNetwork() {
+        return network;
+    }
+
+    public String getNetwork_vector() {
+        return network_vector;
     }
 
     public String getAges() {
         return ages;
     }
 
-    public void setAges(String ages) {
-        this.ages = ages;
-    }
-
     public String getSynopsis() {
         return synopsis;
-    }
-
-    public void setSynopsis(String synopsis) {
-        this.synopsis = synopsis;
     }
 
     public String getDesc() {
@@ -196,76 +166,35 @@ public class Film {
     public void setDesc(String desc) {
         this.desc = desc;
     }
-
-    public String getNetwork() {
-        return network;
-    }
-
-    public void setNetwork(String network) {
-        this.network = network;
-    }
-
     public String getVolume() {
         return volume;
-    }
-
-    public void setVolume(String volume) {
-        this.volume = volume;
     }
 
     public String getStars() {
         return stars;
     }
 
-    public void setStars(String stars) {
-        this.stars = stars;
-    }
-
     public String getPoster() {
         return poster;
-    }
-
-    public void setPoster(String poster) {
-        this.poster = poster;
     }
 
     public String getHeader() {
         return header;
     }
 
-    public void setHeader(String header) {
-        this.header = header;
-    }
-
     public String getTrailer() {
         return trailer;
-    }
-
-    public void setTrailer(String trailer) {
-        this.trailer = trailer;
     }
 
     public String getDate() {
         return date;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     public int getSuggestion() {
         return suggestion;
     }
 
-    public void setSuggestion(int suggestion) {
-        this.suggestion = suggestion;
-    }
-
     public List<Comment> getComments() {
         return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
     }
 }
