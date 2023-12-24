@@ -87,8 +87,6 @@ public class CommentFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mBinding.btnBack.setOnClickListener(view1 -> getActivity().onBackPressed());
 
-        mBinding.edComment.setText("saed");
-
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
         int idUnique = sharedPreferences.getInt("ID_ITEM", 0);
 
