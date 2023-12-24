@@ -18,6 +18,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.serpider.service.megastream.R;
@@ -50,10 +52,26 @@ public class CommentFragment extends Fragment {
     private long timeLeftInMillis = startTimeInMillis;
     private boolean isSend = true;
     public Handler handler = new Handler();
+
+    private EditText edComment;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+        /*if (edComment != null) {
+            edComment.post(new Runnable() {
+                @Override
+                public void run() {
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(edComment, InputMethodManager.SHOW_IMPLICIT);
+                    edComment.requestFocus();
+                }
+            });
+        } else {
+            Log.e("YourTag", "edComment is null");
+        }*/
     }
 
     @Override
@@ -68,6 +86,9 @@ public class CommentFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mBinding.btnBack.setOnClickListener(view1 -> getActivity().onBackPressed());
+
+        mBinding.edComment.setText("saed");
+
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
         int idUnique = sharedPreferences.getInt("ID_ITEM", 0);
 

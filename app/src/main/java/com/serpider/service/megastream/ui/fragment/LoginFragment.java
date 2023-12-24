@@ -3,6 +3,7 @@ package com.serpider.service.megastream.ui.fragment;
 import android.Manifest;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -24,6 +25,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -77,6 +79,16 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(
+                Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mBinding.edEmail, 0);
+        imm.showSoftInput(mBinding.edPassword, 0);
+        imm.showSoftInput(mBinding.edNickname, 0);
+        imm.showSoftInput(mBinding.edUsername, 0);
+        imm.showSoftInput(mBinding.edLoginUsername, 0);
+        imm.showSoftInput(mBinding.edLoginPassword, 0);
+
         mBinding.btnLoginClose.setOnClickListener(view1 -> getActivity().onBackPressed());
         mBinding.btnLoginToSign.setOnClickListener(view1 -> toggleForm(1, true));
         mBinding.btnSignToLogin.setOnClickListener(view1 -> toggleForm(2, true));
@@ -92,7 +104,7 @@ public class LoginFragment extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_mainFragment);
             }
         });*/
-        mBinding.btnUploadPicture.setOnClickListener(new View.OnClickListener() {
+        /*mBinding.btnUploadPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String[] perms = {Manifest.permission.READ_EXTERNAL_STORAGE};
@@ -103,7 +115,7 @@ public class LoginFragment extends Fragment {
                     EasyPermissions.requestPermissions(getActivity(), "برای دسترسی به حافظه اجازه را بدهید.", RC_READ_EXTERNAL_STORAGE, perms);
                 }
             }
-        });
+        });*/
 
         mBinding.btnLoginWithGoogle.setOnClickListener(view1 -> {
             SnackBoard.show(getActivity(), "این گزینه درحال حاضر فعال نمی باشد", 0);
@@ -290,7 +302,7 @@ public class LoginFragment extends Fragment {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
             selectedImageUri = data.getData();
         }
-        Glide.with(getActivity()).load(selectedImageUri).into(mBinding.imgProfile);
+        //Glide.with(getActivity()).load(selectedImageUri).into(mBinding.imgProfile);
     }
 
     private String getRealPathFromUri(Uri uri) {
