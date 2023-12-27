@@ -11,16 +11,37 @@
     android:backgroundTint="@color/theme_background_body"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/genreTitle"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:text="آمریکا"
-        android:textAlignment="center"
-        android:fontFamily="@font/font_regular_fa"
-        android:textSize="@dimen/size_txt_30"
-        android:textColor="@color/theme_white_txt"
-        tools:ignore="RtlCompat" />
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/genreImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.5"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/genreTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="@font/font_regular_fa"
+            android:text="آمریکا"
+            android:textAlignment="center"
+            android:textColor="@color/theme_white_txt"
+            android:textSize="@dimen/size_txt_30"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlCompat" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

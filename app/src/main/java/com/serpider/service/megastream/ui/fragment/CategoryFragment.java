@@ -22,6 +22,7 @@ import com.serpider.service.megastream.api.ApiServer;
 import com.serpider.service.megastream.databinding.FragmentCategoryBinding;
 import com.serpider.service.megastream.interfaces.Key;
 import com.serpider.service.megastream.model.Genre;
+import com.serpider.service.megastream.util.GridSpacingItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +68,8 @@ public class CategoryFragment extends Fragment {
         GridLayoutManager layoutManager =
                 new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.size_padding_20);
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, spacingInPixels, true));
         requestCategor.getGenre().enqueue(new Callback<List<Genre>>() {
             @Override
             public void onResponse(Call<List<Genre>> call, Response<List<Genre>> response) {

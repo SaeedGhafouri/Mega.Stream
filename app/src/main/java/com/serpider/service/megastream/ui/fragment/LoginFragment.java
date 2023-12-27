@@ -64,6 +64,7 @@ public class LoginFragment extends Fragment {
     private static final int PICK_IMAGE_REQUEST = 1;
     private MultipartBody.Part imagePart;
     private Loader loader;
+    private BottomSheetDialog otpSheet;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,10 +76,10 @@ public class LoginFragment extends Fragment {
         mBinding = FragmentLoginBinding.inflate(inflater, container, false);
         return mBinding.getRoot();
     }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        request = ApiClinent.getApiClinent(getActivity(),Key.BASE_URL).create(ApiInterFace.class);
 
         InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(
                 Context.INPUT_METHOD_SERVICE);
@@ -122,8 +123,6 @@ public class LoginFragment extends Fragment {
         });
     }
     private void userLogin(View view) {
-        request = ApiClinent.getApiClinent(getActivity(),Key.BASE_URL).create(ApiInterFace.class);
-
         String username = mBinding.edLoginUsername.getText().toString().trim();
         String password = mBinding.edLoginPassword.getText().toString().trim();
 
@@ -156,8 +155,6 @@ public class LoginFragment extends Fragment {
     }
 
     private void userSignup() {
-        request = ApiClinent.getApiClinent(getActivity(), Key.BASE_URL).create(ApiInterFace.class);
-
         /*Init Strign from edit text*/
         String userName = mBinding.edUsername.getText().toString().trim();
         String userNick = mBinding.edNickname.getText().toString().trim();
@@ -201,7 +198,7 @@ public class LoginFragment extends Fragment {
                         RequestBody.create(MediaType.parse("text/plain"), userEmail),
                         RequestBody.create(MediaType.parse("text/plain"), userPassword),
                         RequestBody.create(MediaType.parse("text/plain"), "0"),
-                        RequestBody.create(MediaType.parse("text/plain"), "127.0.0.1"),
+                        RequestBody.create(MediaType.parse("text/plain"), "0.0"),
                         imagePart).enqueue(new Callback<User>() {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
@@ -209,10 +206,7 @@ public class LoginFragment extends Fragment {
                         loader.close();
                         if (user.isResult()) {
                             //sheetOtp(user.getOtp(), user.getId());
-                            SnackBoard.show(getActivity(),user.getMessage(), 1);
-                            DataSave dataSave = new DataSave();
-                            dataSave.UserIdSave(getContext(), user.getId());
-                            Navigation.findNavController(getView()).navigate(R.id.action_loginFragment_to_mainFragment);
+                            sheetOtp(user.getOtp(), user.getId());
                         }else {
                             SnackBoard.show(getActivity(),user.getMessage(), 0);
                         }
@@ -246,7 +240,7 @@ public class LoginFragment extends Fragment {
 
     private void sheetOtp(int otpCode, int id_user) {
         View view = getActivity().getLayoutInflater().inflate(R.layout.sheet_otp, null);
-        BottomSheetDialog otpSheet = new BottomSheetDialog(getActivity());
+        otpSheet = new BottomSheetDialog(getActivity());
         otpSheet.setContentView(view);
         otpSheet.show();
 
@@ -265,7 +259,7 @@ public class LoginFragment extends Fragment {
                 if (charSequence.length() == 5) {
                     Log.d("otp", edCodeInt + " = " + otpCode);
                     if (edCodeInt == otpCode){
-                        submitAccount(id_user, 1);
+                        submitAccount(id_user, otpCode);
                     }else {
                         Toast.makeText(getActivity(), "null", Toast.LENGTH_SHORT).show();
                     }
@@ -281,13 +275,20 @@ public class LoginFragment extends Fragment {
 
     }
 
-    private void submitAccount(int id, int status) {
-        request = ApiClinent.getApiClinent(getActivity(), Key.BASE_URL).create(ApiInterFace.class);
-
-        request.getUserSubmit(id, status).enqueue(new Callback<Result>() {
+    private void submitAccount(int id, int otp) {
+        request.getUserSubmit(id, otp).enqueue(new Callback<Result>() {
             @Override
             public void onResponse(Call<Result> call, Response<Result> response) {
-
+                Result result = response.body();
+                if (result.isStatus()){
+                    SnackBoard.show(getActivity(),user.getMessage(), 1);
+                    DataSave dataSave = new DataSave();
+                    dataSave.UserIdSave(getContext(), user.getId());
+                    Navigation.findNavController(getView()).navigate(R.id.action_loginFragment_to_mainFragment);
+                    otpSheet.dismiss();
+                }else {
+                    SnackBoard.show(getActivity(),user.getMessage(), 0);
+                }
             }
 
             @Override

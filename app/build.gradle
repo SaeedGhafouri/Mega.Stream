@@ -96,10 +96,11 @@ dependencies {
     implementation 'com.google.android.exoplayer:exoplayer:2.19.1'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'io.github.tutorialsandroid:filepicker:9.2.5'
-    //Equalizer
-    //implementation 'com.github.bullheadandplato:AndroidEqualizer:2.2'
 
     //Permision
     implementation 'pub.devrel:easypermissions:3.0.0'
+
+    //Toasty
+    implementation 'com.github.GrenderG:Toasty:1.5.2'
 
 }

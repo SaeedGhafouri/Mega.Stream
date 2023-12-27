@@ -35,7 +35,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
     }
     @Override
     public void onBindViewHolder(@NonNull CategoryAdapter.MyViewHolder holder, int position) {
+
         holder.txtTitle.setText(data.get(position).getName_fa());
+        holder.txtTitleEn.setText(data.get(position).getName_en());
 
         if (!data.get(position).getBanner().isEmpty()) {
             Glide.with(context).load(data.get(position).getBanner()).into(holder.categoryImg);
@@ -56,11 +58,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
         return data.size();
     }
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        private TextView txtTitle;
+        private TextView txtTitle, txtTitleEn;
         private ImageView categoryImg;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             txtTitle = itemView.findViewById(R.id.categoryTitle);
+            txtTitleEn = itemView.findViewById(R.id.categoryTitle_En);
             categoryImg = itemView.findViewById(R.id.categoryImg);
         }
     }

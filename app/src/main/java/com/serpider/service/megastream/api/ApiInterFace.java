@@ -254,7 +254,7 @@ public interface ApiInterFace {
     @POST(END_POINT + "user_submit")
     Call<Result> getUserSubmit(
             @Field("USER_ID") int id,
-            @Field("USER_STATUS") int status
+            @Field("USER_OTP") int otp
     );
 
     @FormUrlEncoded

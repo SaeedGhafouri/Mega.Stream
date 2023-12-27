@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.serpider.service.megastream.R;
 import com.serpider.service.megastream.model.Genre;
 import com.serpider.service.megastream.util.Connection;
@@ -38,6 +40,9 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull GenreAdapter.MyViewHolder holder, int position) {
         holder.txtTitle.setText(data.get(position).getName_fa());
+        if (!data.get(position).getBanner().isEmpty()) {
+            Glide.with(context).load(data.get(position).getBanner()).into(holder.background);
+        }
 
         SharedPreferences sharedPreferences = activity.getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -62,9 +67,11 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.MyViewHolder
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView txtTitle;
+        ImageView background;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             txtTitle = itemView.findViewById(R.id.genreTitle);
+            background = itemView.findViewById(R.id.genreImage);
         }
     }
 }

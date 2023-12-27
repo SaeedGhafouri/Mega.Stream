@@ -9,7 +9,7 @@ import java.util.Set;
 
 public class DataSave {
 
-    static String KEY_SETTINGS = "SETTINGS_APP";
+    public static String KEY_SETTINGS = "SETTINGS_APP";
     static String IS_READ = "IS_READ";
     static String IS_POWER = "IS_POWER";
     public static String SUP_PHONE = "SUP_PHONE";
@@ -58,6 +58,8 @@ public class DataSave {
     public static SharedPreferences getSharedPreferences(Context context) {
         return context.getSharedPreferences(KEY_SETTINGS, Context.MODE_PRIVATE);
     }
+
+    //public static void loadPrefence(Context)
 
 }
 

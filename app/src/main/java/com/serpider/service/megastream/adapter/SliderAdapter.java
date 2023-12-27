@@ -1,51 +1,46 @@
 package com.serpider.service.megastream.adapter;
 
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-
 import com.bumptech.glide.Glide;
-import com.google.android.material.button.MaterialButton;
 import com.serpider.service.megastream.R;
 import com.serpider.service.megastream.ui.fragment.WebFragment;
 import com.serpider.service.megastream.model.Ads;
-
-
 import java.util.List;
 
 public class SliderAdapter extends PagerAdapter {
-    private Context context;
     private LayoutInflater layoutInflater;
     private View view;
     private ScaleGestureDetector mScaleGestureDetector;
     public ImageView imageView;
     private FragmentActivity fragmentActivity;
     private WebFragment webFragment;
-    List<Ads> data;
+    private List<Ads> data;
+
+    private ViewPager viewPager;
+    private Handler autoScrollHandler;
+    private final int AUTO_SCROLL_DELAY = 4000;
+    private final int AUTO_SCROLL_SPEED = 5000;
 
     private float mScaleFactor = 1.0f;
 
-    public SliderAdapter(Context context, LayoutInflater layoutInflater, List<Ads> data, FragmentActivity fragmentActivity) {
-        this.context = context;
-        this.layoutInflater = layoutInflater;
-        this.data = data;
+    public SliderAdapter(FragmentActivity fragmentActivity, List<Ads> data, ViewPager viewPager) {
         this.fragmentActivity = fragmentActivity;
+        this.data = data;
+        this.viewPager = viewPager;
+        this.autoScrollHandler = new Handler(Looper.getMainLooper());
+        startAutoScroll();
     }
 
     @Override
@@ -60,12 +55,12 @@ public class SliderAdapter extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull View container,final int position) {
-        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        layoutInflater = (LayoutInflater) fragmentActivity.getSystemService(fragmentActivity.LAYOUT_INFLATER_SERVICE);
         view = layoutInflater.inflate(R.layout.item_slider, null);
         imageView = (ImageView) view.findViewById(R.id.sliderImg);
-        mScaleGestureDetector = new ScaleGestureDetector(context, new ScaleListener());
+        mScaleGestureDetector = new ScaleGestureDetector(fragmentActivity, new ScaleListener());
         // imageView.setImageResource();
-        Glide.with(context).load(data.get(position).getBanner()).into(imageView);
+        Glide.with(fragmentActivity).load(data.get(position).getBanner()).into(imageView);
 
         /*Check Mode*/
         int MODE = data.get(position).getType();
@@ -98,7 +93,7 @@ public class SliderAdapter extends PagerAdapter {
         }else if (mode == 4) {
             int id_item = Integer.parseInt(url);
             imageView.setOnClickListener(view1 -> Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_detailsFragment));
-            SharedPreferences sharedPreferences = view.getContext().getSharedPreferences("DETAILS_ITEM", Context.MODE_PRIVATE);
+            SharedPreferences sharedPreferences = view.getContext().getSharedPreferences("DETAILS_ITEM", fragmentActivity.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putInt("ID_ITEM", id_item);
             editor.apply();
@@ -124,6 +119,45 @@ public class SliderAdapter extends PagerAdapter {
             return true;
         }
     }
+
+    private void startAutoScroll() {
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                // Not needed for auto-scrolling
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                // Not needed for auto-scrolling
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                if (state == ViewPager.SCROLL_STATE_IDLE) {
+                    // The user has finished scrolling, so start the next auto-scroll
+                    autoScrollHandler.postDelayed(scrollRunnable, AUTO_SCROLL_DELAY);
+                }
+            }
+        });
+
+        // Start the initial auto-scroll
+        autoScrollHandler.postDelayed(scrollRunnable, AUTO_SCROLL_DELAY);
+    }
+
+    private final Runnable scrollRunnable = new Runnable() {
+        @Override
+        public void run() {
+            int currentItem = viewPager.getCurrentItem();
+            int nextItem = currentItem + 1;
+
+            if (nextItem >= getCount()) {
+                nextItem = 0;
+            }
+
+            viewPager.setCurrentItem(nextItem, true); // Use setCurrentItem with animation
+        }
+    };
 
 
 }

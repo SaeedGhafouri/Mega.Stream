@@ -6,6 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.fragment.ProfileFragment"
     android:background="@color/theme_background"
+    android:gravity="center"
     android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -36,13 +37,6 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <ProgressBar
-        android:id="@+id/loader"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:visibility="visible"
-        android:layout_gravity="center"/>
-
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollProfile"
         android:layout_width="match_parent"
@@ -53,7 +47,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:orientation="vertical">
+
+            <!--Loader-->
+            <ProgressBar
+                android:id="@+id/loader"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:visibility="visible"
+                android:layout_gravity="center"/>
 
             <!--Login-->
             <LinearLayout
@@ -65,11 +68,17 @@
                 android:gravity="center"
                 android:padding="@dimen/size_padding_container">
 
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/ic_people"/>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/login_plz_title"
                     android:textColor="@color/theme_white_txt"
+                    android:layout_marginTop="@dimen/size_padding_30"
                     android:textAlignment="center"
                     android:fontFamily="@font/font_bold_fa"
                     android:textSize="@dimen/size_txt_40"/>

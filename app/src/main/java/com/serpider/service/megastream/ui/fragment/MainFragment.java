@@ -75,7 +75,7 @@ public class MainFragment extends Fragment {
                     fragmentTransaction.replace(R.id.content, fragmentExplore, "");
                     fragmentTransaction.commit();
                     editor.putInt("ITEM", 1);
-                    editor.commit();
+                    editor.apply();
                     return true;
                     }else {
                         new Connection().showView(getView(), R.id.action_mainFragment_to_networkFragment);

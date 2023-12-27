@@ -32,21 +32,38 @@
             android:background="@color/theme_dark_fit"
             android:alpha="0.5"/>
 
-        <TextView
-            android:id="@+id/categoryTitle"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/size_padding_20"
-            android:layout_marginHorizontal="@dimen/size_padding_20"
-            android:layout_gravity="center_vertical"
-            android:fontFamily="@font/font_bold_fa"
-            android:text="دسته بندی تست"
-            android:textAlignment="textStart"
-            android:textColor="@color/theme_white_fit"
-            android:textSize="@dimen/size_txt_40"
+            android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:ignore="RtlCompat" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent">
 
+            <TextView
+                android:id="@+id/categoryTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:fontFamily="@font/font_bold_fa"
+                android:text="دسته بندی تست"
+                android:textColor="@color/theme_white_fit"
+                android:textSize="@dimen/size_txt_40" />
+
+            <TextView
+                android:id="@+id/categoryTitle_En"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_padding_10"
+                android:textAlignment="center"
+                android:fontFamily="@font/font_regular_en"
+                android:text=""
+                android:textColor="@color/theme_white_fit"
+                android:textSize="@dimen/size_txt_10" />
+
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

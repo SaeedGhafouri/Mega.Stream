@@ -60,6 +60,7 @@
                     android:id="@+id/edLoginUsername"
                     style="@style/Theme.Original.EditText.Icon"
                     android:drawableEnd="@drawable/ic_username"
+                    android:nextFocusDown="@id/edLoginPassword"
                     android:maxLength="25"
                     android:hint="@string/username" />
                 <!--Password-->
@@ -67,6 +68,7 @@
                     android:id="@+id/edLoginPassword"
                     style="@style/Theme.Original.EditText.Icon"
                     android:drawableEnd="@drawable/ic_password"
+                    android:nextFocusDown="@id/btnLogin"
                     android:inputType="textPassword"
                     android:maxLength="25"
                     android:hint="@string/password" />
@@ -167,6 +169,7 @@
                     style="@style/Theme.Original.EditText.Icon"
                     android:layout_marginTop="@dimen/size_padding_20"
                     android:drawableEnd="@drawable/ic_edit"
+                    android:nextFocusDown="@id/edUsername"
                     android:inputType="textPersonName"
                     android:maxLength="25"
                     android:hint="@string/nickname" />
@@ -176,6 +179,7 @@
                     android:id="@+id/edUsername"
                     style="@style/Theme.Original.EditText.Icon"
                     android:drawableEnd="@drawable/ic_username"
+                    android:nextFocusDown="@id/edEmail"
                     android:inputType="text"
                     android:maxLength="28"
                     android:hint="@string/username" />
@@ -184,6 +188,7 @@
                     android:id="@+id/edEmail"
                     style="@style/Theme.Original.EditText.Icon"
                     android:drawableEnd="@drawable/ic_email"
+                    android:nextFocusDown="@id/edPassword"
                     android:inputType="textEmailSubject"
                     android:maxLength="35"
                     android:hint="@string/email" />
@@ -192,6 +197,7 @@
                     android:id="@+id/edPassword"
                     style="@style/Theme.Original.EditText.Icon"
                     android:drawableEnd="@drawable/ic_password"
+                    android:nextFocusDown="@id/btnSignup"
                     android:inputType="textPassword"
                     android:maxLength="25"
                     android:textAlignment="textEnd"

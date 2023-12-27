@@ -1,9 +1,7 @@
 package com.serpider.service.megastream.ui.fragment;
-
 import static com.serpider.service.megastream.util.DataSave.SUP_EMAIL;
 import static com.serpider.service.megastream.util.DataSave.SUP_PHONE;
 import static com.serpider.service.megastream.util.DataSave.SUP_TELEGRAM;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,32 +10,24 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
-
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.serpider.service.megastream.R;
 import com.serpider.service.megastream.api.ApiClinent;
 import com.serpider.service.megastream.api.ApiInterFace;
 import com.serpider.service.megastream.databinding.FragmentProfileBinding;
-import com.serpider.service.megastream.databinding.SheetReportBinding;
 import com.serpider.service.megastream.interfaces.Elements;
 import com.serpider.service.megastream.interfaces.Key;
 import com.serpider.service.megastream.model.User;
 import com.serpider.service.megastream.util.DataSave;
 import com.serpider.service.megastream.util.ReportSheet;
 import com.serpider.service.megastream.util.SnackBoard;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

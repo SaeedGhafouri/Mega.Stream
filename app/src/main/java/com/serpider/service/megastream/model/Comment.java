@@ -11,6 +11,16 @@ public class Comment {
     private int id, u_id, reply_count;
     private String message, date, u_username, u_nickname, u_vector;
 
+    public Comment(int u_id, int reply_count, String message, String date, String u_username, String u_nickname, String u_vector) {
+        this.u_id = u_id;
+        this.reply_count = reply_count;
+        this.message = message;
+        this.date = date;
+        this.u_username = u_username;
+        this.u_nickname = u_nickname;
+        this.u_vector = u_vector;
+    }
+
     public boolean isStatus() {
         return status;
     }

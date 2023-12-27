@@ -1,7 +1,6 @@
 package com.serpider.service.megastream.ui.fragment;
 
 import static com.serpider.service.megastream.util.DataSave.COUNT_ITEM;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -15,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,11 +86,6 @@ public class HomeFragment extends Fragment {
         deeplink();
         request = ApiClinent.getApiClinent(getActivity(),Key.BASE_URL).create(ApiInterFace.class);
 
-        /*loadCountry();
-        loadNetwork();
-        loadSlider();
-        loadAllItem();
-        loadLimitList();*/
         loadAds();
         loadGenres();
         loadCountrys();
@@ -269,7 +262,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Ads>> call, Response<List<Ads>> response) {
                 adsList = response.body();
-                sliderAdapter = new SliderAdapter(getContext(), getActivity().getLayoutInflater(), adsList, getActivity());
+                sliderAdapter = new SliderAdapter(getActivity(), adsList, mBinding.sliderMain);
                 viewPager.setAdapter(sliderAdapter);
                 mBinding.indicatorSlider.setViewPager(viewPager);
                 sliderAdapter.registerDataSetObserver(mBinding.indicatorSlider.getDataSetObserver());

@@ -1,23 +1,15 @@
 package com.serpider.service.megastream.ui.activity;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
-
 import com.serpider.service.megastream.R;
 import com.serpider.service.megastream.api.ApiClinent;
 import com.serpider.service.megastream.api.ApiInterFace;
 import com.serpider.service.megastream.interfaces.Key;
 import com.serpider.service.megastream.model.Settings;
 import com.serpider.service.megastream.util.DataSave;
-
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -63,6 +55,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        SharedPreferences sharedPreferences = getSharedPreferences("MENU", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("ITEM", 1);
+        editor.apply();
+
     }
 
 }

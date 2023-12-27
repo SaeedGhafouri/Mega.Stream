@@ -58,20 +58,9 @@ public class CommentFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-        /*if (edComment != null) {
-            edComment.post(new Runnable() {
-                @Override
-                public void run() {
-                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.showSoftInput(edComment, InputMethodManager.SHOW_IMPLICIT);
-                    edComment.requestFocus();
-                }
-            });
-        } else {
-            Log.e("YourTag", "edComment is null");
-        }*/
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(edComment, InputMethodManager.SHOW_IMPLICIT);
+        edComment.requestFocus();
     }
 
     @Override
@@ -105,6 +94,8 @@ public class CommentFragment extends Fragment {
         mBinding.refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                mBinding.loader.setVisibility(View.VISIBLE);
+                mBinding.recyclerComment.setVisibility(View.GONE);
                 loadComment(idUnique);
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -161,6 +152,7 @@ public class CommentFragment extends Fragment {
                 mBinding.edComment.setText("");
                 if (comment.isStatus()) {
                     SnackBoard.show(getActivity(), comment.getMessage(), 1);
+                    loadComment(item_id);
                 }else {
                     SnackBoard.show(getActivity(), comment.getMessage(), 0);
                 }
@@ -183,11 +175,13 @@ public class CommentFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
                 mBinding.loader.setVisibility(View.GONE);
+                mBinding.recyclerComment.setVisibility(View.VISIBLE);
                 listComment = response.body();
                 commentAdapter = new CommentAdapter(getActivity(), listComment);
                 recyclerComment.setAdapter(commentAdapter);
                 if (listComment.size() == 0) {
                     mBinding.bodyEmpty.setVisibility(View.VISIBLE);
+                    mBinding.recyclerComment.setVisibility(View.GONE);
                 }
             }
             @Override
