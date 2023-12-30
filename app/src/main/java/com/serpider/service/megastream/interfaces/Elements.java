@@ -27,7 +27,8 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.serpider.service.megastream.BuildConfig;
 import com.serpider.service.megastream.R;
-import com.serpider.service.megastream.util.SnackBoard;
+
+import com.serpider.service.megastream.util.Toaster;
 
 
 public interface Elements {
@@ -68,7 +69,7 @@ public interface Elements {
             @Override
             public boolean onError(MediaPlayer mediaPlayer, int i, int i1) {
                 dialog.dismiss();
-                SnackBoard.show(fragment, "خطا در پخش تریلر", 0);
+                Toaster.error(fragment, "خطا در پخش تریلر", Toast.LENGTH_LONG);
                 return false;
             }
         });

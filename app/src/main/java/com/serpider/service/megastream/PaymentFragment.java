@@ -22,7 +22,8 @@ import com.serpider.service.megastream.databinding.FragmentPaymentBinding;
 import com.serpider.service.megastream.interfaces.Key;
 import com.serpider.service.megastream.model.Result;
 import com.serpider.service.megastream.util.DataSave;
-import com.serpider.service.megastream.util.SnackBoard;
+
+import com.serpider.service.megastream.util.Toaster;
 import com.zarinpal.ZarinPalBillingClient;
 import com.zarinpal.billing.purchase.Purchase;
 import com.zarinpal.client.BillingClientStateListener;
@@ -167,7 +168,7 @@ public class PaymentFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Result> call, Throwable t) {
-                SnackBoard.show(getActivity(), "خطای سمت سرور", 0);
+                Toaster.error(getActivity(), "خطای سمت سرور", Toast.LENGTH_LONG);
             }
         });
 

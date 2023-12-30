@@ -38,7 +38,9 @@ import com.serpider.service.megastream.model.Ads;
 import com.serpider.service.megastream.model.Result;
 import com.serpider.service.megastream.ui.dialog.FilterFragment;
 import com.serpider.service.megastream.util.DataSave;
-import com.serpider.service.megastream.util.SnackBoard;
+
+import com.serpider.service.megastream.util.Toaster;
+
 import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Call;
@@ -214,7 +216,8 @@ public class HomeFragment extends Fragment {
             }
             @Override
             public void onFailure(Call<List<Genre>> call, Throwable t) {
-                SnackBoard.show(getActivity(),"خطای سمت سرور", 0);
+                Toaster.error(getActivity(), "خطای سمت سرور", Toast.LENGTH_LONG);
+                
             }
         });
     }

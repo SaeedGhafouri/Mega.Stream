@@ -23,7 +23,8 @@ import com.serpider.service.megastream.interfaces.Elements;
 import com.serpider.service.megastream.interfaces.Key;
 import com.serpider.service.megastream.model.User;
 import com.serpider.service.megastream.util.DataSave;
-import com.serpider.service.megastream.util.SnackBoard;
+
+import com.serpider.service.megastream.util.Toaster;
 
 
 import retrofit2.Call;
@@ -121,15 +122,15 @@ public class InfoUserFragment extends Fragment {
                 User user = response.body();
                 getActivity().onBackPressed();
                 if (user.isResult()){
-                    SnackBoard.show(getActivity(),  user.getMessage(),1);
+                    Toaster.success(getActivity(), user.getMessage(), Toast.LENGTH_LONG);
                 }else {
-                    SnackBoard.show(getActivity(), user.getMessage(),0);
+                    Toaster.error(getActivity(), user.getMessage(), Toast.LENGTH_LONG);
                 }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                SnackBoard.show(getActivity(), "خطای سمت سرور، دقایقی بعد امتحان کنید",0);
+                Toaster.error(getActivity(), "خطای سمت سرور، دقایقی بعد امتحان کنید", Toast.LENGTH_LONG);
             }
         });
 
@@ -143,14 +144,14 @@ public class InfoUserFragment extends Fragment {
         String try_p = mBinding.edInfoTryPassword.getText().toString().trim();
 
         if (!old_p.equals(old)) {
-            SnackBoard.show(getActivity(),"رمز قدیمی صحیح نمی باشد", 0);
+            Toaster.error(getActivity(), "رمزعبور قدیمی صحیح نمی باشد", Toast.LENGTH_LONG);
             mBinding.edOldPassword.setError("رمزعبور قدیمی صحیح نمی باشد");
         } else if (new_p.length() < 7) {
-            SnackBoard.show(getActivity(),"رمزعبور جدید باید حداقل هشت کارکتر باشد", 0);
+            Toaster.error(getActivity(), "رمزعبور جدید باید حداقل هشت کارکتر باشد", Toast.LENGTH_LONG);
             mBinding.edInfoNewPassword.setError("رمزعبور جدید باید حداقل هشت کارکتر باشد");
         } else if (!new_p.equals(try_p)) {
             Log.d("paaa", new_p + " = " + try_p);
-            SnackBoard.show(getActivity(),"تکرار رمزعبور صحیح نمی باشد", 0);
+            Toaster.error(getActivity(), "تکرار رمزعبور صحیح نمی باشد", Toast.LENGTH_LONG);
             mBinding.edInfoTryPassword.setError("تکرار رمزعبور صحیح نمی باشد");
         }else {
             sendRequestPass(dataSave.UserGetId(getContext()), new_p);
@@ -166,15 +167,15 @@ public class InfoUserFragment extends Fragment {
                 User user = response.body();
                 getActivity().onBackPressed();
                 if (user.isResult()){
-                    SnackBoard.show(getActivity(),  user.getMessage(),1);
+                    Toaster.success(getActivity(), user.getMessage(), Toast.LENGTH_LONG);
                 }else {
-                    SnackBoard.show(getActivity(), user.getMessage(),0);
+                    Toaster.error(getActivity(), user.getMessage(), Toast.LENGTH_LONG);
                 }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                SnackBoard.show(getActivity(), "خطای سمت سرور، دقایقی بعد امتحان کنید",0);
+                Toaster.error(getActivity(), "خطای سمت سرور، دقایقی بعد امتحان کنید", Toast.LENGTH_LONG);
             }
         });
 

@@ -27,7 +27,8 @@ import com.serpider.service.megastream.interfaces.Key;
 import com.serpider.service.megastream.model.User;
 import com.serpider.service.megastream.util.DataSave;
 import com.serpider.service.megastream.util.ReportSheet;
-import com.serpider.service.megastream.util.SnackBoard;
+import com.serpider.service.megastream.util.Toaster;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -128,7 +129,7 @@ public class ProfileFragment extends Fragment {
 
                     mBinding.btnDownload.setOnClickListener(view -> {
                         //Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_downloaderFragment)
-                        SnackBoard.show(getActivity(), "درحال بروز رسانی،از شکیبایی شما مچکریم", 3);
+                        Toaster.info(getActivity(), "درحال بروز رسانی،از شکیبایی شما مچکریم", Toast.LENGTH_LONG);
                     });
                     mBinding.btnTransaction.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_transactionFragment));
 

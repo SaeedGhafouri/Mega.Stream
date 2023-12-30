@@ -1,7 +1,4 @@
 package com.serpider.service.megastream.ui.fragment;
-
-import android.Manifest;
-import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -39,18 +36,14 @@ import com.serpider.service.megastream.databinding.FragmentLoginBinding;
 import com.serpider.service.megastream.interfaces.Key;
 import com.serpider.service.megastream.model.Result;
 import com.serpider.service.megastream.model.User;
-import com.serpider.service.megastream.util.Connection;
 import com.serpider.service.megastream.util.DataSave;
 import com.serpider.service.megastream.util.Loader;
-import com.serpider.service.megastream.util.SnackBoard;
-
+import com.serpider.service.megastream.util.Toaster;
 import java.io.File;
 import java.util.Objects;
-
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import pub.devrel.easypermissions.EasyPermissions;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -80,7 +73,6 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         request = ApiClinent.getApiClinent(getActivity(),Key.BASE_URL).create(ApiInterFace.class);
-
         InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(
                 Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(mBinding.edEmail, 0);
@@ -119,7 +111,7 @@ public class LoginFragment extends Fragment {
         });*/
 
         mBinding.btnLoginWithGoogle.setOnClickListener(view1 -> {
-            SnackBoard.show(getActivity(), "این گزینه درحال حاضر فعال نمی باشد", 0);
+            Toaster.error(getActivity(), "این گزینه درحال حاضر فعال نمی باشد", Toast.LENGTH_LONG);
         });
     }
     private void userLogin(View view) {
@@ -127,27 +119,27 @@ public class LoginFragment extends Fragment {
         String password = mBinding.edLoginPassword.getText().toString().trim();
 
         if (username.isEmpty() || username.length() < 5) {
-            SnackBoard.show(getActivity(),"نام کاربری باید حداقل 4 کارکتر باشد", 0);
+            Toaster.error(getActivity(), "نام کاربری باید حداقل 4 کارکتر باشد", Toast.LENGTH_LONG);
         }else if (password.isEmpty() || password.length() < 8){
-            SnackBoard.show(getActivity(),"رمز عبور باید حداقل 8 کارکتر باشد", 0);
+            Toaster.error(getActivity(), "رمز عبور باید حداقل 8 کارکتر باشد", Toast.LENGTH_LONG);
         }else {
             request.getUserLogin(username, password,  1).enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
                     user = response.body();
                     if (user.isResult()){
-                        SnackBoard.show(getActivity(),user.getMessage(), 1);
+                        Toaster.success(getActivity(), user.getMessage(), Toast.LENGTH_LONG);
                         DataSave dataSave = new DataSave();
                         dataSave.UserIdSave(getContext(), user.getId());
                         Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_mainFragment);
                     }else {
-                        SnackBoard.show(getActivity(),user.getMessage(), 0);
+                        Toaster.error(getActivity(), user.getMessage(), Toast.LENGTH_LONG);
                     }
                 }
 
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
-                    SnackBoard.show(getActivity(),"خطای سمت سرور", 0);
+                    Toaster.error(getActivity(), "خطای سمت سرور", Toast.LENGTH_LONG);
                 }
             });
         }
@@ -177,13 +169,13 @@ public class LoginFragment extends Fragment {
         } else {
             if (userName.length() < 5){
                 mBinding.edUsername.setError("حداقل پنج کارکتر");
-                SnackBoard.show(getActivity(), "نام کاربری باید حداقل هشت کارکتر باشد", 0);
+                Toaster.error(getActivity(), "نام کاربری باید حداقل هشت کارکتر باشد", Toast.LENGTH_LONG);
             }else if(Character.isDigit(userName.charAt(0))) {
                 mBinding.edUsername.setError("حرف اول نباید عدد باشد");
-                SnackBoard.show(getActivity(), "حرف اول نام کاربری نباید با عدد شروع شود", 0);
+                Toaster.error(getActivity(), "حرف اول نام کاربری نباید با عدد شروع شود", Toast.LENGTH_LONG);
             } else if (!userEmail.matches(emailPattern)) {
                 mBinding.edEmail.setError("ایمیل وارد شده نامعتبر است");
-                SnackBoard.show(getActivity(), "ایمیل وارد شده نامعتبر است", 0);
+                Toaster.error(getActivity(), "ایمیل وارد شده نامعتبر است", Toast.LENGTH_LONG);
             }else {
                 if (selectedImageUri != null){
                     File file = new File(Objects.requireNonNull(getRealPathFromUri(selectedImageUri)));
@@ -208,14 +200,14 @@ public class LoginFragment extends Fragment {
                             //sheetOtp(user.getOtp(), user.getId());
                             sheetOtp(user.getOtp(), user.getId());
                         }else {
-                            SnackBoard.show(getActivity(),user.getMessage(), 0);
+                            Toaster.error(getActivity(), user.getMessage(), Toast.LENGTH_LONG);
                         }
                     }
 
                     @Override
                     public void onFailure(Call <User> call, Throwable t) {
                         loader.close();
-                        SnackBoard.show(getActivity(),"خطای سمت سرور، دوباره تلاش کنید", 0);
+                        Toaster.error(getActivity(), "خطای سمت سرور", Toast.LENGTH_LONG);
                     }
                 });
             }
@@ -225,6 +217,7 @@ public class LoginFragment extends Fragment {
     private void toggleForm(int form, boolean show) {
         Transition transition = new Slide(Gravity.BOTTOM);
         transition.setDuration(600);
+        Log.d("SAEED", form + " - " + show);
         if (form == 1) {
             transition.addTarget(mBinding.formSignup);
             TransitionManager.beginDelayedTransition(mBinding.formSignup, transition);
@@ -281,13 +274,13 @@ public class LoginFragment extends Fragment {
             public void onResponse(Call<Result> call, Response<Result> response) {
                 Result result = response.body();
                 if (result.isStatus()){
-                    SnackBoard.show(getActivity(),user.getMessage(), 1);
+                    Toaster.success(getActivity(), user.getMessage(), Toast.LENGTH_LONG);
                     DataSave dataSave = new DataSave();
                     dataSave.UserIdSave(getContext(), user.getId());
                     Navigation.findNavController(getView()).navigate(R.id.action_loginFragment_to_mainFragment);
                     otpSheet.dismiss();
                 }else {
-                    SnackBoard.show(getActivity(),user.getMessage(), 0);
+                    Toaster.error(getActivity(), user.getMessage(), Toast.LENGTH_LONG);
                 }
             }
 

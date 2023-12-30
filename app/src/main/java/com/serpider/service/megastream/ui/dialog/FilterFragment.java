@@ -22,7 +22,8 @@ import com.serpider.service.megastream.interfaces.Key;
 import com.serpider.service.megastream.model.Country;
 import com.serpider.service.megastream.model.Genre;
 import com.serpider.service.megastream.model.Network;
-import com.serpider.service.megastream.util.SnackBoard;
+
+import com.serpider.service.megastream.util.Toaster;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -133,7 +134,7 @@ public class FilterFragment extends DialogFragment {
 
             @Override
             public void onFailure(Call<List<Genre>> call, Throwable t) {
-                SnackBoard.show(getActivity(),"خطای سمت سرور", 0);
+                Toaster.error(getActivity(), "خطای سمت سرور", Toast.LENGTH_LONG);
             }
         });
     }
@@ -170,7 +171,7 @@ public class FilterFragment extends DialogFragment {
 
             @Override
             public void onFailure(Call<List<Country>> call, Throwable t) {
-                SnackBoard.show(getActivity(),"خطای سمت سرور", 0);
+                Toaster.error(getActivity(), "خطای سمت سرور", Toast.LENGTH_LONG);
             }
         });
     }
@@ -207,7 +208,7 @@ public class FilterFragment extends DialogFragment {
 
             @Override
             public void onFailure(Call<List<Network>> call, Throwable t) {
-                SnackBoard.show(getActivity(),"خطای سمت سرور", 0);
+                Toaster.error(getActivity(), "خطای سمت سرور", Toast.LENGTH_LONG);
             }
         });
     }

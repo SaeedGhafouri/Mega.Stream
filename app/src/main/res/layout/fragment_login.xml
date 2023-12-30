@@ -29,13 +29,13 @@
             android:id="@+id/formLogin"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
+            android:visibility="visible"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/signup"
+                android:text="@string/login"
                 android:textAlignment="center"
                 android:textColor="@color/theme_white_txt"
                 android:fontFamily="@font/font_bold_fa"
@@ -70,6 +70,7 @@
                     android:drawableEnd="@drawable/ic_password"
                     android:nextFocusDown="@id/btnLogin"
                     android:inputType="textPassword"
+                    android:textAlignment="viewEnd"
                     android:maxLength="25"
                     android:hint="@string/password" />
 
@@ -92,7 +93,7 @@
             android:id="@+id/formSignup"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible"
+            android:visibility="gone"
             android:orientation="vertical">
             <TextView
                 android:layout_width="match_parent"

@@ -16,11 +16,17 @@
         <View
             style="@style/Theme.Original.Line.Sheet"/>
 
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_otp"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_padding_20"
             android:textAlignment="center"
-            android:text="@string/support"
+            android:text="@string/otp_code"
             android:fontFamily="@font/font_medium_fa"
             android:textSize="@dimen/size_txt_40"
             android:textColor="@color/theme_white_txt"/>
@@ -29,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:text="@string/support_caption"
+            android:text="@string/otp_code_desc"
             android:fontFamily="@font/font_regular_fa"
             android:textSize="@dimen/size_txt_20"
             android:textColor="@color/theme_gray_txt"/>
@@ -55,6 +61,32 @@
                 android:textSize="@dimen/size_txt_40"
                 app:lineColor="@drawable/line_selector"
                 app:itemRadius="@dimen/size_radius_10"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/size_padding_container">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEdit"
+                android:layout_weight="1"
+                style="@style/Theme.Original.Button"
+                android:backgroundTint="@color/theme_background_body"
+                android:text="@string/otp_code_edit" />
+
+            <Space
+                android:layout_width="@dimen/size_padding_10"
+                android:layout_height="wrap_content"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnResend"
+                android:layout_weight="1"
+                style="@style/Theme.Original.Button"
+                android:backgroundTint="@color/theme_background_body"
+                android:text="@string/otp_code_resend" />
 
         </LinearLayout>
 

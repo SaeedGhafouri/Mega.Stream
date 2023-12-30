@@ -14,7 +14,8 @@
 
     <!--Login-->
     <string name="account_en">Account</string>
-    <string name="login_btn">ورود به حساب</string>
+    <string name="login">ورود به حساب</string>
+    <string name="login_btn">تایید و ورود</string>
     <string name="signup_btn">ثبت نام</string>
     <string name="username">نام کاربری</string>
     <string name="nickname">نام مستعار</string>
@@ -242,5 +243,15 @@
     <string name="subscription_option_05">پشتیبانی 24 ساعته</string>
     <string name="subscription_option_06">فعال سازی پلتفرم ویندوز و اندروید TV (بزودی)</string>
     <string name="subscription_option_07">ارسال نوتیفیکشن در هنگام انتشار قسمت جدید سریال ها (بزودی)</string>
+
+    <!--Reset Password-->
+    <string name="reset_password">فراموشی رمزعبور</string>
+    <string name="reset_password_desc">جهت ارسال کد تایید فرم زیر پر کنید</string>
+    <string name="reset_password_hint">نام کاربری یا ایمیل</string>
+    <string name="reset_password_submit">ارسال کد</string>
+    <string name="otp_code_resend">ارسال مجدد</string>
+    <string name="otp_code_edit">ویرایش</string>
+    <string name="otp_code">کد احرازهویت</string>
+    <string name="otp_code_desc">کد تایید برای ایمیل شما ارسال شد، لطفا کد پنج رقمی را وارد کنید</string>
 
 </resources>

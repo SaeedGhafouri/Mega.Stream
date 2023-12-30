@@ -83,16 +83,16 @@ public class ReportSheet extends DialogFragment {
             public void onResponse(Call<Result> call, Response<Result> response) {
                 Result result = response.body();
                 if (result.isStatus()) {
-                    SnackBoard.show(getActivity(), result.getMessage(), 1);
+                    Toaster.success(getActivity(), result.getMessage(), Toast.LENGTH_LONG);
                     dismiss();
                 }else {
-                    SnackBoard.show(getActivity(), result.getMessage(), 0);
+                    Toaster.error(getActivity(), result.getMessage(), Toast.LENGTH_LONG);
                 }
             }
 
             @Override
             public void onFailure(Call<Result> call, Throwable t) {
-                SnackBoard.show(getActivity(), "خطای سمت سرور", 0);
+                Toaster.error(getActivity(), "خطای سمت سرور", Toast.LENGTH_LONG);
             }
         });
     }

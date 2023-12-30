@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
@@ -22,7 +24,8 @@ import com.serpider.service.megastream.model.Genre;
 import com.serpider.service.megastream.model.Movie;
 import com.serpider.service.megastream.model.Season;
 import com.serpider.service.megastream.model.Section;
-import com.serpider.service.megastream.util.SnackBoard;
+
+import com.serpider.service.megastream.util.Toaster;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,7 +113,7 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.MyViewHold
 
             @Override
             public void onFailure(Call<List<Section>> call, Throwable t) {
-                SnackBoard.show(fragmentActivity,"خطای سمت سرور", 0);
+                Toaster.error(fragmentActivity, "خطای سمت سرور", Toast.LENGTH_LONG);
             }
         });
 

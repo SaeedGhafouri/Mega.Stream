@@ -264,6 +264,12 @@ public interface ApiInterFace {
     );
 
     @FormUrlEncoded
+    @POST(END_POINT + "user_reset_password")
+    Call<Result> getUserResetPass(
+            @Field("USER_INPUT") String user_input
+    );
+
+    @FormUrlEncoded
     @POST(END_POINT + "user_report")
     Call<Result> getUserReport(
             @Field("USER_ID") int id,

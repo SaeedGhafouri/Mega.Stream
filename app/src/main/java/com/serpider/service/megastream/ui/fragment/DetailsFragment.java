@@ -49,8 +49,7 @@ import com.serpider.service.megastream.model.Film;
 import com.serpider.service.megastream.ui.activity.PlayerActivity;
 import com.serpider.service.megastream.util.LoaderFullScreen;
 import com.serpider.service.megastream.util.ReportSheet;
-import com.serpider.service.megastream.util.SnackBoard;
-
+import com.serpider.service.megastream.util.Toaster;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -314,7 +313,7 @@ public class DetailsFragment extends Fragment {
                     });
 
                 }else {
-                    SnackBoard.show(getActivity(), "آیتم مورد نظر حذف شده است", 1);
+                    Toaster.error(getActivity(), "آیتم مورد نظر حذف شده است", Toast.LENGTH_LONG);
                     getActivity().onBackPressed();
                 }
             }

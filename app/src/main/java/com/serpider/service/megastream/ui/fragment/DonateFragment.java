@@ -26,7 +26,8 @@ import com.serpider.service.megastream.databinding.FragmentDonateBinding;
 import com.serpider.service.megastream.interfaces.Key;
 import com.serpider.service.megastream.model.Donate;
 import com.serpider.service.megastream.util.DataSave;
-import com.serpider.service.megastream.util.SnackBoard;
+
+import com.serpider.service.megastream.util.Toaster;
 import com.zarinpal.ZarinPalBillingClient;
 import com.zarinpal.billing.purchase.Purchase;
 import com.zarinpal.client.BillingClientStateListener;
@@ -92,7 +93,7 @@ public class DonateFragment extends Fragment {
                     Glide.with(getActivity()).load(donate.getBanner()).into(mBinding.bannerDonate);
                     runPeyment();
                 }else {
-                    SnackBoard.show(getActivity(),"دونیتی برای حمایت وجود ندارد", 0);
+                    Toaster.error(getActivity(), "دونیتی برای حمایت وجود ندارد", Toast.LENGTH_LONG);
                 }
             }
             @Override
@@ -113,14 +114,14 @@ public class DonateFragment extends Fragment {
                 if (!edText.isEmpty()){
                     MainPrice = Long.parseLong(mBinding.edPrice.getText().toString().trim());
                 }else {
-                    SnackBoard.show(getActivity(), "لطفا مبلغ خود را وارد کنید", 2);
+                    Toaster.info(getActivity(), "لطفا مبلغ خود را وارد کنید", Toast.LENGTH_LONG);
                     mBinding.edPrice.setError("مبلغ را وارد کنید");
                 }
             }else {
                 /*showPaymentSheet(donateId, DataSave.UserGetId(getContext()), generateInvoiceId(), forText, MainPrice);
                 */
                 if (MainPrice > 1000000000){
-                    SnackBoard.show(getActivity(), "مبلغ وارد شده بیش از حد مجاز است", 2);
+                    Toaster.info(getActivity(), "مبلغ وارد شده بیش از حد مجاز است", Toast.LENGTH_LONG);
                     mBinding.edPrice.setError("مبلغ را اصلاح کنید");
                 }else {
                     paymentZarinPal(MainPrice);

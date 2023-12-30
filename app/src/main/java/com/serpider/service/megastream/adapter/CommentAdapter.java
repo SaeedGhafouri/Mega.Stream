@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -24,7 +26,8 @@ import com.serpider.service.megastream.interfaces.Key;
 import com.serpider.service.megastream.model.Comment;
 import com.serpider.service.megastream.model.Replay;
 import com.serpider.service.megastream.util.DataSave;
-import com.serpider.service.megastream.util.SnackBoard;
+
+import com.serpider.service.megastream.util.Toaster;
 
 
 import java.util.ArrayList;
@@ -134,7 +137,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
 
             @Override
             public void onFailure(Call<List<Replay>> call, Throwable t) {
-                SnackBoard.show(activity,"خطای سمت سرور", 0);
+                Toaster.error(activity, "خطای سمت سرور", Toast.LENGTH_LONG);
             }
         });
 
@@ -159,14 +162,14 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
                         Replay replay = response.body();
                         if (replay.isStatus()) {
                             replaySheet.dismiss();
-                            SnackBoard.show(activity, "بازپخش شما با موفقیت ثبت گردید", 1);
+                            Toaster.success(activity, "بازپخش شما با موفقیت ثبت گردید", Toast.LENGTH_LONG);
                         }
                     }
 
                     @Override
                     public void onFailure(Call<Replay> call, Throwable t) {
                         replaySheet.dismiss();
-                        SnackBoard.show(activity, "خطای سمت سرور", 0);
+                        Toaster.error(activity, "خطای سمت سرور", Toast.LENGTH_LONG);
                     }
                 });
             }

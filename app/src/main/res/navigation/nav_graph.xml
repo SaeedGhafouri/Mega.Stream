@@ -213,4 +213,9 @@
         android:name="com.serpider.service.megastream.PaymentFragment"
         android:label="fragment_payment"
         tools:layout="@layout/fragment_payment" />
+    <fragment
+        android:id="@+id/resetPasswordFragment"
+        android:name="com.serpider.service.megastream.ResetPasswordFragment"
+        android:label="fragment_reset_password"
+        tools:layout="@layout/fragment_reset_password" />
 </navigation>

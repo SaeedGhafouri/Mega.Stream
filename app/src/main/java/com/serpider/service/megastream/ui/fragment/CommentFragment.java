@@ -31,7 +31,8 @@ import com.serpider.service.megastream.databinding.FragmentCommentBinding;
 import com.serpider.service.megastream.interfaces.Key;
 import com.serpider.service.megastream.model.Comment;
 import com.serpider.service.megastream.util.DataSave;
-import com.serpider.service.megastream.util.SnackBoard;
+
+import com.serpider.service.megastream.util.Toaster;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,7 +88,7 @@ public class CommentFragment extends Fragment {
                 if (mBinding.edComment.getText().toString().trim().length() > 1) {
                     addComment(DataSave.UserGetId(getContext()), idUnique);
                 }else {
-                    SnackBoard.show(getActivity(), "لطفا نظر خود را وارد کنید", 0);
+                    Toaster.error(getActivity(), "لطفا نظر خود را وارد کنید", Toast.LENGTH_LONG);
                 }
             }
         });
@@ -151,16 +152,16 @@ public class CommentFragment extends Fragment {
                 isSend = false;
                 mBinding.edComment.setText("");
                 if (comment.isStatus()) {
-                    SnackBoard.show(getActivity(), comment.getMessage(), 1);
+                    Toaster.success(getActivity(), comment.getMessage(), Toast.LENGTH_LONG);
                     loadComment(item_id);
                 }else {
-                    SnackBoard.show(getActivity(), comment.getMessage(), 0);
+                    Toaster.error(getActivity(), comment.getMessage(), Toast.LENGTH_LONG);
                 }
             }
             @Override
             public void onFailure(Call<Comment> call, Throwable t) {
                 isSend = false;
-                SnackBoard.show(getActivity(), "خطای سمت سرور", 0);
+                Toaster.error(getActivity(), "خطای سمت سرور", Toast.LENGTH_LONG);
             }
         });
     }
